@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../dio/dio-tracer"
+		},
+		{
+			"path": "../../../Downloads/sysdig-0.34.1"
+		},
+		{
+			"path": "../../../Rapport Master"
+		}
+	],
+	"settings": {}
+}

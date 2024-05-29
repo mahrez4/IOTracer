@@ -1,0 +1,32 @@
+#!/usr/bin/bpftrace
+
+// Define a map to store the PID of the process issuing the I/O
+struct io_request {
+    u32 pid;
+    char comm[16];
+};
+BPF_HASH(io_requests, u64, struct io_request);
+
+// Trace block I/O request issue
+tracepoint:block:block_rq_issue
+{
+    struct io_request req = {};
+    req.pid = pid;
+    strncpy(req.comm, comm, sizeof(req.comm));
+    io_requests[args->sector] = req;
+
+    printf("I/O request issued by PID %d (%s) on device %d:%d sector %llu\n",
+           pid, comm, args->dev >> 20, args->dev & 0xfffff, args->sector);
+}
+
+// Trace workqueue execution
+tracepoint:workqueue:workqueue_execute_start
+{
+    struct io_request *req;
+    u64 sector = args->work;
+    req = io_requests.lookup(&sector);
+    if (req != NULL) {
+        printf("kworker executing I/O originally issued by PID %d (%s)\n", req->pid, req->comm);
+        io_requests.delete(&sector);
+    }
+}
