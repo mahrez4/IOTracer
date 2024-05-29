@@ -23,7 +23,7 @@ done
 
 storage_device=d
 
-sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -s $storage_device > trace_output_bcc &
+sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -s $storage_device > trace_terasort_storage_disk &
 sleep 5
 
 rm terasort_results_storage_disk
@@ -39,7 +39,7 @@ pkill python
 
 storage_device=r
 
-sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -s $storage_device > /tmp/trace_output_bcc &
+sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -s $storage_device > /tmp/trace_terasort_storage_ram &
 sleep 5
 
 rm terasort_results_storage_ram
@@ -48,7 +48,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_storage_ram
-    truncate -s 0 /tmp/trace_output_bcc
+    truncate -s 0 /tmp/trace_terasort_storage_ram
     echo \n------------------------------------------\n >> terasort_results_storage_ram
 done    
 

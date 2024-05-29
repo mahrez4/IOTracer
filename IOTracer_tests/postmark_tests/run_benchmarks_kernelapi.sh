@@ -24,7 +24,7 @@ done
 
 kernel_api=o
 
-sudo python $IOTRACER_PATH -t postmark --file -i $inode -l b -k $kernel_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t postmark --file -i $inode -l b -k $kernel_api > trace_postmark_kernel_output &
 sleep 5
 
 rm postmark_results_kernel_output
@@ -39,7 +39,7 @@ pkill python
 
 kernel_api=s
 
-sudo python $IOTRACER_PATH -t postmark --file -i $inode -l b -k $kernel_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t postmark --file -i $inode -l b -k $kernel_api > trace_postmark_kernel_submit &
 sleep 5
 
 rm postmark_results_kernel_submit

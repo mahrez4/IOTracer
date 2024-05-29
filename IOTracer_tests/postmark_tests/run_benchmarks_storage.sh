@@ -24,7 +24,6 @@ done
 
 storage_device=d
 
-sudo python $IOTRACER_PATH -t Thread-,conn,java,mongod  -l vfb -s $storage_device > trace_output_bcc &
 sudo python $IOTRACER_PATH -t postmark --file -i $inode -l b -s $storage_device > trace_postmark_storage_disk &
 sleep 5
 
@@ -59,7 +58,7 @@ disk_file="run_times_storage_api.csv"
 
 rm -rf $disk_file
 # Write header to the disk file
-header="API"
+header="Trace storage"
 for (( i = 0; i < $exec_count; i++)); do
     header="$header,run_$i"
 done

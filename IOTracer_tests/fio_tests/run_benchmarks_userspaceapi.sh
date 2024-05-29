@@ -24,7 +24,7 @@ done
 
 userspace_api=p
 
-sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -u $userspace_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -u $userspace_api > trace_fio_userspace_poll &
 sleep 5
 
 rm fio_results_userspace_poll
@@ -41,7 +41,7 @@ pkill python
 
 userspace_api=c
 
-sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -u $userspace_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -u $userspace_api > trace_fio_userspace_consume &
 sleep 5
 
 rm fio_results_userspace_consume

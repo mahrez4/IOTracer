@@ -22,7 +22,7 @@ done
 
 storage_device=d
 
-sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -s $storage_device > trace_output_bcc &
+sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -s $storage_device > trace_fio_storage_disk &
 sleep 5
 
 rm fio_results_storage_disk
@@ -37,7 +37,7 @@ pkill python
 
 storage_device=r
 
-sudo python $IOTRACER_PATH -t fio --file -i $inode -l b > /tmp/trace_output_bcc &
+sudo python $IOTRACER_PATH -t fio --file -i $inode -l b > /tmp/trace_fio_storage_ram &
 sleep 5
 
 rm fio_results_storage_ram
@@ -45,7 +45,7 @@ rm fio_results_storage_ram
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_storage_ram
-    truncate -s 0 /tmp/trace_output_bcc
+    truncate -s 0 /tmp/trace_fio_storage_ram
     echo \n------------------------------------------\n >> fio_results_storage_ram
 done    
 

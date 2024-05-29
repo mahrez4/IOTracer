@@ -28,7 +28,7 @@ for (( i = 0; i < $exec_count; i++)); do
 done  
 
 
-sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > trace_output_bcc &
+sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > trace_terasort_ringbuf_128kb &
 sleep 5
 
 rm terasort_results_ringbuf_128kb
@@ -44,7 +44,7 @@ pkill python
 
 ringbuf_size=1024
 
-sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > trace_output_bcc &
+sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > trace_terasort_ringbuf_4mb &
 sleep 5
 
 rm terasort_results_ringbuf_4mb
@@ -59,7 +59,7 @@ done
 pkill python
 
 ringbuf_size=32768
-sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > trace_output_bcc &
+sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > trace_terasort_ringbuf_128mb &
 sleep 5
 
 rm terasort_results_ringbuf_128mb
@@ -74,7 +74,7 @@ done
 pkill python
 
 ringbuf_size=262144
-sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > trace_output_bcc &
+sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > trace_terasort_ringbuf_1G &
 sleep 5
 
 rm terasort_results_ringbuf_1G

@@ -29,7 +29,7 @@ for (( i = 0; i < $exec_count; i++)); do
 done  
 
 
-sudo python $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_output_bcc &
+sudo python $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_sqlite_ringbuf_128kb &
 sleep 5
 
 rm sqlite_results_ringbuf_128kb db_sql.db
@@ -44,7 +44,7 @@ pkill python
 
 ringbuf_size=1024
 
-sudo python $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_output_bcc &
+sudo python $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_sqlite_ringbuf_4mb &
 sleep 5
 
 rm sqlite_results_ringbuf_4mb db_sql.db
@@ -59,7 +59,7 @@ pkill python
 
 ringbuf_size=32768
 
-sudo python $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_output_bcc &
+sudo python $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_sqlite_ringbuf_128mb &
 sleep 5
 
 rm sqlite_results_ringbuf_128mb db_sql.db
@@ -74,7 +74,7 @@ pkill python
 
 ringbuf_size=262144
 
-sudo python $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_output_bcc &
+sudo python $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_sqlite_ringbuf_1G &
 sleep 5
 
 rm sqlite_results_ringbuf_1G db_sql.db

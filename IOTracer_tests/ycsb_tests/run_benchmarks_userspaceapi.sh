@@ -22,7 +22,7 @@ done
 
 userspace_api=p
 
-sudo python $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -u $userspace_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -u $userspace_api > trace_ycsb_userspace_poll &
 sleep 5
 
 rm ycsb_results_userspace_poll
@@ -39,7 +39,7 @@ pkill python
 
 userspace_api=c
 
-sudo python $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -u $userspace_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -u $userspace_api > trace_ycsb_userspace_consume &
 sleep 5
 
 rm ycsb_results_userspace_consume

@@ -23,7 +23,7 @@ done
 
 kernel_api=o
 
-sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -k $kernel_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -k $kernel_api > trace_terasort_kernel_output &
 sleep 5
 
 rm terasort_results_kernel_output
@@ -39,7 +39,7 @@ pkill python
 
 kernel_api=s
 
-sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -k $kernel_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -k $kernel_api > trace_terasort_kernel_submit &
 sleep 5
 
 rm terasort_results_kernel_submit

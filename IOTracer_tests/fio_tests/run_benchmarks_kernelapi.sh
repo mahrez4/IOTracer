@@ -22,7 +22,7 @@ done
 
 kernel_api=o
 
-sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -k $kernel_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -k $kernel_api > trace_fio_kernel_output &
 sleep 5
 
 rm fio_results_kernel_output
@@ -37,7 +37,7 @@ pkill python
 
 kernel_api=s
 
-sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -k $kernel_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -k $kernel_api > trace_fio_kernel_submit &
 sleep 5
 
 rm fio_results_kernel_submit

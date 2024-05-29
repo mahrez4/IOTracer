@@ -3,7 +3,6 @@
 from bcc import BPF
 import ctypes as ct
 import argparse
-import csv
 import sys
 import signal
 import sys
@@ -28,7 +27,7 @@ def check_args(uspc_args, krnl_args, strg_args):
 	if 'p' not in uspc_args and not 'c' in uspc_args and not uspc_args=="dflt":
 		print("Error: unkown userspace API.",file=sys.stderr, flush=True)
 		err = 1
-	if 'r' not in uspc_args and not 'd' in strg_args and not strg_args=="dflt":
+	if 'r' not in strg_args and not 'd' in strg_args and not strg_args=="dflt":
 		print("Error: unkown trace storage technique.",file=sys.stderr, flush=True)
 		err = 1
 	if len(krnl_args) > 1 and not krnl_args=="dflt":
@@ -66,7 +65,6 @@ def signal_handler(sig, frame):
 
 def afficher_evenement(cpu, data, size):
 	global time  
-	global csvwriter
 	global store_RAM
 	global trace
 	
@@ -79,8 +77,6 @@ def afficher_evenement(cpu, data, size):
 
 	format_ = "%.0f\t%s\t%s\t%-22.0f\t%-20.0f\t%s\t%s\t%d\t%d\t%s\t%.0f\t%.0f"
 	
-	#csvwriter.writerow(log)
-
 	if store_RAM:
 		trace.append(format_ % log)
 	else:
@@ -387,9 +383,6 @@ if (level.find('s')!=-1 or level.find('S')!=-1):
 
 time = 0
 
-filename = 'trace_output.csv'
-csvfile = open(filename,'w', newline='')
-csvwriter = csv.writer(csvfile)
 
 ################################## PROMETHEUS ############################################
 ################################## PROMETHEUS ############################################
