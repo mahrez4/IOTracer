@@ -1,0 +1,17 @@
+source setup_env.sh
+
+## Remove Dirs
+
+rm -rf input terasort_output validation_dir
+
+## Generate Data
+
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar teragen 10000000 input
+
+## TeraSort
+
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort input terasort_output
+
+## Validate 
+
+hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar teravalidate terasort_output validation_dir

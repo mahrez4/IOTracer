@@ -1,0 +1,34 @@
+BWrapper: report latency for each error is false and specific error codes to track for latency are: []
+2024-05-24 00:45:05:710 10 sec: 48432 operations; 4843.2 current ops/sec; est completion in 11 seconds [READ: Count=29032, Max=26143, Min=93, Avg=183.61, 90=291, 99=651, 99.9=1464, 99.99=8687] [UPDATE: Count=19423, Max=57247, Min=102, Avg=209.3, 90=337, 99=723, 99.9=1603, 99.99=7119] 
+2024-05-24 00:45:13:205 17 sec: 100000 operations; 6881.24 current ops/sec; [READ: Count=30975, Max=23087, Min=91, Avg=138.24, 90=183, 99=307, 99.9=976, 99.99=19759] [CLEANUP: Count=1, Max=1198, Min=1198, Avg=1198, 90=1198, 99=1198, 99.9=1198, 99.99=1198] [UPDATE: Count=20570, Max=7915, Min=101, Avg=150.16, 90=199, 99=349, 99.9=1033, 99.99=2267] 
+[OVERALL], RunTime(ms), 17494
+[OVERALL], Throughput(ops/sec), 5716.245569909684
+[TOTAL_GCS_G1_Young_Generation], Count, 13
+[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 217
+[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 1.2404252886704012
+[TOTAL_GCS_G1_Old_Generation], Count, 0
+[TOTAL_GC_TIME_G1_Old_Generation], Time(ms), 0
+[TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
+[TOTAL_GCs], Count, 13
+[TOTAL_GC_TIME], Time(ms), 217
+[TOTAL_GC_TIME_%], Time(%), 1.2404252886704012
+[READ], Operations, 60007
+[READ], AverageLatency(us), 160.19029446564568
+[READ], MinLatency(us), 91
+[READ], MaxLatency(us), 26143
+[READ], 95thPercentileLatency(us), 299
+[READ], 99thPercentileLatency(us), 524
+[READ], Return=OK, 60007
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 1198.0
+[CLEANUP], MinLatency(us), 1198
+[CLEANUP], MaxLatency(us), 1198
+[CLEANUP], 95thPercentileLatency(us), 1198
+[CLEANUP], 99thPercentileLatency(us), 1198
+[UPDATE], Operations, 39993
+[UPDATE], AverageLatency(us), 178.88037906633662
+[UPDATE], MinLatency(us), 101
+[UPDATE], MaxLatency(us), 57247
+[UPDATE], 95thPercentileLatency(us), 347
+[UPDATE], 99thPercentileLatency(us), 589
+[UPDATE], Return=OK, 39993

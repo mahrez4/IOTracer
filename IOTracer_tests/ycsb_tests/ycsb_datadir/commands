@@ -1,0 +1,39 @@
+mongod --dbpath /tmp/mongodb
+
+python2 ./bin/ycsb load mongodb-async -s -P workloads/workloadb -p mongodb.url=mongodb://localhost:27017/ycsb > outputLoad.txt
+
+python2 ./bin/ycsb run mongodb-async -s -P workloads/workloadb -target 10000 -p mongodb.url=mongodb://localhost:27017/ycsb > outputLoad.txt
+
+// works
+
+python2 ./bin/ycsb load mongodb -s -P workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb
+
+python2 ./bin/ycsb run mongodb -s -P workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb
+
+## ********************* CASSANDRA **********************************************
+
+python2 ./bin/ycsb load cassandra-cql -P workloads/workloada -p hosts=127.0.0.1 -p port=9042
+
+python2 ./bin/ycsb run cassandra-cql -P workloads/workloada -p hosts=127.0.0.1 -p port=9042
+
+***************************************************************
+
+
+Now you are ready to run! First, use the asynchronous driver to load the data:
+
+    ./bin/ycsb load mongodb-async -s -P workloads/workloada > outputLoad.txt
+
+Then, run the workload:
+
+    ./bin/ycsb run mongodb-async -s -P workloads/workloada > outputRun.txt
+    
+Similarly, to use the synchronous driver from MongoDB Inc. we load the data: 
+
+    ./bin/ycsb load mongodb -s -P workloads/workloada > outputLoad.txt
+
+Then, run the workload:
+
+    ./bin/ycsb run mongodb -s -P workloads/workloada > outputRun.txt
+    
+    python2 ./bin/ycsb run mongodb -s -P workloads/workloadb -p mongodb.url=mongodb://localhost:27017/ycsb
+

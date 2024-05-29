@@ -1,0 +1,3 @@
+use ycsb
+db.dropDatabase()
+quit
