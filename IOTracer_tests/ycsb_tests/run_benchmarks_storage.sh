@@ -6,7 +6,7 @@ mongosh < ycsb_datadir/drop_db
 
 python2 ycsb_datadir/bin/ycsb load mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb
 
-exec_count=3
+exec_count=5
 
 ##########
 
@@ -43,7 +43,6 @@ rm ycsb_results_storage_ram
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_storage_ram
-    ycsb $ycsb_config >> ycsb_results_storage_ram
     truncate -s 0 /tmp/trace_output_bcc
     echo \n------------------------------------------\n >> ycsb_results_storage_ram
 done    

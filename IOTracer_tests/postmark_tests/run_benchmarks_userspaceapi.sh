@@ -1,21 +1,22 @@
 #!/usr/bin/sh
 
-IOTRACER_PATH="/home/mhrz/pfe/tools/IOTracer/bcc_iotracer.py"
+IOTRACER_PATH="../../bcc_iotracer.py"
 
-traced_path="/home/mhrz/pfe/tools/postmark"
+traced_path="postmark/"
 
-postmark_config="/home/mhrz/pfe/tools/postmark/cfg.pm"
+postmark_config="postmark/cfg.pm"
 
-postmark="/home/mhrz/pfe/tools/postmark/postmark_final"
+postmark="postmark/postmark_final"
 
 inode=`stat -c '%i' $traced_path`
 
+exec_count=5
 
 ########## 
 
 rm postmark_results_userspace_notracing
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_userspace_notracing
     echo "\n------------------------------------------\n" >> postmark_results_userspace_notracing
@@ -25,7 +26,7 @@ done
 
 userspace_api=p
 
-    sudo python $IOTRACER_PATH -t postmark --dir -i $inode -l b -u $userspace_api > trace_output_bcc &
+    sudo python $IOTRACER_PATH -t postmark --dir -i $inode -l b -u $userspace_api > trace_postmark_userspace_poll &
 sleep 5
 
 rm postmark_results_userspace_poll
@@ -42,7 +43,7 @@ pkill python
 
 userspace_api=c
 
-sudo python $IOTRACER_PATH -t postmark --dir -i $inode -l b -u $userspace_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t postmark --dir -i $inode -l b -u $userspace_api > trace_postmark_userspace_consume &
 sleep 5
 
 rm postmark_results_userspace_consume

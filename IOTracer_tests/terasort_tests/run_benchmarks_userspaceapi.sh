@@ -8,11 +8,13 @@ rm -rf terasort_datadir/input terasort_datadir/terasort_output
 
 hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar teragen 10000000 terasort_datadir/input
 
+exec_count=5
+
 ########## 
 
 rm terasort_results_userspace_notracing
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_notracing
@@ -28,7 +30,7 @@ sleep 5
 
 rm terasort_results_userspace_poll
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_poll
@@ -46,7 +48,7 @@ sleep 5
 
 rm terasort_results_userspace_consume
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_consume    
@@ -65,7 +67,7 @@ rm -rf "$output_file"
 
 # Write header to the output file
 header="Userspace Api"
-for (( i = 0; i < 20; i++ )); do
+for (( i = 0; i < $exec_count; i++ )); do
     header="$header,run_$i"
 done
 echo "$header" > "$output_file"

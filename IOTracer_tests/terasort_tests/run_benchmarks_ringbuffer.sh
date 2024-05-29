@@ -8,6 +8,8 @@ rm -rf terasort_datadir/input terasort_datadir/terasort_output
 
 hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar teragen 10000000 terasort_datadir/input
 
+exec_count=5
+
 ########## 
 
 ##set ring buffer size in number of pages 32:128KB, 1024:4MB,32768:128MB,262144:1G
@@ -18,7 +20,7 @@ ringbuf_size=32
 
 rm terasort_results_ringbuf_notracing
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_notracing
@@ -31,7 +33,7 @@ sleep 5
 
 rm terasort_results_ringbuf_128kb
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_128kb
@@ -47,7 +49,7 @@ sleep 5
 
 rm terasort_results_ringbuf_4mb
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_4mb
@@ -62,7 +64,7 @@ sleep 5
 
 rm terasort_results_ringbuf_128mb
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_128mb
@@ -77,7 +79,7 @@ sleep 5
 
 rm terasort_results_ringbuf_1G
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_1G
@@ -94,7 +96,7 @@ rm -rf "$output_file"
 
 # Write header to the output file
 header="Ringbuffer size"
-for (( i = 0; i < 20; i++ )); do
+for (( i = 0; i < $exec_count; i++ )); do
     header="$header,run_$i"
 done
 echo "$header" > "$output_file"

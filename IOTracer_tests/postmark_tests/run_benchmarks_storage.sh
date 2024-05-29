@@ -1,74 +1,80 @@
 #!/usr/bin/sh
 
-IOTRACER_PATH="/home/mhrz/pfe/tools/IOTracer/bcc_iotracer.py"
+IOTRACER_PATH="../../bcc_iotracer.py"
 
-traced_path="/home/mhrz/pfe/tools/postmark"
+traced_path="postmark/"
 
-postmark_config="/home/mhrz/pfe/tools/postmark/cfg.pm"
+postmark_config="postmark/cfg.pm"
 
-postmark="/home/mhrz/pfe/tools/postmark/postmark_final"
+postmark="postmark/postmark"
 
 inode=`stat -c '%i' $traced_path`
 
-rm postmark_results_kernel_notracing
+exec_count=5
 
-for (( i = 0; i < 20; i++)); do
+########## 
+
+rm postmark_results_storage_notracing
+
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
-    $postmark < $postmark_config >> postmark_results_kernel_notracing
-    echo "\n------------------------------------------\n" >> postmark_results_kernel_notracing
+    $postmark < $postmark_config >> postmark_results_storage_notracing
+    echo "\n------------------------------------------\n" >> postmark_results_storage_notracing
 done  
 
-kernel_api=o
+storage_device=d
 
-sudo python $IOTRACER_PATH -t postmark --file -i $inode -l b -k $kernel_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t Thread-,conn,java,mongod  -l vfb -s $storage_device > trace_output_bcc &
+sudo python $IOTRACER_PATH -t postmark --file -i $inode -l b -s $storage_device > trace_postmark_storage_disk &
 sleep 5
 
-rm postmark_results_kernel_output
+rm postmark_results_storage_disk
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
-    $postmark < $postmark_config >> postmark_results_kernel_output
-    echo "\n------------------------------------------\n" >> postmark_results_kernel_output
+    $postmark < $postmark_config >> postmark_results_storage_disk
+    echo "\n------------------------------------------\n" >> postmark_results_storage_disk
 done    
 
 pkill python
 
-kernel_api=s
+storage_device=r
 
-sudo python $IOTRACER_PATH -t postmark --file -i $inode -l b -k $kernel_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t postmark --file -i $inode -l b -s $storage_device > /tmp/trace_postmark_storage_ram &
 sleep 5
 
-rm postmark_results_kernel_submit
+rm postmark_results_storage_ram
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
-    $postmark < $postmark_config >> postmark_results_kernel_submit
-    echo "\n------------------------------------------\n" >> postmark_results_kernel_submit
+    $postmark < $postmark_config >> postmark_results_storage_ram
+    truncate -s 0 /tmp/trace_postmark_storage_ram 
+    echo "\n------------------------------------------\n" >> postmark_results_storage_ram
 done    
 
 pkill python
 
-## Output file for storing extracted run times
-output_file="run_times_kernel_api.csv"
+## disk file for storing extracted run times
+disk_file="run_times_storage_api.csv"
 
-rm -rf $output_file
-# Write header to the output file
+rm -rf $disk_file
+# Write header to the disk file
 header="API"
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     header="$header,run_$i"
 done
 
-echo $header > "$output_file"
+echo $header > "$disk_file"
 
 # Define the pattern to search for
 pattern="seconds total"
 
-for file in postmark_results_kernel* ; do
+for file in postmark_results_storage* ; do
     echo "Processing file: $file"
     
     api=$(echo $file | awk -F '_' '{print $4}')
     runs=$(grep "$pattern" "$file" | awk -F ' ' '{print $1}' | tr '\n' ',' | sed 's/,$//')
-    echo "$api,$runs" >> "$output_file"
+    echo "$api,$runs" >> "$disk_file"
 done
 
-echo "Run times extracted to $output_file"
+echo "Run times extracted to $disk_file"

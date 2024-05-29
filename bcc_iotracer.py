@@ -356,11 +356,11 @@ if(level.find('b')!=-1 or level.find('B')!=-1 ):
 	
 	## Block level testing
 	
-	b.attach_tracepoint(tp="block:block_rq_issue",fn_name="tp_blk_rq_issue")  # Y BLUE
+	#b.attach_tracepoint(tp="block:block_rq_issue",fn_name="tp_blk_rq_issue")  # Y BLUE
 	#b.attach_tracepoint(tp="block:block_rq_complete",fn_name="tp_blk_rq_complete") # Y BLUE
-	b.attach_tracepoint(tp="block:block_io_start",fn_name="tp_blk_io_start") # Z TEAL
+	#b.attach_tracepoint(tp="block:block_io_start",fn_name="tp_blk_io_start") # Z TEAL
 	#b.attach_tracepoint(tp="block:block_io_done",fn_name="tp_blk_io_done") # Z TEAL
-	b.attach_kprobe(event="blk_mq_start_request", fn_name="kp_blk_mq_start_request") # A BLACK 
+	#b.attach_kprobe(event="blk_mq_start_request", fn_name="kp_blk_mq_start_request") # A BLACK 
 	#b.attach_kprobe(event="blk_mq_end_request", fn_name="kp_blk_mq_end_request") # A BLACK
 	#b.attach_kprobe(event="block:block_bio_queue",fn_name="tp_blk_bio_queue") # A BLACK 
 	#b.attach_kprobe(event="block:block_bio_complete",fn_name="tp_blk_bio_complete") # A BLACK

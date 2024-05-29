@@ -1,16 +1,20 @@
 #!/usr/bin/sh
 
-IOTRACER_PATH="/home/mhrz/pfe/tools/IOTracer/bcc_iotracer.py"
+IOTRACER_PATH="../../bcc_iotracer.py"
 
-traced_path="/home/mhrz/pfe/tools/testfile"
+traced_path="./fio_file"
 
-fio_config="/home/mhrz/pfe/tools/fio_config.fio"
+fio_config="./fio_config.fio"
 
 inode=`stat -c '%i' $traced_path`
 
+exec_count=5
+
+########## 
+
 rm fio_results_kernel_notracing
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_kernel_notracing
     echo \n------------------------------------------\n >> fio_results_kernel_notracing
@@ -23,7 +27,7 @@ sleep 5
 
 rm fio_results_kernel_output
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_kernel_output
     echo \n------------------------------------------\n >> fio_results_kernel_output
@@ -38,7 +42,7 @@ sleep 5
 
 rm fio_results_kernel_submit
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_kernel_submit
     echo \n------------------------------------------\n >> fio_results_kernel_submit
@@ -52,7 +56,7 @@ output_file="run_times_kernel_api.csv"
 rm -rf $output_file
 # Write header to the output file
 header="API"
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     header="$header,run_$i"
 done
 

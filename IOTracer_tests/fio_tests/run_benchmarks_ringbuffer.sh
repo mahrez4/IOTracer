@@ -1,14 +1,17 @@
 #!/usr/bin/sh
 
-IOTRACER_PATH="/home/mhrz/pfe/tools/IOTracer/bcc_iotracer.py"
+IOTRACER_PATH="../../bcc_iotracer.py"
 
-traced_path="/home/mhrz/pfe/tools/testfile"
+traced_path="./fio_file"
 
-fio_config="/home/mhrz/pfe/tools/fio_config.fio"
+fio_config="./fio_config.fio"
 
 inode=`stat -c '%i' $traced_path`
 
-exec_count=4
+exec_count=5
+
+########## 
+
 ##set ring buffer size in number of pages 32:128KB, 1024:4MB,32768:128MB,262144:1G
 
 ##no tracing 

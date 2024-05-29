@@ -1,61 +1,66 @@
 #!/usr/bin/sh
 
-IOTRACER_PATH="/home/mhrz/pfe/tools/IOTracer/bcc_iotracer.py"
+IOTRACER_PATH="../../bcc_iotracer.py"
 
-traced_path="/home/mhrz/pfe/tools/IOTracer/sqlite_tests"
+traced_path="."
 
-sqlite_config="/home/mhrz/pfe/tools/IOTracer/sqlite_tests/gen_sql_data.sql"
+sqlite_config="./gen_sql_data.sql"
 
 inode=`stat -c '%i' $traced_path`
 
 TIMEFORMAT="time= %R"
 
+exec_count=5
 
-rm sqlite_results_kernel_notracing db_sql.db
+########## 
 
-for (( i = 0; i < 20; i++)); do
+
+rm sqlite_results_storage_notracing db_sql.db
+
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
-    { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_kernel_notracing >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_kernel_notracing
+    { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_storage_notracing >> /dev/null
+    echo "\n------------------------------------------\n" >> sqlite_results_storage_notracing
 done  
 
-kernel_api=o
+storage_device=d
 
-sudo python $IOTRACER_PATH -t sqlite --file -i $inode -l b -k $kernel_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t sqlite --file -i $inode -l b -s $storage_device > trace_sqlite_storage_disk &
 sleep 5
 
-rm sqlite_results_kernel_output db_sql.db
+rm sqlite_results_storage_disk db_sql.db
 
-for (( i = 0; i < 20; i++)); do 
+for (( i = 0; i < $exec_count; i++)); do 
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
-    { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_kernel_output >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_kernel_output
+    { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_storage_disk >> /dev/null
+    echo "\n------------------------------------------\n" >> sqlite_results_storage_disk
 done    
 
 pkill python
 
-kernel_api=s
+storage_device=r
 
-sudo python $IOTRACER_PATH -t sqlite --file -i $inode -l b -k $kernel_api > trace_output_bcc &
+sudo python $IOTRACER_PATH -t sqlite --file -i $inode -l b -s $storage_device > /tmp/trace_sqlite_storage_ram &
 sleep 5
 
-rm sqlite_results_kernel_submit db_sql.db
+rm sqlite_results_storage_ram db_sql.db
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
-    { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_kernel_submit >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_kernel_submit
+    { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_storage_ram >> /dev/null
+    truncate -s 0 /tmp/trace_sqlite_storage_ram
+    echo "\n------------------------------------------\n" >> sqlite_results_storage_ram
 done    
 
 pkill python
 
 ## Output file for storing extracted run times
-output_file="run_times_kernel_api.csv"
+output_file="run_times_storage_api.csv"
 
 rm -rf $output_file
 # Write header to the output file
-header="API"
-for (( i = 0; i < 20; i++)); do
+header="Trace storage"
+for (( i = 0; i < $exec_count; i++)); do
     header="$header,run_$i"
 done
 
