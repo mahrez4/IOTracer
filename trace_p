@@ -1,5 +1,0 @@
-activate vfs probes
-activate page cache probes
-activate fs probes
-activate block probes
-activating syscall probes

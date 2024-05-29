@@ -1,2 +1,0 @@
-Program interrupted.
-sqlite3 db_sql.db < gen_sql_data.sql  0.13s user 0.96s system 48% cpu 2.246 total
