@@ -6,7 +6,7 @@ traced_path="postmark/"
 
 postmark_config="postmark/cfg.pm"
 
-postmark="postmark/postmark_final"
+postmark="postmark/postmark"
 
 inode=`stat -c '%i' $traced_path`
 
@@ -26,12 +26,12 @@ done
 
 userspace_api=p
 
-    sudo python $IOTRACER_PATH -t postmark --dir -i $inode -l b -u $userspace_api > trace_postmark_userspace_poll &
+sudo python $IOTRACER_PATH -t postmark --dir -i $inode -l b -u $userspace_api > trace_postmark_userspace_poll &
 sleep 5
 
 rm postmark_results_userspace_poll
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_userspace_poll
     echo "\n------------------------------------------\n" >> postmark_results_userspace_poll
@@ -48,7 +48,7 @@ sleep 5
 
 rm postmark_results_userspace_consume
 
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_userspace_consume
     echo "\n------------------------------------------\n" >> postmark_results_userspace_consume

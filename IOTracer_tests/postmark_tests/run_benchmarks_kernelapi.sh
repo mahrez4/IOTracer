@@ -10,7 +10,7 @@ postmark="postmark/postmark"
 
 inode=`stat -c '%i' $traced_path`
 
-exec_count=3
+exec_count=5
 
 ########## 
 

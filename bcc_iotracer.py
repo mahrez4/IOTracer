@@ -180,8 +180,8 @@ with open(r'/home/mhrz/pfe/tools/IOTracer/bcc_iotracer.bpf.c', 'r') as file:
 
 ## USE RINGBUFFER OR PERFBUFFER
 
-use_Ringbuf = 0
-use_Perfbuf = 1
+use_Ringbuf = 1
+use_Perfbuf = 0
  
 if args.kernel:
 	## ONLY DONE BLOCK AND VFS ENTRY FUNCTIONS NEED TO ADJUST CODE FOR THE REST
