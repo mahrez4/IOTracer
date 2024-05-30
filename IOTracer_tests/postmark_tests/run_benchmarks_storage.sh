@@ -54,7 +54,7 @@ done
 pkill python
 
 ## disk file for storing extracted run times
-disk_file="run_times_storage_api.csv"
+disk_file="run_times_storage.csv"
 
 rm -rf $disk_file
 # Write header to the disk file

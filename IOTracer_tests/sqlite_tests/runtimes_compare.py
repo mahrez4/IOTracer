@@ -15,7 +15,13 @@ df_t = df.set_index('Size').T
 # Create box plots
 fig = go.Figure()
 
-for size in df['Size']:
+# Calculate the mean runtime for each API
+mean_runtimes = df_t.mean().sort_values()
+
+# Create box plots
+fig = go.Figure()
+
+for size in mean_runtimes.index:
     fig.add_trace(go.Box(y=df_t[size], name=size))
 
 # Update layout
@@ -33,10 +39,13 @@ fig.show()
 df = pd.read_csv('run_times_kernel_api.csv')
 df_t = df.set_index('API').T
 
+# Calculate the mean runtime for each API
+mean_runtimes = df_t.mean().sort_values()
+
 # Create box plots
 fig = go.Figure()
 
-for api in df['API']:
+for api in mean_runtimes.index:
     fig.add_trace(go.Box(y=df_t[api], name=api))
 
 # Update layout
@@ -53,10 +62,13 @@ fig.show()
 df = pd.read_csv('run_times_userspace_api.csv')
 df_t = df.set_index('API').T
 
+# Calculate the mean runtime for each API
+mean_runtimes = df_t.mean().sort_values()
+
 # Create box plots
 fig = go.Figure()
 
-for api in df['API']:
+for api in mean_runtimes.index:
     fig.add_trace(go.Box(y=df_t[api], name=api))
 
 # Update layout
@@ -67,43 +79,26 @@ fig.update_layout(title='Box plots of runtimes for each userspace API',
 # Show plot
 fig.show()
 
+# Read the CSV file into a DataFrame
+df = pd.read_csv('run_times_storage.csv')
+df_t = df.set_index('Trace storage').T
+
+
+# Calculate the mean runtime for each storage method
+mean_runtimes = df_t.mean().sort_values()
+
+# Create box plots
+fig = go.Figure()
+
+for method in mean_runtimes.index:
+    fig.add_trace(go.Box(y=df_t[method], name=method))
+
+# Update layout
+fig.update_layout(title='Box plots of runtimes for each trace storage method',
+                  xaxis_title='Storage method',
+                  yaxis_title='Runtime (ms)')
+
+# Show plot
+fig.show()
+
 #####################################################
-
-
-df = pd.read_csv('run_times_ringbufsize.csv')
-df = df.fillna(0)
-df = df.set_index('Size')
-
-
-
-
-plt.xlabel('Ring buffer size')
-plt.ylabel('Run Time (ms)')
-plt.title('Execution runtimes for different ringbuf sizes')
-df.T.boxplot()
-plt.show()
-
-# Read the CSV file into a DataFrame
-df = pd.read_csv('run_times_kernel_api.csv')
-
-# Remove NaN values
-plt.xlabel('Kernel API')
-plt.ylabel('Run Time (ms)')
-plt.title('Execution runtimes for different kernel APIs')
-df = df.fillna(0)
-df = df.set_index('API')
-df.T.boxplot()
-plt.show()
-
-
-# Read the CSV file into a DataFrame
-df = pd.read_csv('run_times_userspace_api.csv')
-
-plt.xlabel('Userspace API')
-plt.ylabel('Run Time (ms)')
-plt.title('Execution runtimes for different userspace APIs')
-# Remove NaN values
-df = df.fillna(0)
-df = df.set_index('API')
-df.T.boxplot()
-plt.show()

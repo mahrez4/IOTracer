@@ -62,7 +62,7 @@ output_file="run_times_userspace_api.csv"
 rm -rf $output_file
 # Write header to the output file
 header="API"
-for (( i = 0; i < 20; i++)); do
+for (( i = 0; i < $exec_count; i++)); do
     header="$header,run_$i"
 done
 

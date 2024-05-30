@@ -55,7 +55,7 @@ done
 pkill python
 
 ## Output file for storing extracted run times
-output_file="run_times_storage_api.csv"
+output_file="run_times_storage.csv"
 
 rm -rf $output_file
 # Write header to the output file
@@ -69,7 +69,7 @@ echo $header > "$output_file"
 # Define the pattern to search for
 pattern="time="
 
-for file in sqlite_results_userspace* ; do
+for file in sqlite_results_storage* ; do
     echo "Processing file: $file"
     
     api=$(echo $file | awk -F '_' '{print $4}')

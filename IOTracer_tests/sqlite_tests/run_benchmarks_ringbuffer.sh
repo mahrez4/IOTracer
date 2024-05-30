@@ -102,7 +102,7 @@ echo $header > "$output_file"
 # Define the pattern to search for
 pattern="time="
 
-for file in sqlite_results_userspace* ; do
+for file in sqlite_results_ringbuf* ; do
     echo "Processing file: $file"
     
     api=$(echo $file | awk -F '_' '{print $4}')
