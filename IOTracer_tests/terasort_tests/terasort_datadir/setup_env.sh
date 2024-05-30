@@ -1,4 +1,3 @@
-
 HADOOP_ARCHIVE="hadoop-3.3.6.tar.gz"
 HADOOP_DIR="hadoop"
 
