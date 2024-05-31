@@ -22,7 +22,7 @@ def create_combined_plot(df, x_label, y_label, title):
         rows=2, cols=1,
         specs=[[{"type": "xy"}],
                [{"type": "domain"}]],
-        subplot_titles=[title, 'Overhead Compared to no tracing'],
+        subplot_titles=[title, 'Overhead compared to no tracing'],
         row_heights=[0.7, 0.3]
     )
     
@@ -75,7 +75,7 @@ for file, title, x_label in zip(files, titles, x_labels):
 
 # Layout of the Dash app
 app.layout = html.Div([
-    html.H2("YCSB Results"),
+    html.H2("Postmark Results"),
     html.Div([
         dcc.Graph(figure=fig,style={'marginBottom': 0, 'marginTop': 10}) for fig in figures
     ])

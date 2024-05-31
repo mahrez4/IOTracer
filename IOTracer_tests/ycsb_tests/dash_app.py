@@ -22,7 +22,7 @@ def create_combined_plot(df, x_label, y_label, title):
         rows=2, cols=1,
         specs=[[{"type": "xy"}],
                [{"type": "domain"}]],
-        subplot_titles=[title, 'Overhead Compared to no tracing'],
+        subplot_titles=[title, 'Overhead compared to no tracing'],
         row_heights=[0.7, 0.3]
     )
     
