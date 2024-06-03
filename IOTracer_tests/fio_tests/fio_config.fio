@@ -1,0 +1,16 @@
+[global]
+ioengine=sync
+group_reporting
+directory=.
+numjobs=1
+direct=1
+thread
+#time_based
+#runtime=5s
+
+[job1]
+name=fio_job1
+filename=fio_file
+rw=read
+size=1G
+bs=4kb
