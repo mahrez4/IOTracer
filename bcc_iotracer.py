@@ -190,7 +190,6 @@ use_Ringbuf = 1
 use_Perfbuf = 0
  
 if args.kernel:
-	## ONLY DONE BLOCK AND VFS ENTRY FUNCTIONS NEED TO ADJUST CODE FOR THE REST
 	arg_krnl = args.kernel.lower()
 	if 'o' in args.kernel.lower():
 		use_Output = 1
@@ -266,8 +265,6 @@ if args.task:
 	comms_lengths += "};"
 	program = program.replace('COMMS_LIST', comms_define)
 	program = program.replace('COMM_LENGHTS', comms_lengths)
-	
-	#print(comms_define)
 	program = program.replace('FILTER_PID', 'pid != %s' % pid)
 	program = program.replace('FILTER_CMD', '%s' % name)
 	program = program.replace('TRACE_APP','#define app_only')
@@ -277,8 +274,6 @@ else:
 	program = program.replace('TRACE_APP','')
 	program = program.replace('COMMS_LIST','char cmds[1][20] = {};')
 	program = program.replace('COMM_LENGHTS','int len[1];')
-#    print("you must specify the traced cmd")
-#    sys.exit()
 	
 #---------------------------------------------------------------------------------------#	
 #---------------------------------------------------------------------------------------#
@@ -389,10 +384,8 @@ if (level.find('s')!=-1 or level.find('S')!=-1):
 
 time = 0
 
+################################## PROMETHEUS ############################################
 
-################################## PROMETHEUS ############################################
-################################## PROMETHEUS ############################################
-################################## PROMETHEUS ############################################
 
 c = Counter('nb_events_level_op', 'Number Of Traced I/O Events',["level", "operation"])
 c_sizes = Counter('rq_sizes','Number of requests having size x',["size"])
@@ -400,30 +393,31 @@ e = Enum('my_task_state', 'Description of enum',
         states=['NULL', 'SYS_READ', 'SYS_WRITE', 'VFS_READ', 'VFS_WRITE', 'FS_READ', 'FS_WRITE', 'BLK_READ','BLK_WRITE','PAGE_WRITE','PAGE_READ'])
 e.state('NULL')
 
-# ------------------ Report traces to user -----------------------
-# -------------------------------------------------------------------------
-#print("Pour stopper eBPF ..... Ctrl+C")
+start_http_server(8000)
+
+################################## PROMETHEUS ############################################
+
 
 trace = []
 
-start_http_server(8000)
 
 ##32 for 128KB
 #256 for 1MB
 ##1024 for 4MB
 #8192 for 32MB
 
-
-
 if use_Perfbuf:
 	b["events"].open_perf_buffer(afficher_evenement,page_cnt=8192)
 if use_Ringbuf:
 	b["events"].open_ring_buffer(afficher_evenement)
 
-        
-# print result to user
+
 signal.signal(signal.SIGINT, signal_handler)
 signal.signal(signal.SIGTERM, signal_handler)
+
+# ------------------ Report traces to user -----------------------
+# -------------------------------------------------------------------------
+#print("Pour stopper eBPF ..... Ctrl+C")
 
 while 1:
 	try:
