@@ -19,7 +19,7 @@ rm ycsb_results_ringbuf_notracing
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_ringbuf_notracing
-    echo \n------------------------------------------\n >> ycsb_results_ringbuf_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_notracing
 done  
 
 ringbuf_size=32
@@ -31,7 +31,7 @@ rm ycsb_results_ringbuf_128kb
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_ringbuf_128kb
-    echo \n------------------------------------------\n >> ycsb_results_ringbuf_128kb
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_128kb
 done    
 
 pkill python
@@ -46,7 +46,7 @@ rm ycsb_results_ringbuf_4mb
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_ringbuf_4mb
-    echo \n------------------------------------------\n >> ycsb_results_ringbuf_4mb
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_4mb
 done    
 
 pkill python
@@ -60,7 +60,7 @@ rm ycsb_results_ringbuf_128mb
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_ringbuf_128mb
-    echo \n------------------------------------------\n >> ycsb_results_ringbuf_128mb
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_128mb
 done    
 
 pkill python
@@ -74,7 +74,7 @@ rm ycsb_results_ringbuf_1gb
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_ringbuf_1gb
-    echo \n------------------------------------------\n >> ycsb_results_ringbuf_1gb
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_1gb
 done    
 
 pkill python

@@ -17,7 +17,7 @@ rm fio_results_userspace_notracing
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_userspace_notracing
-    echo "\n------------------------------------------\n" >> fio_results_userspace_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_notracing
 done  
 
 ##########
@@ -32,7 +32,7 @@ rm fio_results_userspace_poll
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_userspace_poll
-    echo "\n------------------------------------------\n" >> fio_results_userspace_poll
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_poll
 done    
 
 pkill python
@@ -49,7 +49,7 @@ rm fio_results_userspace_consume
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_userspace_consume
-    echo "\n------------------------------------------\n" >> fio_results_userspace_consume
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_consume
 done    
 
 pkill python

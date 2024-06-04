@@ -7,10 +7,9 @@ import sys
 import signal
 import sys
 import os
+import platform
 from subprocess import check_output 
 from prometheus_client import start_http_server, Summary, Counter, Enum
-from iotracer_functions import *
-
 
 
 ############################################################################################
@@ -175,8 +174,15 @@ program = ""
 
 # code replacements
 
-with open(r'/home/mhrz/pfe/tools/IOTracer/bcc_iotracer.bpf.c', 'r') as file:
+with open(r'./bcc_iotracer.bpf.c', 'r') as file:
 	program = file.read()
+
+## Kernel 5.x or 6.x
+
+if platform.release().startswith('6'):
+	program = program.replace('KERNEL_VERSION', '#define kernel6')
+elif platform.release().startswith('5'):
+	program = program.replace('KERNEL_VERSION', '#define kernel5')
 
 ## USE RINGBUFFER OR PERFBUFFER
 
@@ -391,7 +397,7 @@ time = 0
 c = Counter('nb_events_level_op', 'Number Of Traced I/O Events',["level", "operation"])
 c_sizes = Counter('rq_sizes','Number of requests having size x',["size"])
 e = Enum('my_task_state', 'Description of enum',
-        states=['NULL', 'SYS_READ', 'SYS_WRITE', 'VFS_READ', 'VFS_WRITE', 'FS_READ', 'FS_WRITE', 'BLK_READ','BLK_WRITE'])
+        states=['NULL', 'SYS_READ', 'SYS_WRITE', 'VFS_READ', 'VFS_WRITE', 'FS_READ', 'FS_WRITE', 'BLK_READ','BLK_WRITE','PAGE_WRITE','PAGE_READ'])
 e.state('NULL')
 
 # ------------------ Report traces to user -----------------------

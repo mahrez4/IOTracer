@@ -15,7 +15,7 @@ rm ycsb_results_storage_notracing
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_storage_notracing
-    echo \n------------------------------------------\n >> ycsb_results_storage_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_storage_notracing
 done  
 
 storage_device=d
@@ -28,7 +28,7 @@ rm ycsb_results_storage_disk
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_storage_disk
-    echo \n------------------------------------------\n >> ycsb_results_storage_disk
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_storage_disk
 done    
 
 pkill python
@@ -44,7 +44,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_storage_ram
     truncate -s 0 /tmp/trace_ycsb_storage_ram
-    echo \n------------------------------------------\n >> ycsb_results_storage_ram
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_storage_ram
 done    
 
 pkill python

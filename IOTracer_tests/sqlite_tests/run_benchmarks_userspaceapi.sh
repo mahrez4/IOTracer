@@ -19,7 +19,7 @@ rm sqlite_results_userspace_notracing db_sql.db
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_notracing >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_userspace_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_notracing
 done  
 
 ##########
@@ -34,7 +34,7 @@ rm sqlite_results_userspace_poll db_sql.db
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_poll >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_userspace_poll
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_poll
 done    
 
 pkill python
@@ -51,7 +51,7 @@ rm sqlite_results_userspace_consume db_sql.db
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_consume >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_userspace_consume
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_consume
 done
 
 pkill python

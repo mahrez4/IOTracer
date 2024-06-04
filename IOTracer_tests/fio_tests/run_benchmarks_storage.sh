@@ -17,7 +17,7 @@ rm fio_results_storage_notracing
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_storage_notracing
-    echo \n------------------------------------------\n >> fio_results_storage_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_storage_notracing
 done  
 
 storage_device=d
@@ -30,7 +30,7 @@ rm fio_results_storage_disk
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_storage_disk
-    echo \n------------------------------------------\n >> fio_results_storage_disk
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_storage_disk
 done    
 
 pkill python
@@ -46,7 +46,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_storage_ram
     truncate -s 0 /tmp/trace_fio_storage_ram
-    echo \n------------------------------------------\n >> fio_results_storage_ram
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_storage_ram
 done    
 
 pkill python

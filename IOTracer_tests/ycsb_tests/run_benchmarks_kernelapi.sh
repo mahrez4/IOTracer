@@ -15,7 +15,7 @@ rm ycsb_results_kernel_notracing
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_kernel_notracing
-    echo "\n------------------------------------------\n" >> ycsb_results_kernel_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_kernel_notracing
 done  
 
 kernel_api=o
@@ -28,7 +28,7 @@ rm ycsb_results_kernel_output
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_kernel_output
-    echo "\n------------------------------------------\n" >> ycsb_results_kernel_output
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_kernel_output
 done    
 
 pkill python
@@ -43,7 +43,7 @@ rm ycsb_results_kernel_submit
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_kernel_submit
-    echo "\n------------------------------------------\n" >> ycsb_results_kernel_submit
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_kernel_submit
 done    
 
 pkill python

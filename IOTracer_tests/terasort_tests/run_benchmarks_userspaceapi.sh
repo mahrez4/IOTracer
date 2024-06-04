@@ -18,7 +18,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_notracing
-    echo "\n------------------------------------------\n" >> terasort_results_userspace_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_notracing
 done  
 
 ##########
@@ -34,7 +34,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_poll
-    echo "\n------------------------------------------\n" >> terasort_results_userspace_poll
+    echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_poll
 done    
 
 pkill python
@@ -52,7 +52,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_consume    
-    echo "\n------------------------------------------\n" >> terasort_results_userspace_consume
+    echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_consume
 done    
 
 pkill python

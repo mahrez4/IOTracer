@@ -19,7 +19,7 @@ rm postmark_results_kernel_notracing
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_kernel_notracing
-    echo "\n------------------------------------------\n" >> postmark_results_kernel_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_kernel_notracing
 done  
 
 kernel_api=o
@@ -32,7 +32,7 @@ rm postmark_results_kernel_output
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_kernel_output
-    echo "\n------------------------------------------\n" >> postmark_results_kernel_output
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_kernel_output
 done    
 
 pkill python
@@ -47,7 +47,7 @@ rm postmark_results_kernel_submit
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_kernel_submit
-    echo "\n------------------------------------------\n" >> postmark_results_kernel_submit
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_kernel_submit
 done    
 
 pkill python

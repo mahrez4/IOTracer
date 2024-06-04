@@ -24,7 +24,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_notracing
-    echo \n------------------------------------------\n >> terasort_results_ringbuf_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_notracing
 done  
 
 
@@ -37,7 +37,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_128kb
-    echo \n------------------------------------------\n >> terasort_results_ringbuf_128kb
+    echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_128kb
 done    
 
 pkill python
@@ -53,7 +53,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_4mb
-    echo \n------------------------------------------\n >> terasort_results_ringbuf_4mb
+    echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_4mb
 done    
 
 pkill python
@@ -68,7 +68,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_128mb
-    echo \n------------------------------------------\n >> terasort_results_ringbuf_128mb
+    echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_128mb
 done    
 
 pkill python
@@ -83,7 +83,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_1G
-    echo \n------------------------------------------\n >> terasort_results_ringbuf_1G
+    echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_1G
 done    
 
 pkill python

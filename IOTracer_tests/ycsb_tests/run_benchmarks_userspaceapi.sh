@@ -15,7 +15,7 @@ rm ycsb_results_userspace_notracing
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_userspace_notracing
-    echo "\n------------------------------------------\n" >> ycsb_results_userspace_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_userspace_notracing
 done  
 
 ##########
@@ -30,7 +30,7 @@ rm ycsb_results_userspace_poll
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_userspace_poll
-    echo "\n------------------------------------------\n" >> ycsb_results_userspace_poll
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_userspace_poll
 done    
 
 pkill python
@@ -47,7 +47,7 @@ rm ycsb_results_userspace_consume
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_userspace_consume
-    echo "\n------------------------------------------\n" >> ycsb_results_userspace_consume
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_userspace_consume
 done    
 
 pkill python

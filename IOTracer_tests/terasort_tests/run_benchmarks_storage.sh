@@ -18,7 +18,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_storage_notracing
-    echo \n------------------------------------------\n >> terasort_results_storage_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_storage_notracing
 done  
 
 storage_device=d
@@ -32,7 +32,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_storage_disk
-    echo \n------------------------------------------\n >> terasort_results_storage_disk
+    echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_storage_disk
 done    
 
 pkill python
@@ -49,7 +49,7 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_storage_ram
     truncate -s 0 /tmp/trace_terasort_storage_ram
-    echo \n------------------------------------------\n >> terasort_results_storage_ram
+    echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_storage_ram
 done    
 
 pkill python

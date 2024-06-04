@@ -23,6 +23,7 @@ USE_PERFBUF_RINGBUF
 USE_SUBMIT_OUTPUT
 TRACE_APP
 MAX_COMMS
+KERNEL_VERSION
 
 struct dio {
 	int flags;			/* doesn't change */
@@ -92,14 +93,27 @@ int static filter_comm(char *comm)
 	COMM_LENGHTS
 	int filter = 1;
 	for (int i = 0; i < MAX_CMDS; i++) {
-		if (__builtin_memcmp(comm, cmds[i], len[i]) == 0) {
-			filter = 0;
-		}
-	}
-	if (filter)
-		return filter;
-	
-    return 0;
+		#ifdef kernel5
+			bool match = true;
+			for (int j = 0; j < len[i]; ++j) {
+				if (comm[j] != cmds[i][j]) {
+					match = false;
+					break;
+				}
+			}
+
+			if (match) {
+				filter = 0;
+				break;
+			}
+		#endif
+		#ifdef kernel6
+			if (__builtin_memcmp(comm, cmds[i], len[i]) == 0) {
+				filter = 0;
+			}
+		#endif
+	}	
+    return filter;
 }
 
 int static inc_counter_lost_event(u64 key) {

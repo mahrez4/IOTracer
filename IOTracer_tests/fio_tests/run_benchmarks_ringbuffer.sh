@@ -23,7 +23,7 @@ rm fio_results_ringbuf_notracing
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_notracing
-    echo \n------------------------------------------\n >> fio_results_ringbuf_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_notracing
 done  
 
 
@@ -35,7 +35,7 @@ rm fio_results_ringbuf_128kb
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_128kb
-    echo \n------------------------------------------\n >> fio_results_ringbuf_128kb
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_128kb
 done    
 
 pkill python
@@ -50,7 +50,7 @@ rm fio_results_ringbuf_4mb
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_4mb
-    echo \n------------------------------------------\n >> fio_results_ringbuf_4mb
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_4mb
 done    
 
 pkill python
@@ -65,7 +65,7 @@ rm fio_results_ringbuf_128mb
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_128mb
-    echo \n------------------------------------------\n >> fio_results_ringbuf_128mb
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_128mb
 done    
 
 pkill python
@@ -80,7 +80,7 @@ rm fio_results_ringbuf_1gb
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_1gb
-    echo \n------------------------------------------\n >> fio_results_ringbuf_1gb
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_1gb
 done    
 
 pkill python

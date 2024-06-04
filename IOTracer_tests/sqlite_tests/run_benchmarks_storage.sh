@@ -20,7 +20,7 @@ rm sqlite_results_storage_notracing db_sql.db
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_storage_notracing >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_storage_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_storage_notracing
 done  
 
 storage_device=d
@@ -33,7 +33,7 @@ rm sqlite_results_storage_disk db_sql.db
 for (( i = 0; i < $exec_count; i++)); do 
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_storage_disk >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_storage_disk
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_storage_disk
 done    
 
 pkill python
@@ -49,7 +49,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_storage_ram >> /dev/null
     truncate -s 0 /tmp/trace_sqlite_storage_ram
-    echo "\n------------------------------------------\n" >> sqlite_results_storage_ram
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_storage_ram
 done    
 
 pkill python

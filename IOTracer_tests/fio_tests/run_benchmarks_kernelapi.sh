@@ -17,7 +17,7 @@ rm fio_results_kernel_notracing
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_kernel_notracing
-    echo \n------------------------------------------\n >> fio_results_kernel_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_kernel_notracing
 done  
 
 kernel_api=o
@@ -30,7 +30,7 @@ rm fio_results_kernel_output
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_kernel_output
-    echo \n------------------------------------------\n >> fio_results_kernel_output
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_kernel_output
 done    
 
 pkill python
@@ -45,7 +45,7 @@ rm fio_results_kernel_submit
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_kernel_submit
-    echo \n------------------------------------------\n >> fio_results_kernel_submit
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_kernel_submit
 done    
 
 pkill python

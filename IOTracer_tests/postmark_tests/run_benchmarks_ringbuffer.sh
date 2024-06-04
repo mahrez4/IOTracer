@@ -25,7 +25,7 @@ rm postmark_results_ringbuf_notracing
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_notracing
-    echo "\n------------------------------------------\n" >> postmark_results_ringbuf_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_ringbuf_notracing
 done  
 
 
@@ -37,7 +37,7 @@ rm postmark_results_ringbuf_128kb
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_128kb
-    echo "\n------------------------------------------\n" >> postmark_results_ringbuf_128kb
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_ringbuf_128kb
 done    
 
 pkill python
@@ -52,7 +52,7 @@ rm postmark_results_ringbuf_4mb
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_4mb
-    echo "\n------------------------------------------\n" >> postmark_results_ringbuf_4mb
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_ringbuf_4mb
 done    
 
 pkill python
@@ -67,7 +67,7 @@ rm postmark_results_ringbuf_128mb
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_128mb
-    echo "\n------------------------------------------\n" >> postmark_results_ringbuf_128mb
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_ringbuf_128mb
 done    
 
 pkill python
@@ -82,7 +82,7 @@ rm postmark_results_ringbuf_1G
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_1G
-    echo "\n------------------------------------------\n" >> postmark_results_ringbuf_1G
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_ringbuf_1G
 done    
 
 pkill python

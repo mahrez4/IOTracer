@@ -25,7 +25,7 @@ rm sqlite_results_ringbuf_notracing db_sql.db
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_notracing >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_ringbuf_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_ringbuf_notracing
 done  
 
 
@@ -37,7 +37,7 @@ rm sqlite_results_ringbuf_128kb db_sql.db
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_128kb >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_ringbuf_128kb
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_ringbuf_128kb
 done    
 
 pkill python
@@ -52,7 +52,7 @@ rm sqlite_results_ringbuf_4mb db_sql.db
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_4mb >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_ringbuf_4mb
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_ringbuf_4mb
 done    
 
 pkill python
@@ -67,7 +67,7 @@ rm sqlite_results_ringbuf_128mb db_sql.db
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_128mb >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_ringbuf_128mb
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_ringbuf_128mb
 done    
 
 pkill python
@@ -82,7 +82,7 @@ rm sqlite_results_ringbuf_1G db_sql.db
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_1G >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_ringbuf_1G
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_ringbuf_1G
 done    
 
 pkill python

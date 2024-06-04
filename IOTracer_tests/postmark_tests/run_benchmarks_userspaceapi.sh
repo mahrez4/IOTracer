@@ -19,7 +19,7 @@ rm postmark_results_userspace_notracing
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_userspace_notracing
-    echo "\n------------------------------------------\n" >> postmark_results_userspace_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_userspace_notracing
 done  
 
 ##########
@@ -34,7 +34,7 @@ rm postmark_results_userspace_poll
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_userspace_poll
-    echo "\n------------------------------------------\n" >> postmark_results_userspace_poll
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_userspace_poll
 done    
 
 pkill python
@@ -51,7 +51,7 @@ rm postmark_results_userspace_consume
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_userspace_consume
-    echo "\n------------------------------------------\n" >> postmark_results_userspace_consume
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_userspace_consume
 done    
 
 pkill python

@@ -19,7 +19,7 @@ rm sqlite_results_kernel_notracing db_sql.db
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_kernel_notracing >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_kernel_notracing
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_kernel_notracing
 done  
 
 kernel_api=o
@@ -32,7 +32,7 @@ rm sqlite_results_kernel_output db_sql.db
 for (( i = 0; i < $exec_count; i++)); do 
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_kernel_output >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_kernel_output
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_kernel_output
 done    
 
 pkill python
@@ -47,7 +47,7 @@ rm sqlite_results_kernel_submit db_sql.db
 for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_kernel_submit >> /dev/null
-    echo "\n------------------------------------------\n" >> sqlite_results_kernel_submit
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_kernel_submit
 done    
 
 pkill python
