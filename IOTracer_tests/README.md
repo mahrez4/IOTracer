@@ -49,16 +49,19 @@ sudo apt-get install -y mongodb-org=7.0.7 mongodb-org-database=7.0.7 mongodb-org
 
 <details>
   <summary>To avoid updating mongodb </summary>
-
-    ```
     echo "mongodb-org hold" | sudo dpkg --set-selections
     echo "mongodb-org-database hold" | sudo dpkg --set-selections
     echo "mongodb-org-server hold" | sudo dpkg --set-selections
     echo "mongodb-mongosh hold" | sudo dpkg --set-selections
     echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
     echo "mongodb-org-tools hold" | sudo dpkg --set-selections
-    ```
 </details>
+
+#### Requirements to visualize:
+
+```
+sudo pip install dash pandas
+```
 
 ### Fedora:
 
@@ -66,6 +69,14 @@ TO DO.
 
 ## Running scripts:
 
-Each benchmark folder contains 4 scripts to test the different parameters
+Each benchmark folder contains 4 scripts to test the different parameters (Ringbuffer, Userspace API, Kernel API, Trace Storage)
 
-cd into one of the folders 
+cd into the folder of choice after installing the requirements, it is important be in the folder before running the scripts.
+
+Each script outputs the runtimes in a csv file.
+
+Once all 4 csv files are created you can visualize the results using the dash_app.py file.
+
+```
+sudo python3 dash_app.py
+```
