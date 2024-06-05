@@ -1,3 +1,13 @@
+- [Requirements](#Requirements)
+- [Section 1](#section-1)
+  - [Subsection 1.1](#subsection-11)
+  - [Subsection 1.2](#subsection-12)
+- [Section 2](#section-2)
+  - [Subsection 2.1](#subsection-21)
+  - [Subsection 2.2](#subsection-22)
+- [Conclusion](#conclusion)
+
+
 # Requirements
 ##     Ubuntu 22.04:
 
@@ -18,6 +28,8 @@ hadoop is downloaded with setup_env.sh script in [terasort directory](terasort_t
 either run setup_env.sh or any of the benchmarks which will eventually run the setup script anyway.
 
 ### YCSB
+
+#### Java and Python2
 ```
 apt-get install python2 openjdk-21-jre
 ```
