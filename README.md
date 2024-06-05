@@ -59,4 +59,4 @@ sudo python3 bcc_iotracer.py -k o -u p -size 1024 -l vb > trace_output
 
 ## Running tests
 
-More details in [README](IOTracer_tests/README.md)
+More details in [IOTracer_tests/README](IOTracer_tests/README.md)
