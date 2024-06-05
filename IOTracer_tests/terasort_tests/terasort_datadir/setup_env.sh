@@ -29,5 +29,5 @@ export HADOOP_COMMON_HOME=$HADOOP_HOME
 export HADOOP_HDFS_HOME=$HADOOP_HOME
 export YARN_HOME=$HADOOP_HOME
 
-export JAVA_HOME=/usr/lib/jvm/java
+export JAVA_HOME=/usr/lib/jvm/$(ls /usr/lib/jvm/ | grep java-21-openjdk)
 export PATH=$PATH:$HADOOP_HOME/bin

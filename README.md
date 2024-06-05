@@ -1,27 +1,22 @@
 # IOTracer
 
-## dependencies: bpftrace
+### Dependencies:
 
-Installation:
+#### Ubuntu 22.04:
 
-`sudo apt-get update -y`
-
-`sudo snap install --devmode bpftrace `
-
-for more information: https://github.com/iovisor/bpftrace/blob/master/INSTALL.md
-
-# On Debian:
-
-`sudo apt install linux-headers-amd64 bpftrace`
+sudo apt-get install python3-pip bpfcc-tools linux-headers-$(uname -r)
+sudo pip install prometheus-client
 
 
-## execution
+### Execution:
 
-`sudo bpftrace iotracer.bt [traced_command_name] [traced_file_inode] > trace_output`
+sudo python3 bcc_iotracer.py --help
 
-sudo bpftrace iotracer.bt fio 3080762 > trace_output 
+sudo python3 bcc_iotracer.py -t [comm1,comm2,comm3...] -l [levels(v,p,f,b,s,d)] > trace_output
 
-## Trace all the system 
+### Examples
+
+#### Trace all the system 
 
 sudo python bcc_iotracer.py -l vpfbsd > trace_system
 
