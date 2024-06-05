@@ -13,13 +13,13 @@ sudo pip install prometheus-client
 
 sudo python3 bcc_iotracer.py --help
 
-sudo python3 bcc_iotracer.py -t [comm1,comm2,comm3...] -l [levels(v,p,f,b,s,d)] > trace_output
+sudo python3 bcc_iotracer.py [--dir/--file] -i [inode] -t [comm1,comm2,comm3...] -l [levels(v,p,f,b,s,d)] > trace_output
 
 ## Examples
 
-### Trace all the system 
+### Trace all the system at the VFS, Page, FileSystem and Block levels
 
-sudo python bcc_iotracer.py -l vpfbsd > trace_system
+sudo python bcc_iotracer.py -l vpfb > trace_system
 
 sudo python bcc_iotracer.py -l vpfbsd |& tee trace_system
 
