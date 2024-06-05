@@ -11,9 +11,9 @@ sudo pip install prometheus-client
 
 ## Execution:
 
-sudo python3 bcc_iotracer.py --help
+```sudo python3 bcc_iotracer.py --help```
 
-sudo python3 bcc_iotracer.py [--dir/--file] -i [inode] -t [comm1,comm2,comm3...] -l [levels(v,p,f,b,s,d)] > trace_output
+```sudo python3 bcc_iotracer.py [--dir/--file] -i [inode] -t [comm1,comm2,comm3...] -l [levels(v,p,f,b,s,d)] > trace_output```
 
 ## Examples
 
@@ -23,7 +23,7 @@ sudo python bcc_iotracer.py -l vpfb > trace_system
 
 sudo python bcc_iotracer.py -l vpfbsd |& tee trace_system
 
-## MongoDB Directory without command filtering (all system):
+### MongoDB Directory without command filtering (all system):
 
 sudo python bcc_iotracer.py --dir -i 4459594 -l vpfbsd > trace_mongod_dir
 
