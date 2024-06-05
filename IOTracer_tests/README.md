@@ -7,10 +7,10 @@
   - [YCSB](#YCSB)
     - [Java and Python2](#Java-and-Python2)
     - [Mongodb](#Mongodb)
-- [Section 2](#section-2)
+- [Fedora](#Fedora)
   - [Subsection 2.1](#subsection-21)
   - [Subsection 2.2](#subsection-22)
-- [Conclusion](#conclusion)
+- [Running Scripts](#running-scripts)
 
 
 # Requirements
@@ -78,11 +78,11 @@ sudo apt-get install -y mongodb-org=7.0.7 mongodb-org-database=7.0.7 mongodb-org
 sudo pip install dash pandas
 ```
 
-## Fedora:
+## Fedora: <a id="fedora-fio"></a>
 
 TO DO.
 
-# Running scripts:
+# Running scripts: <a id="running-scripts"></a>
 
 Each benchmark folder contains 4 scripts to test the different parameters (Ringbuffer, Userspace API, Kernel API, Trace Storage)
 
