@@ -56,7 +56,7 @@ def signal_handler(sig, frame):
 		v.value = 0
 	print(s,flush=True)
 	print('Exiting...',flush=True)
-	os.system('pkill -9 python')
+	os.system('pkill -9 python3')
 	#if sig == signal.SIGINT:
 	#	os.system('pkill python')
 	#else:

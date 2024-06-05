@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/bash
 
 IOTRACER_PATH="../../bcc_iotracer.py"
 
@@ -24,7 +24,7 @@ done
 
 userspace_api=p
 
-sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -u $userspace_api > trace_fio_userspace_poll &
+sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -u $userspace_api > trace_fio_userspace_poll &
 sleep 5
 
 rm fio_results_userspace_poll
@@ -35,13 +35,13 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_poll
 done    
 
-pkill python
+pkill python3
 
 ##########
 
 userspace_api=c
 
-sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -u $userspace_api > trace_fio_userspace_consume &
+sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -u $userspace_api > trace_fio_userspace_consume &
 sleep 5
 
 rm fio_results_userspace_consume
@@ -52,7 +52,7 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_consume
 done    
 
-pkill python
+pkill python3
 
 ## Output file for storing extracted run times
 output_file="run_times_userspace_api.csv"

@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/bash
 
 IOTRACER_PATH="../../bcc_iotracer.py"
 
@@ -22,7 +22,7 @@ done
 
 kernel_api=o
 
-sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -k $kernel_api > trace_fio_kernel_output &
+sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -k $kernel_api > trace_fio_kernel_output &
 sleep 5
 
 rm fio_results_kernel_output
@@ -33,11 +33,11 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_kernel_output
 done    
 
-pkill python
+pkill python3
 
 kernel_api=s
 
-sudo python $IOTRACER_PATH -t fio --file -i $inode -l b -k $kernel_api > trace_fio_kernel_submit &
+sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -k $kernel_api > trace_fio_kernel_submit &
 sleep 5
 
 rm fio_results_kernel_submit
@@ -48,7 +48,7 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_kernel_submit
 done    
 
-pkill python
+pkill python3
 
 ## Output file for storing extracted run times
 output_file="run_times_kernel_api.csv"

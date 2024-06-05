@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/bash
 
 IOTRACER_PATH="../../bcc_iotracer.py"
 
@@ -20,7 +20,7 @@ done
 
 storage_device=d
 
-sudo python $IOTRACER_PATH -t Thread-,conn,java,mongod  -l vfb -s $storage_device > trace_ycsb_storage_disk &
+sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod  -l vfb -s $storage_device > trace_ycsb_storage_disk &
 sleep 5
 
 rm ycsb_results_storage_disk
@@ -31,11 +31,11 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_storage_disk
 done    
 
-pkill python
+pkill python3
 
 storage_device=r
 
-sudo python $IOTRACER_PATH -t Thread-,conn,java,mongod  -l vfb -s $storage_device > /tmp/trace_ycsb_storage_ram &
+sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod  -l vfb -s $storage_device > /tmp/trace_ycsb_storage_ram &
 sleep 5
 
 rm ycsb_results_storage_ram
@@ -47,7 +47,7 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_storage_ram
 done    
 
-pkill python
+pkill python3
 
 ## Output file for storing extracted run times
 output_file="run_times_storage.csv"

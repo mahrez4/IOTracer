@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/bash
 
 IOTRACER_PATH="../../bcc_iotracer.py"
 
@@ -23,7 +23,7 @@ for (( i = 0; i < $exec_count; i++)); do
 done  
 
 ringbuf_size=32
-sudo python $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -size $ringbuf_size > trace_ycsb_ringbuf_128kb &
+sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -size $ringbuf_size > trace_ycsb_ringbuf_128kb &
 sleep 5
 
 rm ycsb_results_ringbuf_128kb
@@ -34,11 +34,11 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_128kb
 done    
 
-pkill python
+pkill python3
 
 ringbuf_size=1024
 
-sudo python $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -size $ringbuf_size > trace_ycsb_ringbuf_4mb &
+sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -size $ringbuf_size > trace_ycsb_ringbuf_4mb &
 sleep 5
 
 rm ycsb_results_ringbuf_4mb
@@ -49,10 +49,10 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_4mb
 done    
 
-pkill python
+pkill python3
 
 ringbuf_size=32768
-sudo python $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -size $ringbuf_size > trace_ycsb_ringbuf_128mb &
+sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -size $ringbuf_size > trace_ycsb_ringbuf_128mb &
 sleep 5
 
 rm ycsb_results_ringbuf_128mb
@@ -63,10 +63,10 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_128mb
 done    
 
-pkill python
+pkill python3
 
 ringbuf_size=262144
-sudo python $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -size $ringbuf_size > trace_ycsb_ringbuf_1gb &
+sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -size $ringbuf_size > trace_ycsb_ringbuf_1gb &
 sleep 5
 
 rm ycsb_results_ringbuf_1gb
@@ -77,7 +77,7 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_1gb
 done    
 
-pkill python
+pkill python3
 
 ## Output file for storing extracted run times
 output_file="run_times_ringbufsize.csv"

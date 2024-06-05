@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/bash
 
 IOTRACER_PATH="../../bcc_iotracer.py"
 
@@ -24,7 +24,7 @@ done
 
 storage_device=d
 
-sudo python $IOTRACER_PATH -t postmark --file -i $inode -l b -s $storage_device > trace_postmark_storage_disk &
+sudo python3 $IOTRACER_PATH -t postmark --file -i $inode -l b -s $storage_device > trace_postmark_storage_disk &
 sleep 5
 
 rm postmark_results_storage_disk
@@ -35,11 +35,11 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_storage_disk
 done    
 
-pkill python
+pkill python3
 
 storage_device=r
 
-sudo python $IOTRACER_PATH -t postmark --file -i $inode -l b -s $storage_device > /tmp/trace_postmark_storage_ram &
+sudo python3 $IOTRACER_PATH -t postmark --file -i $inode -l b -s $storage_device > /tmp/trace_postmark_storage_ram &
 sleep 5
 
 rm postmark_results_storage_ram
@@ -51,7 +51,7 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_storage_ram
 done    
 
-pkill python
+pkill python3
 
 ## disk file for storing extracted run times
 disk_file="run_times_storage.csv"

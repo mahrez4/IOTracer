@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/bash
 
 IOTRACER_PATH="../../bcc_iotracer.py"
 
@@ -29,7 +29,7 @@ for (( i = 0; i < $exec_count; i++)); do
 done  
 
 
-sudo python $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_sqlite_ringbuf_128kb &
+sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_sqlite_ringbuf_128kb &
 sleep 5
 
 rm sqlite_results_ringbuf_128kb db_sql.db
@@ -40,11 +40,11 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_ringbuf_128kb
 done    
 
-pkill python
+pkill python3
 
 ringbuf_size=1024
 
-sudo python $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_sqlite_ringbuf_4mb &
+sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_sqlite_ringbuf_4mb &
 sleep 5
 
 rm sqlite_results_ringbuf_4mb db_sql.db
@@ -55,11 +55,11 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_ringbuf_4mb
 done    
 
-pkill python
+pkill python3
 
 ringbuf_size=32768
 
-sudo python $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_sqlite_ringbuf_128mb &
+sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_sqlite_ringbuf_128mb &
 sleep 5
 
 rm sqlite_results_ringbuf_128mb db_sql.db
@@ -70,11 +70,11 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_ringbuf_128mb
 done    
 
-pkill python
+pkill python3
 
 ringbuf_size=262144
 
-sudo python $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_sqlite_ringbuf_1G &
+sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > trace_sqlite_ringbuf_1G &
 sleep 5
 
 rm sqlite_results_ringbuf_1G db_sql.db
@@ -85,7 +85,7 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_ringbuf_1G
 done    
 
-pkill python
+pkill python3
 
 ## Output file for storing extracted run times
 output_file="run_times_ringbufsize.csv"
