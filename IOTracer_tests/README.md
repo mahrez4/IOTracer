@@ -1,11 +1,11 @@
 - [Requirements](#Requirements)
-- [Ubuntu 22.04](#Ubuntu22.04)
+- [Ubuntu 22.04](#Ubuntu-22.04)
   - [FIO](#FIO)
   - [Postmark](#Postmark)
   - [Sqlite](#Sqlite)
   - [Terasort](#Terasort)
   - [YCSB](#YCSB)
-    - [Java and Python2](#JavaandPython2)
+    - [Java and Python2](#Java-and-Python2)
     - [Mongodb](#Mongodb)
 - [Section 2](#section-2)
   - [Subsection 2.1](#subsection-21)
@@ -36,7 +36,7 @@ either run setup_env.sh or any of the benchmarks which will eventually run the s
 
 #### Java and Python2
 ```
-apt-get install python2 openjdk-21-jre
+sudo apt-get install python2 openjdk-21-jre
 ```
 #### Mongodb
 
@@ -90,7 +90,11 @@ cd into the folder of choice after installing the requirements, it is important 
 
 Each script outputs the runtimes in a csv file.
 
-Once all 4 csv files are created you can visualize the results using the dash_app.py file.
+Once all 4 csv files are created you can visualize the results using dash_app.py or runtimes_compare.py.
+
+```
+sudo python3 runtimes_compare.py
+```
 
 ```
 sudo python3 dash_app.py
