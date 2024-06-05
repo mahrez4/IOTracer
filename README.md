@@ -1,23 +1,23 @@
 # IOTracer
 
-### Dependencies:
+## Dependencies:
 
-#### Ubuntu 22.04:
+### Ubuntu 22.04:
 
 sudo apt-get install python3-pip bpfcc-tools linux-headers-$(uname -r)
 
 sudo pip install prometheus-client
 
 
-### Execution:
+## Execution:
 
 sudo python3 bcc_iotracer.py --help
 
 sudo python3 bcc_iotracer.py -t [comm1,comm2,comm3...] -l [levels(v,p,f,b,s,d)] > trace_output
 
-### Examples
+## Examples
 
-#### Trace all the system 
+### Trace all the system 
 
 sudo python bcc_iotracer.py -l vpfbsd > trace_system
 
