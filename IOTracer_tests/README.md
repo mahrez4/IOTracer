@@ -1,44 +1,51 @@
 - [Requirements](#Requirements)
 - [Ubuntu 22.04](#Ubuntu-22.04)
-  - [FIO](#FIO)
-  - [Postmark](#Postmark)
-  - [Sqlite](#Sqlite)
-  - [Terasort](#Terasort)
-  - [YCSB](#YCSB)
-    - [Java and Python2](#Java-and-Python2)
-    - [Mongodb](#Mongodb)
+  - [FIO](#ubuntu-22.04-fio)
+  - [Postmark](#ubuntu-22.04-postmark)
+  - [Sqlite](#ubuntu-22.04-sqlite)
+  - [Terasort](#ubuntu-22.04-terasort)
+  - [YCSB](#ubuntu-22.04-ycsb)
+    - [Java and Python2](#ubuntu-22.04-java-python2)
+    - [Mongodb](#ubuntu-22.04-mongodb)
+  - [Requirements-to-visualize](#ubuntu-22.04-vis-req)
 - [Fedora](#Fedora)
-  - [Subsection 2.1](#subsection-21)
-  - [Subsection 2.2](#subsection-22)
+  - [FIO](#fedora-fio)
+  - [Postmark](#fedora-postmark)
+  - [Sqlite](#fedora-sqlite)
+  - [Terasort](#fedora-terasort)
+  - [YCSB](#fedora-ycsb)
+    - [Java and Python2](#fedora-java-python2)
+    - [Mongodb](#fedora-mongodb)
+  - [Requirements-to-visualize](#fedora-vis-req)
 - [Running Scripts](#running-scripts)
 
 
 # Requirements
-## Ubuntu 22.04:
+## Ubuntu 22.04: <a id="ubuntu-22.04"></a>
 
-### FIO
+### FIO <a id="ubuntu-22.04-fio"></a>
 ```
 sudo apt-get install fio
 ```
-### Postmark
+### Postmark <a id="ubuntu-22.04-postmark"></a>
 already in [postmark directory](postmark_tests/postmark/) along with the source code (postmark-1_5.c)
 
-### Sqlite
+### Sqlite <a id="ubuntu-22.04-sqlite"></a>
 ```
 sudo apt-get install sqlite3
 ```
 
-### Terasort
+### Terasort <a id="ubuntu-22.04-terasort"></a>
 hadoop is downloaded with setup_env.sh script in [terasort directory](terasort_tests/terasort_datadir)
 either run setup_env.sh or any of the benchmarks which will eventually run the setup script anyway.
 
-### YCSB
+### YCSB <a id="ubuntu-22.04-ycsb"></a>
 
-#### Java and Python2
+#### Java and Python2 <a id="ubuntu-22.04-java-python2"></a>
 ```
 sudo apt-get install python2 openjdk-21-jre
 ```
-#### Mongodb
+#### Mongodb <a id="ubuntu-22.04-mongodb"></a>
 
 ```
 sudo apt-get install gnupg curl
@@ -72,16 +79,38 @@ sudo apt-get install -y mongodb-org=7.0.7 mongodb-org-database=7.0.7 mongodb-org
     echo "mongodb-org-tools hold" | sudo dpkg --set-selections
 </details>
 
-### Requirements to visualize:
+### Requirements to visualize: <a id="ubuntu-22.04-vis-req"></a>
 
 ```
 sudo pip install dash pandas
 ```
 
-## Fedora: <a id="fedora-fio"></a>
+## Fedora: <a id="fedora"></a>
 
-TO DO.
+## Ubuntu 22.04: <a id="fedora"></a>
 
+### FIO <a id="fedora-fio"></a>
+
+### Postmark <a id="fedora-postmark"></a>
+already in [postmark directory](postmark_tests/postmark/) along with the source code (postmark-1_5.c)
+
+### Sqlite <a id="fedora-sqlite"></a>
+
+### Terasort <a id="fedora-terasort"></a>
+hadoop is downloaded with setup_env.sh script in [terasort directory](terasort_tests/terasort_datadir)
+either run setup_env.sh or any of the benchmarks which will eventually run the setup script anyway.
+
+### YCSB <a id="fedora-ycsb"></a>
+
+#### Java and Python2 <a id="fedora-java-python2"></a>
+
+#### Mongodb <a id="fedora-mongodb"></a>
+
+### Requirements to visualize: <a id="fedora-vis-req"></a>
+
+```
+sudo pip install dash pandas
+```
 # Running scripts: <a id="running-scripts"></a>
 
 Each benchmark folder contains 4 scripts to test the different parameters (Ringbuffer, Userspace API, Kernel API, Trace Storage)
