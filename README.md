@@ -11,10 +11,12 @@ sudo pip install prometheus-client
 
 ## Execution:
 
-```sudo python3 bcc_iotracer.py --help
+```
+sudo python3 bcc_iotracer.py --help
 ```
 
-```sudo python3 bcc_iotracer.py [--dir/--file] -i [inode] -t [comm1,comm2,comm3...] -l [levels(v,p,f,b,s,d)] > trace_output
+```
+sudo python3 bcc_iotracer.py [--dir/--file] -i [inode] -t [comm1,comm2,comm3...] -l [levels(v,p,f,b,s,d)] > trace_output
 ```
 
 ## Examples
