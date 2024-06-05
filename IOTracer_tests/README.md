@@ -1,7 +1,12 @@
 - [Requirements](#Requirements)
-- [Section 1](#section-1)
-  - [Subsection 1.1](#subsection-11)
-  - [Subsection 1.2](#subsection-12)
+- [Ubuntu 22.04](#Ubuntu22.04)
+  - [FIO](#FIO)
+  - [Postmark](#Postmark)
+  - [Sqlite](#Sqlite)
+  - [Terasort](#Terasort)
+  - [YCSB](#YCSB)
+    - [Java and Python2](#JavaandPython2)
+    - [Mongodb](#Mongodb)
 - [Section 2](#section-2)
   - [Subsection 2.1](#subsection-21)
   - [Subsection 2.2](#subsection-22)
@@ -9,16 +14,16 @@
 
 
 # Requirements
-##     Ubuntu 22.04:
+## Ubuntu 22.04:
 
 ### FIO
 ```
 sudo apt-get install fio
 ```
-### POSTMARK
+### Postmark
 already in [postmark directory](postmark_tests/postmark/) along with the source code (postmark-1_5.c)
 
-### SQLITE
+### Sqlite
 ```
 sudo apt-get install sqlite3
 ```
@@ -33,7 +38,7 @@ either run setup_env.sh or any of the benchmarks which will eventually run the s
 ```
 apt-get install python2 openjdk-21-jre
 ```
-#### Mongodb install 22.04:
+#### Mongodb
 
 ```
 sudo apt-get install gnupg curl
