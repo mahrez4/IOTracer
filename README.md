@@ -44,3 +44,13 @@ sudo python3 bcc_iotracer.py -t postmark --dir -i [inode of postmark dir] -l vpf
 ```
 sudo python3 bcc_iotracer.py -t fio,postmark,cat,dd -l vpfb > trace_comms
 ```
+
+### Specify kernel api, userspace api and ringbuffer size:
+
+Kernel api: output
+Userspace api: poll
+Ringbuffer size: 1024 pages
+
+```
+python3 bcc_iotracer.py -k o -u p -size 1024 -l vb > trace_output
+```
