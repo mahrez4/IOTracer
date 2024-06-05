@@ -1,6 +1,7 @@
 #!/bin/bash
-HADOOP_ARCHIVE="terasort_datadir/hadoop-3.3.6.tar.gz"
-HADOOP_DIR="terasort_datadir/hadoop"
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+HADOOP_ARCHIVE=$SCRIPTPATH/hadoop-3.3.6.tar.gz
+HADOOP_DIR=$SCRIPTPATH/hadoop
 
 if [ -f "$HADOOP_ARCHIVE" ]; then
     echo "Hadoop archive found: $HADOOP_ARCHIVE"
