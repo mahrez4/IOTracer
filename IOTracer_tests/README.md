@@ -1,22 +1,22 @@
 - [Requirements](#Requirements)
-- [Ubuntu 22.04](#Ubuntu-22.04)
-  - [FIO](#ubuntu-22.04-fio)
-  - [Postmark](#ubuntu-22.04-postmark)
-  - [Sqlite](#ubuntu-22.04-sqlite)
-  - [Terasort](#ubuntu-22.04-terasort)
-  - [YCSB](#ubuntu-22.04-ycsb)
-    - [Java and Python2](#ubuntu-22.04-java-python2)
-    - [Mongodb](#ubuntu-22.04-mongodb)
-  - [Requirements-to-visualize](#ubuntu-22.04-vis-req)
-- [Fedora](#Fedora)
-  - [FIO](#fedora-fio)
-  - [Postmark](#fedora-postmark)
-  - [Sqlite](#fedora-sqlite)
-  - [Terasort](#fedora-terasort)
-  - [YCSB](#fedora-ycsb)
-    - [Java and Python2](#fedora-java-python2)
-    - [Mongodb](#fedora-mongodb)
-  - [Requirements-to-visualize](#fedora-vis-req)
+  - [Ubuntu 22.04](#Ubuntu-22.04)
+    - [FIO](#ubuntu-22.04-fio)
+    - [Postmark](#ubuntu-22.04-postmark)
+    - [Sqlite](#ubuntu-22.04-sqlite)
+    - [Terasort](#ubuntu-22.04-terasort)
+    - [YCSB](#ubuntu-22.04-ycsb)
+      - [Java and Python2](#ubuntu-22.04-java-python2)
+      - [Mongodb](#ubuntu-22.04-mongodb)
+    - [Requirements-to-visualize](#ubuntu-22.04-vis-req)
+  - [Fedora](#Fedora)
+    - [FIO](#fedora-fio)
+    - [Postmark](#fedora-postmark)
+    - [Sqlite](#fedora-sqlite)
+    - [Terasort](#fedora-terasort)
+    - [YCSB](#fedora-ycsb)
+      - [Java and Python2](#fedora-java-python2)
+      - [Mongodb](#fedora-mongodb)
+    - [Requirements-to-visualize](#fedora-vis-req)
 - [Running Scripts](#running-scripts)
 
 
@@ -87,8 +87,6 @@ sudo pip install dash pandas
 
 ## Fedora: <a id="fedora"></a>
 
-## Ubuntu 22.04: <a id="fedora"></a>
-
 ### FIO <a id="fedora-fio"></a>
 
 ### Postmark <a id="fedora-postmark"></a>
@@ -111,7 +109,7 @@ either run setup_env.sh or any of the benchmarks which will eventually run the s
 ```
 sudo pip install dash pandas
 ```
-# Running scripts: <a id="running-scripts"></a>
+# Running the scripts: <a id="running-scripts"></a>
 
 Each benchmark folder contains 4 scripts to test the different parameters (Ringbuffer, Userspace API, Kernel API, Trace Storage)
 
