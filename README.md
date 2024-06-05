@@ -5,6 +5,7 @@
 #### Ubuntu 22.04:
 
 sudo apt-get install python3-pip bpfcc-tools linux-headers-$(uname -r)
+
 sudo pip install prometheus-client
 
 
