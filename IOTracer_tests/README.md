@@ -40,7 +40,7 @@ hadoop is downloaded with setup_env.sh script in [terasort directory](terasort_t
 either run setup_env.sh or any of the benchmarks which will eventually run the setup script anyway.
 
 ### YCSB <a id="ubuntu-22.04-ycsb"></a>
-
+Binaries are in [ycsb directory](ycsb_tests/ycsb_datadir/) but java and python2 are required, as well as mongodb.
 #### Java and Python2 <a id="ubuntu-22.04-java-python2"></a>
 ```
 sudo apt-get install python2 openjdk-21-jre
@@ -85,21 +85,23 @@ sudo apt-get install -y mongodb-org=7.0.7 mongodb-org-database=7.0.7 mongodb-org
 sudo pip install dash pandas
 ```
 
-## Fedora: <a id="fedora"></a>
+## Fedora: (Not finished yet) <a id="fedora"></a>
 
 ### FIO <a id="fedora-fio"></a>
+dnf install -y fio
 
 ### Postmark <a id="fedora-postmark"></a>
 already in [postmark directory](postmark_tests/postmark/) along with the source code (postmark-1_5.c)
 
 ### Sqlite <a id="fedora-sqlite"></a>
+dnf install -y sqlite3
 
 ### Terasort <a id="fedora-terasort"></a>
 hadoop is downloaded with setup_env.sh script in [terasort directory](terasort_tests/terasort_datadir)
 either run setup_env.sh or any of the benchmarks which will eventually run the setup script anyway.
 
 ### YCSB <a id="fedora-ycsb"></a>
-
+Binaries are in [ycsb directory](ycsb_tests/ycsb_datadir/) but java and python2 are required, as well as mongodb.
 #### Java and Python2 <a id="fedora-java-python2"></a>
 
 #### Mongodb <a id="fedora-mongodb"></a>
