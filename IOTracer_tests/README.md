@@ -1,8 +1,12 @@
-# FIO
-install with apt or dnf
+## Requirements²
+### Ubuntu 22.04:
 
-# POSTMARK
-in postmark_tests/postmark
+#### FIO
+```
+sudo apt-get install fio
+```
+#### POSTMARK
+already in [](postmark_tests/postmark) along with the source code (postmark-1_5.c)
 
 # SQLITE
 installed with dnf

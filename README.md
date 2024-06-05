@@ -1,6 +1,6 @@
 # IOTracer
 
-## Dependencies:
+## Dependencies
 
 ### Ubuntu 22.04:
 ```
@@ -10,7 +10,7 @@ sudo apt-get install python3-pip bpfcc-tools linux-headers-$(uname -r)
 sudo pip install prometheus-client
 ```
 
-## Execution:
+## Execution
 
 ```
 sudo python3 bcc_iotracer.py --help
@@ -57,6 +57,6 @@ Ringbuffer size: 1024 pages
 sudo python3 bcc_iotracer.py -k o -u p -size 1024 -l vb > trace_output
 ```
 
-## Running tests:
+## Running tests
 
 More details in [README](IOTracer_tests/README.md)
