@@ -1,28 +1,27 @@
-## Requirements
-###     Ubuntu 22.04:
+# Requirements
+##     Ubuntu 22.04:
 
-#### FIO
+### FIO
 ```
 sudo apt-get install fio
 ```
-#### POSTMARK
+### POSTMARK
 already in [postmark directory](postmark_tests/postmark/) along with the source code (postmark-1_5.c)
 
-#### SQLITE
+### SQLITE
 ```
 sudo apt-get install sqlite3
 ```
 
-#### Terasort
+### Terasort
 hadoop is downloaded with setup_env.sh script in [terasort directory](terasort_tests/terasort_datadir)
 either run setup_env.sh or any of the benchmarks which will eventually run the setup script anyway.
 
-#### YCSB
+### YCSB
 ```
 apt-get install python2 openjdk-21-jre
 ```
-#mongodb install 22.04:
-
+#### Mongodb install 22.04:
 
 ```
 sudo apt-get install gnupg curl
@@ -46,7 +45,6 @@ OR to install a specific version
 ```
 sudo apt-get install -y mongodb-org=7.0.7 mongodb-org-database=7.0.7 mongodb-org-server=7.0.7 mongodb-mongosh=7.0.7 mongodb-org-mongos=7.0.7 mongodb-org-tools=7.0.7
 ```
-
 <details>
   <summary>To avoid updating mongodb </summary>
     echo "mongodb-org hold" | sudo dpkg --set-selections
@@ -57,17 +55,17 @@ sudo apt-get install -y mongodb-org=7.0.7 mongodb-org-database=7.0.7 mongodb-org
     echo "mongodb-org-tools hold" | sudo dpkg --set-selections
 </details>
 
-#### Requirements to visualize:
+### Requirements to visualize:
 
 ```
 sudo pip install dash pandas
 ```
 
-### Fedora:
+## Fedora:
 
 TO DO.
 
-## Running scripts:
+# Running scripts:
 
 Each benchmark folder contains 4 scripts to test the different parameters (Ringbuffer, Userspace API, Kernel API, Trace Storage)
 
