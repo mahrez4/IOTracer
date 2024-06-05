@@ -1,4 +1,4 @@
-## Requirements²
+## Requirements
 ### Ubuntu 22.04:
 
 #### FIO
@@ -6,7 +6,7 @@
 sudo apt-get install fio
 ```
 #### POSTMARK
-already in [](postmark_tests/postmark) along with the source code (postmark-1_5.c)
+already in [postmark directory](postmark_tests/postmark/) along with the source code (postmark-1_5.c)
 
 # SQLITE
 installed with dnf
