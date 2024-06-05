@@ -174,15 +174,11 @@ program = ""
 
 # code replacements
 
-with open(r'./bcc_iotracer.bpf.c', 'r') as file:
+IOTracer_dir = os.path.abspath(os.path.dirname(__file__))
+IOTracer_path = os.path.join(IOTracer_dir, "bcc_iotracer.bpf.c")
+print(IOTracer_path)
+with open(IOTracer_path, 'r') as file:
 	program = file.read()
-
-## Kernel 5.x or 6.x
-
-if platform.release().startswith('6'):
-	program = program.replace('KERNEL_VERSION', '#define kernel6')
-elif platform.release().startswith('5'):
-	program = program.replace('KERNEL_VERSION', '#define kernel5')
 
 ## USE RINGBUFFER OR PERFBUFFER
 

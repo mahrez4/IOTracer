@@ -1,3 +1,4 @@
+#!/bin/bash
 HADOOP_ARCHIVE="terasort_datadir/hadoop-3.3.6.tar.gz"
 HADOOP_DIR="terasort_datadir/hadoop"
 
@@ -14,7 +15,7 @@ elif [ -d "$HADOOP_DIR" ]; then
     echo "Hadoop directory found: $HADOOP_DIR"
 else
     echo "Downloading hadoop"
-    wget  https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6-src.tar.gz 
+    wget  https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz 
     echo "Extracting Hadoop archive..."
     tar -xzf "$HADOOP_ARCHIVE"
     mv hadoop-3.3.6 $HADOOP_ARCHIVE

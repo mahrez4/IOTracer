@@ -23,7 +23,7 @@ USE_PERFBUF_RINGBUF
 USE_SUBMIT_OUTPUT
 TRACE_APP
 MAX_COMMS
-KERNEL_VERSION
+
 
 struct dio {
 	int flags;			/* doesn't change */
@@ -93,25 +93,23 @@ int static filter_comm(char *comm)
 	COMM_LENGHTS
 	int filter = 1;
 	for (int i = 0; i < MAX_CMDS; i++) {
-		#ifdef kernel5
-			bool match = true;
-			for (int j = 0; j < len[i]; ++j) {
-				if (comm[j] != cmds[i][j]) {
-					match = false;
-					break;
-				}
-			}
-
-			if (match) {
-				filter = 0;
+		bool match = true;
+		for (int j = 0; j < len[i]; ++j) {
+			if (comm[j] != cmds[i][j]) {
+				match = false;
 				break;
 			}
-		#endif
-		#ifdef kernel6
-			if (__builtin_memcmp(comm, cmds[i], len[i]) == 0) {
-				filter = 0;
-			}
-		#endif
+		}
+
+		if (match) {
+			filter = 0;
+			break;
+		}
+
+		// Only works on fedora for some reason
+		//if (__builtin_memcmp(comm, cmds[i], len[i]) == 0) {
+		//	filter = 0;
+		//}
 	}	
     return filter;
 }
