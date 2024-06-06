@@ -3,108 +3,118 @@ pm>pm>Creating files...Done
 Performing transactions..........Done
 Deleting files...Done
 Time:
-	3751 mseconds total
-	1296 mseconds of transactions (385 per second)
+	3883 mseconds total
+	1349 mseconds of transactions (370 per second)
 
 Files:
-	746 created (198 per second)
-		Creation alone: 500 files (209 per second)
-		Mixed with transactions: 246 files (189 per second)
-	260 read (200 per second)
+	746 created (192 per second)
+		Creation alone: 500 files (202 per second)
+		Mixed with transactions: 246 files (182 per second)
+	260 read (192 per second)
 	0 appended (0 per second)
-	746 deleted (198 per second)
-		Deletion alone: 492 files (7935 per second)
-		Mixed with transactions: 254 files (195 per second)
-
-Data:
-	9.98 megabytes read (2.66 megabytes per second)
-	28.63 megabytes written (7.63 megabytes per second)
-pm>\n------------------------------------------\n
-PostMark v1.5 : 3/27/01
-pm>pm>Creating files...Done
-Performing transactions..........Done
-Deleting files...Done
-Time:
-	3704 mseconds total
-	1275 mseconds of transactions (392 per second)
-
-Files:
-	746 created (201 per second)
-		Creation alone: 500 files (211 per second)
-		Mixed with transactions: 246 files (192 per second)
-	260 read (203 per second)
-	0 appended (0 per second)
-	746 deleted (201 per second)
-		Deletion alone: 492 files (7935 per second)
-		Mixed with transactions: 254 files (199 per second)
-
-Data:
-	9.98 megabytes read (2.69 megabytes per second)
-	28.63 megabytes written (7.73 megabytes per second)
-pm>\n------------------------------------------\n
-PostMark v1.5 : 3/27/01
-pm>pm>Creating files...Done
-Performing transactions..........Done
-Deleting files...Done
-Time:
-	6182 mseconds total
-	1771 mseconds of transactions (282 per second)
-
-Files:
-	746 created (120 per second)
-		Creation alone: 500 files (114 per second)
-		Mixed with transactions: 246 files (138 per second)
-	260 read (146 per second)
-	0 appended (0 per second)
-	746 deleted (120 per second)
+	746 deleted (192 per second)
 		Deletion alone: 492 files (8338 per second)
-		Mixed with transactions: 254 files (143 per second)
+		Mixed with transactions: 254 files (188 per second)
 
 Data:
-	9.98 megabytes read (1.61 megabytes per second)
-	28.63 megabytes written (4.63 megabytes per second)
-pm>\n------------------------------------------\n
+	9.98 megabytes read (2.57 megabytes per second)
+	28.63 megabytes written (7.37 megabytes per second)
+pm>
+-------------------------------------------------------------------
+
 PostMark v1.5 : 3/27/01
 pm>pm>Creating files...Done
 Performing transactions..........Done
 Deleting files...Done
 Time:
-	4495 mseconds total
-	1754 mseconds of transactions (285 per second)
+	4035 mseconds total
+	1313 mseconds of transactions (380 per second)
 
 Files:
-	746 created (165 per second)
-		Creation alone: 500 files (187 per second)
-		Mixed with transactions: 246 files (140 per second)
-	260 read (148 per second)
+	746 created (184 per second)
+		Creation alone: 500 files (188 per second)
+		Mixed with transactions: 246 files (187 per second)
+	260 read (198 per second)
 	0 appended (0 per second)
-	746 deleted (165 per second)
-		Deletion alone: 492 files (6739 per second)
-		Mixed with transactions: 254 files (144 per second)
+	746 deleted (184 per second)
+		Deletion alone: 492 files (7569 per second)
+		Mixed with transactions: 254 files (193 per second)
 
 Data:
-	9.98 megabytes read (2.22 megabytes per second)
-	28.63 megabytes written (6.37 megabytes per second)
-pm>\n------------------------------------------\n
+	9.98 megabytes read (2.47 megabytes per second)
+	28.63 megabytes written (7.10 megabytes per second)
+pm>
+-------------------------------------------------------------------
+
 PostMark v1.5 : 3/27/01
 pm>pm>Creating files...Done
 Performing transactions..........Done
 Deleting files...Done
 Time:
-	5737 mseconds total
-	2066 mseconds of transactions (242 per second)
+	3887 mseconds total
+	1338 mseconds of transactions (373 per second)
 
 Files:
-	746 created (130 per second)
-		Creation alone: 500 files (139 per second)
-		Mixed with transactions: 246 files (119 per second)
-	260 read (125 per second)
+	746 created (191 per second)
+		Creation alone: 500 files (201 per second)
+		Mixed with transactions: 246 files (183 per second)
+	260 read (194 per second)
 	0 appended (0 per second)
-	746 deleted (130 per second)
-		Deletion alone: 492 files (6074 per second)
-		Mixed with transactions: 254 files (122 per second)
+	746 deleted (191 per second)
+		Deletion alone: 492 files (6833 per second)
+		Mixed with transactions: 254 files (189 per second)
 
 Data:
-	9.98 megabytes read (1.74 megabytes per second)
-	28.63 megabytes written (4.99 megabytes per second)
-pm>\n------------------------------------------\n
+	9.98 megabytes read (2.57 megabytes per second)
+	28.63 megabytes written (7.37 megabytes per second)
+pm>
+-------------------------------------------------------------------
+
+PostMark v1.5 : 3/27/01
+pm>pm>Creating files...Done
+Performing transactions..........Done
+Deleting files...Done
+Time:
+	4092 mseconds total
+	1369 mseconds of transactions (365 per second)
+
+Files:
+	746 created (182 per second)
+		Creation alone: 500 files (188 per second)
+		Mixed with transactions: 246 files (179 per second)
+	260 read (189 per second)
+	0 appended (0 per second)
+	746 deleted (182 per second)
+		Deletion alone: 492 files (6648 per second)
+		Mixed with transactions: 254 files (185 per second)
+
+Data:
+	9.98 megabytes read (2.44 megabytes per second)
+	28.63 megabytes written (7.00 megabytes per second)
+pm>
+-------------------------------------------------------------------
+
+PostMark v1.5 : 3/27/01
+pm>pm>Creating files...Done
+Performing transactions..........Done
+Deleting files...Done
+Time:
+	3918 mseconds total
+	1353 mseconds of transactions (369 per second)
+
+Files:
+	746 created (190 per second)
+		Creation alone: 500 files (199 per second)
+		Mixed with transactions: 246 files (181 per second)
+	260 read (192 per second)
+	0 appended (0 per second)
+	746 deleted (190 per second)
+		Deletion alone: 492 files (7687 per second)
+		Mixed with transactions: 254 files (187 per second)
+
+Data:
+	9.98 megabytes read (2.55 megabytes per second)
+	28.63 megabytes written (7.31 megabytes per second)
+pm>
+-------------------------------------------------------------------
+

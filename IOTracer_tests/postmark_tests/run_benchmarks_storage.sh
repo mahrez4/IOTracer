@@ -70,7 +70,6 @@ pattern="seconds total"
 
 for file in postmark_results_storage* ; do
     echo "Processing file: $file"
-    
     api=$(echo $file | awk -F '_' '{print $4}')
     runs=$(grep "$pattern" "$file" | awk -F ' ' '{print $1}' | tr '\n' ',' | sed 's/,$//')
     echo "$api,$runs" >> "$disk_file"

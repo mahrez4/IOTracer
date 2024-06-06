@@ -85,7 +85,7 @@ sudo apt-get install -y mongodb-org=7.0.7 mongodb-org-database=7.0.7 mongodb-org
 sudo pip install dash pandas
 ```
 
-## Fedora: (Not finished yet) <a id="fedora"></a>
+## Fedora: <a id="fedora"></a>
 
 ### FIO <a id="fedora-fio"></a>
 ```
