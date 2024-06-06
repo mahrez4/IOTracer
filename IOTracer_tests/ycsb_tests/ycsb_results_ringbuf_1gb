@@ -151,3 +151,40 @@ mongo client connection created with mongodb://localhost:27017/ycsb
 -------------------------------------------------------------------
 
 mongo client connection created with mongodb://localhost:27017/ycsb
+[OVERALL], RunTime(ms), 41653
+[OVERALL], Throughput(ops/sec), 2400.787458286318
+[TOTAL_GCS_G1_Young_Generation], Count, 14
+[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 56
+[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 0.13444409766403378
+[TOTAL_GCS_G1_Concurrent_GC], Count, 0
+[TOTAL_GC_TIME_G1_Concurrent_GC], Time(ms), 0
+[TOTAL_GC_TIME_%_G1_Concurrent_GC], Time(%), 0.0
+[TOTAL_GCS_G1_Old_Generation], Count, 0
+[TOTAL_GC_TIME_G1_Old_Generation], Time(ms), 0
+[TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
+[TOTAL_GCs], Count, 14
+[TOTAL_GC_TIME], Time(ms), 56
+[TOTAL_GC_TIME_%], Time(%), 0.13444409766403378
+[READ], Operations, 59866
+[READ], AverageLatency(us), 382.9347876925133
+[READ], MinLatency(us), 149
+[READ], MaxLatency(us), 88063
+[READ], 95thPercentileLatency(us), 724
+[READ], 99thPercentileLatency(us), 1367
+[READ], Return=OK, 59866
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 2329.0
+[CLEANUP], MinLatency(us), 2328
+[CLEANUP], MaxLatency(us), 2329
+[CLEANUP], 95thPercentileLatency(us), 2329
+[CLEANUP], 99thPercentileLatency(us), 2329
+[UPDATE], Operations, 40134
+[UPDATE], AverageLatency(us), 425.5534957891065
+[UPDATE], MinLatency(us), 164
+[UPDATE], MaxLatency(us), 20511
+[UPDATE], 95thPercentileLatency(us), 820
+[UPDATE], 99thPercentileLatency(us), 1466
+[UPDATE], Return=OK, 40134
+
+-------------------------------------------------------------------
+

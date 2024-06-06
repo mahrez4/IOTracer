@@ -7,7 +7,7 @@ traced_path="./fio_file"
 fio_config="./fio_config.fio"
 
 
-exec_count=5
+exec_count=2
 
 ########## 
 
