@@ -2,22 +2,22 @@ fio_job1: (g=0): rw=read, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, 
 fio-3.35
 Starting 1 thread
 
-fio_job1: (groupid=0, jobs=1): err= 0: pid=26194: Thu Jun  6 15:28:06 2024
-  read: IOPS=25.4k, BW=99.1MiB/s (104MB/s)(1024MiB/10332msec)
-    clat (usec): min=21, max=3557, avg=38.77, stdev=48.27
-     lat (usec): min=21, max=3557, avg=38.85, stdev=48.31
+fio_job1: (groupid=0, jobs=1): err= 0: pid=102161: Thu Jun  6 21:56:23 2024
+  read: IOPS=28.6k, BW=112MiB/s (117MB/s)(1024MiB/9160msec)
+    clat (usec): min=23, max=3949, avg=34.37, stdev=39.21
+     lat (usec): min=23, max=3949, avg=34.43, stdev=39.22
     clat percentiles (usec):
-     |  1.00th=[   26],  5.00th=[   26], 10.00th=[   26], 20.00th=[   27],
-     | 30.00th=[   27], 40.00th=[   28], 50.00th=[   28], 60.00th=[   29],
-     | 70.00th=[   31], 80.00th=[   36], 90.00th=[   46], 95.00th=[   97],
-     | 99.00th=[  182], 99.50th=[  416], 99.90th=[  594], 99.95th=[  660],
-     | 99.99th=[ 1074]
-   bw (  KiB/s): min=50320, max=131576, per=99.93%, avg=101422.80, stdev=21479.44, samples=20
-   iops        : min=12580, max=32894, avg=25355.70, stdev=5369.86, samples=20
-  lat (usec)   : 50=90.66%, 100=5.09%, 250=3.58%, 500=0.33%, 750=0.32%
+     |  1.00th=[   26],  5.00th=[   26], 10.00th=[   26], 20.00th=[   26],
+     | 30.00th=[   27], 40.00th=[   27], 50.00th=[   27], 60.00th=[   28],
+     | 70.00th=[   29], 80.00th=[   31], 90.00th=[   36], 95.00th=[   82],
+     | 99.00th=[  149], 99.50th=[  225], 99.90th=[  578], 99.95th=[  611],
+     | 99.99th=[  758]
+   bw (  KiB/s): min=93440, max=137704, per=100.00%, avg=114774.22, stdev=12860.79, samples=18
+   iops        : min=23360, max=34426, avg=28693.56, stdev=3215.20, samples=18
+  lat (usec)   : 50=94.21%, 100=2.99%, 250=2.37%, 500=0.20%, 750=0.22%
   lat (usec)   : 1000=0.01%
   lat (msec)   : 2=0.01%, 4=0.01%
-  cpu          : usr=2.87%, sys=32.10%, ctx=262283, majf=0, minf=1
+  cpu          : usr=3.00%, sys=33.72%, ctx=262161, majf=0, minf=1
   IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
      submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
      complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
@@ -25,7 +25,7 @@ fio_job1: (groupid=0, jobs=1): err= 0: pid=26194: Thu Jun  6 15:28:06 2024
      latency   : target=0, window=0, percentile=100.00%, depth=1
 
 Run status group 0 (all jobs):
-   READ: bw=99.1MiB/s (104MB/s), 99.1MiB/s-99.1MiB/s (104MB/s-104MB/s), io=1024MiB (1074MB), run=10332-10332msec
+   READ: bw=112MiB/s (117MB/s), 112MiB/s-112MiB/s (117MB/s-117MB/s), io=1024MiB (1074MB), run=9160-9160msec
 
 -------------------------------------------------------------------
 
@@ -33,84 +33,22 @@ fio_job1: (g=0): rw=read, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, 
 fio-3.35
 Starting 1 thread
 
-fio_job1: (groupid=0, jobs=1): err= 0: pid=26230: Thu Jun  6 15:28:17 2024
-  read: IOPS=25.6k, BW=99.9MiB/s (105MB/s)(1024MiB/10252msec)
-    clat (usec): min=23, max=3182, avg=38.34, stdev=45.09
-     lat (usec): min=23, max=3183, avg=38.41, stdev=45.11
+fio_job1: (groupid=0, jobs=1): err= 0: pid=102180: Thu Jun  6 21:56:33 2024
+  read: IOPS=27.8k, BW=109MiB/s (114MB/s)(1024MiB/9413msec)
+    clat (usec): min=23, max=5276, avg=35.35, stdev=42.60
+     lat (usec): min=23, max=5276, avg=35.42, stdev=42.73
     clat percentiles (usec):
-     |  1.00th=[   25],  5.00th=[   26], 10.00th=[   27], 20.00th=[   27],
-     | 30.00th=[   28], 40.00th=[   28], 50.00th=[   29], 60.00th=[   31],
-     | 70.00th=[   34], 80.00th=[   38], 90.00th=[   47], 95.00th=[   88],
-     | 99.00th=[  153], 99.50th=[  258], 99.90th=[  586], 99.95th=[  668],
-     | 99.99th=[ 1631]
-   bw (  KiB/s): min=76224, max=132352, per=100.00%, avg=102371.20, stdev=15558.51, samples=20
-   iops        : min=19056, max=33088, avg=25592.80, stdev=3889.63, samples=20
-  lat (usec)   : 50=91.00%, 100=5.54%, 250=2.95%, 500=0.24%, 750=0.24%
-  lat (usec)   : 1000=0.02%
-  lat (msec)   : 2=0.01%, 4=0.01%
-  cpu          : usr=3.30%, sys=35.60%, ctx=262441, majf=0, minf=1
-  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
-     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     issued rwts: total=262144,0,0,0 short=0,0,0,0 dropped=0,0,0,0
-     latency   : target=0, window=0, percentile=100.00%, depth=1
-
-Run status group 0 (all jobs):
-   READ: bw=99.9MiB/s (105MB/s), 99.9MiB/s-99.9MiB/s (105MB/s-105MB/s), io=1024MiB (1074MB), run=10252-10252msec
-
--------------------------------------------------------------------
-
-fio_job1: (g=0): rw=read, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=sync, iodepth=1
-fio-3.35
-Starting 1 thread
-
-fio_job1: (groupid=0, jobs=1): err= 0: pid=26258: Thu Jun  6 15:28:28 2024
-  read: IOPS=25.3k, BW=98.7MiB/s (103MB/s)(1024MiB/10380msec)
-    clat (usec): min=23, max=3931, avg=38.83, stdev=42.62
-     lat (usec): min=23, max=3931, avg=38.91, stdev=42.64
-    clat percentiles (usec):
-     |  1.00th=[   26],  5.00th=[   27], 10.00th=[   28], 20.00th=[   28],
-     | 30.00th=[   29], 40.00th=[   29], 50.00th=[   30], 60.00th=[   32],
-     | 70.00th=[   35], 80.00th=[   39], 90.00th=[   48], 95.00th=[   87],
-     | 99.00th=[  149], 99.50th=[  227], 99.90th=[  578], 99.95th=[  627],
-     | 99.99th=[ 1012]
-   bw (  KiB/s): min=88568, max=118880, per=100.00%, avg=101342.80, stdev=9232.25, samples=20
-   iops        : min=22142, max=29720, avg=25335.70, stdev=2308.06, samples=20
-  lat (usec)   : 50=90.79%, 100=5.94%, 250=2.82%, 500=0.22%, 750=0.21%
-  lat (usec)   : 1000=0.01%
-  lat (msec)   : 2=0.01%, 4=0.01%
-  cpu          : usr=3.33%, sys=36.62%, ctx=262481, majf=0, minf=1
-  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
-     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     issued rwts: total=262144,0,0,0 short=0,0,0,0 dropped=0,0,0,0
-     latency   : target=0, window=0, percentile=100.00%, depth=1
-
-Run status group 0 (all jobs):
-   READ: bw=98.7MiB/s (103MB/s), 98.7MiB/s-98.7MiB/s (103MB/s-103MB/s), io=1024MiB (1074MB), run=10380-10380msec
-
--------------------------------------------------------------------
-
-fio_job1: (g=0): rw=read, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=sync, iodepth=1
-fio-3.35
-Starting 1 thread
-
-fio_job1: (groupid=0, jobs=1): err= 0: pid=26276: Thu Jun  6 15:28:39 2024
-  read: IOPS=25.8k, BW=101MiB/s (105MB/s)(1024MiB/10179msec)
-    clat (usec): min=22, max=4217, avg=38.09, stdev=42.19
-     lat (usec): min=22, max=4217, avg=38.17, stdev=42.21
-    clat percentiles (usec):
-     |  1.00th=[   26],  5.00th=[   27], 10.00th=[   27], 20.00th=[   28],
-     | 30.00th=[   28], 40.00th=[   29], 50.00th=[   30], 60.00th=[   31],
-     | 70.00th=[   34], 80.00th=[   38], 90.00th=[   46], 95.00th=[   87],
-     | 99.00th=[  149], 99.50th=[  227], 99.90th=[  578], 99.95th=[  635],
-     | 99.99th=[  963]
-   bw (  KiB/s): min=81856, max=117704, per=100.00%, avg=103407.20, stdev=9707.78, samples=20
-   iops        : min=20464, max=29426, avg=25851.80, stdev=2426.94, samples=20
-  lat (usec)   : 50=91.51%, 100=5.27%, 250=2.77%, 500=0.21%, 750=0.22%
+     |  1.00th=[   26],  5.00th=[   27], 10.00th=[   27], 20.00th=[   27],
+     | 30.00th=[   27], 40.00th=[   28], 50.00th=[   28], 60.00th=[   28],
+     | 70.00th=[   29], 80.00th=[   31], 90.00th=[   37], 95.00th=[   85],
+     | 99.00th=[  161], 99.50th=[  231], 99.90th=[  586], 99.95th=[  652],
+     | 99.99th=[  791]
+   bw (  KiB/s): min=84504, max=130840, per=100.00%, avg=111947.11, stdev=13076.91, samples=18
+   iops        : min=21126, max=32710, avg=27986.78, stdev=3269.23, samples=18
+  lat (usec)   : 50=93.77%, 100=3.08%, 250=2.69%, 500=0.20%, 750=0.25%
   lat (usec)   : 1000=0.01%
   lat (msec)   : 2=0.01%, 4=0.01%, 10=0.01%
-  cpu          : usr=3.36%, sys=35.50%, ctx=262363, majf=0, minf=1
+  cpu          : usr=2.85%, sys=33.58%, ctx=262161, majf=0, minf=1
   IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
      submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
      complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
@@ -118,38 +56,7 @@ fio_job1: (groupid=0, jobs=1): err= 0: pid=26276: Thu Jun  6 15:28:39 2024
      latency   : target=0, window=0, percentile=100.00%, depth=1
 
 Run status group 0 (all jobs):
-   READ: bw=101MiB/s (105MB/s), 101MiB/s-101MiB/s (105MB/s-105MB/s), io=1024MiB (1074MB), run=10179-10179msec
-
--------------------------------------------------------------------
-
-fio_job1: (g=0): rw=read, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=sync, iodepth=1
-fio-3.35
-Starting 1 thread
-
-fio_job1: (groupid=0, jobs=1): err= 0: pid=26301: Thu Jun  6 15:28:50 2024
-  read: IOPS=23.3k, BW=91.2MiB/s (95.6MB/s)(1024MiB/11229msec)
-    clat (usec): min=23, max=4126, avg=41.98, stdev=55.63
-     lat (usec): min=23, max=4126, avg=42.07, stdev=55.65
-    clat percentiles (usec):
-     |  1.00th=[   26],  5.00th=[   27], 10.00th=[   28], 20.00th=[   29],
-     | 30.00th=[   29], 40.00th=[   30], 50.00th=[   32], 60.00th=[   35],
-     | 70.00th=[   38], 80.00th=[   41], 90.00th=[   52], 95.00th=[   96],
-     | 99.00th=[  174], 99.50th=[  404], 99.90th=[  627], 99.95th=[  766],
-     | 99.99th=[ 1958]
-   bw (  KiB/s): min=64016, max=115112, per=100.00%, avg=93659.64, stdev=12795.20, samples=22
-   iops        : min=16004, max=28778, avg=23414.91, stdev=3198.80, samples=22
-  lat (usec)   : 50=89.52%, 100=6.14%, 250=3.64%, 500=0.38%, 750=0.27%
-  lat (usec)   : 1000=0.02%
-  lat (msec)   : 2=0.02%, 4=0.01%, 10=0.01%
-  cpu          : usr=3.62%, sys=35.95%, ctx=262629, majf=0, minf=1
-  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
-     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     issued rwts: total=262144,0,0,0 short=0,0,0,0 dropped=0,0,0,0
-     latency   : target=0, window=0, percentile=100.00%, depth=1
-
-Run status group 0 (all jobs):
-   READ: bw=91.2MiB/s (95.6MB/s), 91.2MiB/s-91.2MiB/s (95.6MB/s-95.6MB/s), io=1024MiB (1074MB), run=11229-11229msec
+   READ: bw=109MiB/s (114MB/s), 109MiB/s-109MiB/s (114MB/s-114MB/s), io=1024MiB (1074MB), run=9413-9413msec
 
 -------------------------------------------------------------------
 

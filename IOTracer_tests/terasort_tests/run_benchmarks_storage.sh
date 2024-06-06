@@ -9,6 +9,9 @@ rm -rf terasort_datadir/input terasort_datadir/terasort_output
 hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar teragen 10000000 terasort_datadir/input
 
 exec_count=5
+if [ ! -z "$1" ]; then
+    exec_count=$1
+fi
 
 ##########
 

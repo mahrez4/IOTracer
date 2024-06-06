@@ -7,6 +7,9 @@ mongosh < ycsb_datadir/drop_db
 python2 ycsb_datadir/bin/ycsb load mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb
 
 exec_count=5
+if [ ! -z "$1" ]; then
+    exec_count=$1
+fi
 
 ########## 
 

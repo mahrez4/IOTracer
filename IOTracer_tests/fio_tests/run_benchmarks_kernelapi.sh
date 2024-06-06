@@ -6,7 +6,10 @@ traced_path="./fio_file"
 
 fio_config="./fio_config.fio"
 
-exec_count=2
+exec_count=5
+if [ ! -z "$1" ]; then
+    exec_count=$1
+fi
 
 ########## 
 

@@ -11,6 +11,9 @@ inode=`stat -c '%i' $traced_path`
 TIMEFORMAT="time= %R"
 
 exec_count=5
+if [ ! -z "$1" ]; then
+    exec_count=$1
+fi
 
 ########## 
 
