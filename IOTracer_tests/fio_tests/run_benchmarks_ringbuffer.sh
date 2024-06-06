@@ -6,7 +6,6 @@ traced_path="./fio_file"
 
 fio_config="./fio_config.fio"
 
-inode=`stat -c '%i' $traced_path`
 
 exec_count=5
 
@@ -16,7 +15,6 @@ exec_count=5
 
 ##no tracing 
 
-ringbuf_size=32
 
 rm fio_results_ringbuf_notracing
 
@@ -26,7 +24,9 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_notracing
 done  
 
+inode=`stat -c '%i' $traced_path`
 
+ringbuf_size=32
 sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > trace_fio_ringbuf_128kb &
 sleep 5
 

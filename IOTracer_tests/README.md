@@ -88,13 +88,17 @@ sudo pip install dash pandas
 ## Fedora: (Not finished yet) <a id="fedora"></a>
 
 ### FIO <a id="fedora-fio"></a>
+```
 dnf install -y fio
+```
 
 ### Postmark <a id="fedora-postmark"></a>
 already in [postmark directory](postmark_tests/postmark/) along with the source code (postmark-1_5.c)
 
 ### Sqlite <a id="fedora-sqlite"></a>
+```
 dnf install -y sqlite3
+```
 
 ### Terasort <a id="fedora-terasort"></a>
 hadoop is downloaded with setup_env.sh script in [terasort directory](terasort_tests/terasort_datadir)
@@ -103,8 +107,39 @@ either run setup_env.sh or any of the benchmarks which will eventually run the s
 ### YCSB <a id="fedora-ycsb"></a>
 Binaries are in [ycsb directory](ycsb_tests/ycsb_datadir/) but java and python2 are required, as well as mongodb.
 #### Java and Python2 <a id="fedora-java-python2"></a>
-
+```
+sudo dnf -y install java-21-openjdk python2
+```
 #### Mongodb <a id="fedora-mongodb"></a>
+```
+sudo nano /etc/yum.repos.d/mongodb-org-7.0.repo
+```
+Put this in the file:
+
+```
+[mongodb-org-7.0]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/9Server/mongodb-org/7.0/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://pgp.mongodb.com/server-7.0.asc
+```
+
+```
+dnf -y install mongodb-org 
+```
+
+If you get an openssl error:
+
+```
+systemctl stop mongod
+
+rpm -e mongodb-org mongodb-mongosh
+
+dnf install -y mongodb-org mongodb-mongosh-shared-openssl3
+
+systemctl start mongod 
+```
 
 ### Requirements to visualize: <a id="fedora-vis-req"></a>
 

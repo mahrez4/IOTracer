@@ -10,6 +10,16 @@ sudo apt-get install python3-pip bpfcc-tools linux-headers-$(uname -r)
 sudo pip install prometheus-client
 ```
 
+### Fedora 40:
+
+```
+sudo dnf -y install bcc kernel-devel python3-pip
+```
+
+```
+sudo pip install prometheus-client
+```
+
 ## Execution
 
 ```

@@ -6,8 +6,6 @@ traced_path="./fio_file"
 
 fio_config="./fio_config.fio"
 
-inode=`stat -c '%i' $traced_path`
-
 exec_count=5
 
 ########## 
@@ -19,6 +17,8 @@ for (( i = 0; i < $exec_count; i++)); do
     fio $fio_config >> fio_results_kernel_notracing
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_kernel_notracing
 done  
+
+inode=`stat -c '%i' $traced_path`
 
 kernel_api=o
 
