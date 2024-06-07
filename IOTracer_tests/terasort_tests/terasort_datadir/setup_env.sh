@@ -7,8 +7,8 @@ if [ -f "$HADOOP_ARCHIVE" ]; then
     echo "Hadoop archive found: $HADOOP_ARCHIVE"
     if [ ! -d "$HADOOP_DIR" ]; then
 	echo "Extracting Hadoop archive..."
-        tar -xzf "$HADOOP_ARCHIVE"
-        mv hadoop-3.3.6 $HADOOP_DIR
+        tar -xzf "$HADOOP_ARCHIVE" --directory $SCRIPTPATH
+        mv $SCRIPTPATH/hadoop-3.3.6 $HADOOP_DIR
     else
         echo "Hadoop directory already exists: $HADOOP_DIR"
     fi
@@ -18,10 +18,10 @@ else
     echo "Hadoop archive not found in $HADOOP_ARCHIVE"
     echo "Hadoop directory not found in $HADOOP_DIR"
     echo "Downloading hadoop"
-    wget  https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz 
+    wget -P $SCRIPTPATH https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz 
     echo "Extracting Hadoop archive..."
-    tar -xzf "$HADOOP_ARCHIVE"
-    mv hadoop-3.3.6 $HADOOP_ARCHIVE
+    tar -xzf "$HADOOP_ARCHIVE" --directory $SCRIPTPATH
+    mv $SCRIPTPATH/hadoop-3.3.6 $HADOOP_ARCHIVE
 fi
 
 unset HADOOP_HOME; unset HADOOP_CONF_DIR; unset HADOOP_MAPRED_HOME; unset HADOOP_COMMON_HOME; unset HADOOP_HDFS_HOME; unset YARN_HOME; unset JAVA_HOME;
