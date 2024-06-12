@@ -5,8 +5,10 @@ HADOOP_DIR=$SCRIPTPATH/hadoop
 
 if [ -f "$HADOOP_ARCHIVE" ]; then
     echo "Hadoop archive found: $HADOOP_ARCHIVE"
+    
     if [ ! -d "$HADOOP_DIR" ]; then
 	echo "Extracting Hadoop archive..."
+	wget -c -P $SCRIPTPATH https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz 
         tar -xzf "$HADOOP_ARCHIVE" --directory $SCRIPTPATH
         mv $SCRIPTPATH/hadoop-3.3.6 $HADOOP_DIR
     else
@@ -32,7 +34,7 @@ export HADOOP_MAPRED_HOME=$HADOOP_HOME
 export HADOOP_COMMON_HOME=$HADOOP_HOME
 export HADOOP_HDFS_HOME=$HADOOP_HOME
 export YARN_HOME=$HADOOP_HOME
-export HADOOM_YARN_HOME=$HADOOP_HOME
+export HADOOP_YARN_HOME=$HADOOP_HOME
 
 export JAVA_HOME=/usr/lib/jvm/$(ls /usr/lib/jvm/ | grep java-21-openjdk)
 export PATH=$PATH:$HADOOP_HOME/bin
