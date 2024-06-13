@@ -176,7 +176,6 @@ program = ""
 
 IOTracer_dir = os.path.abspath(os.path.dirname(__file__))
 IOTracer_path = os.path.join(IOTracer_dir, "bcc_iotracer.bpf.c")
-print(IOTracer_path)
 with open(IOTracer_path, 'r') as file:
 	program = file.read()
 

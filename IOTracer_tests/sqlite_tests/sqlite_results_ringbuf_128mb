@@ -1,41 +1,75 @@
-Parse error near line 2: no such table: benchmark_data
-time= 11.802
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 18.431
 
 -------------------------------------------------------------------
 
-time= 16.957
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 16.203
 
 -------------------------------------------------------------------
 
-time= 46.477
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 17.522
 
 -------------------------------------------------------------------
 
-time= 17.690
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 14.850
 
 -------------------------------------------------------------------
 
-time= 47.571
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 16.794
 
 -------------------------------------------------------------------
 
-time= 16.410
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 16.630
 
 -------------------------------------------------------------------
 
-time= 43.223
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 16.991
 
 -------------------------------------------------------------------
 
-time= 16.846
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 16.557
 
 -------------------------------------------------------------------
 
-time= 46.120
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 17.292
 
 -------------------------------------------------------------------
 
-time= 17.238
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 16.973
+
+-------------------------------------------------------------------
+
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 17.466
+
+-------------------------------------------------------------------
+
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 16.837
+
+-------------------------------------------------------------------
+
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 16.889
+
+-------------------------------------------------------------------
+
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 16.674
+
+-------------------------------------------------------------------
+
+Runtime error near line 1002: cannot commit - no transaction is active
+time= 16.301
 
 -------------------------------------------------------------------
 
