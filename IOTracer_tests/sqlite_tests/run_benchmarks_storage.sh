@@ -26,36 +26,35 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_storage_notracing
 done  
 
+##########
+
 storage_device=d
-
-sudo python3 $IOTRACER_PATH -t sqlite --file -i $inode -l b -s $storage_device > trace_sqlite_storage_disk &
-sleep 5
-
 rm sqlite_results_storage_disk db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do 
+    sudo python3 $IOTRACER_PATH -t sqlite --file -i $inode -l b -s $storage_device > traces_sqlite/storage/trace_sqlite_storage_disk_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_storage_disk >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_storage_disk
+    pkill python3
+
 done    
 
-pkill python3
+##########
 
 storage_device=r
-
-sudo python3 $IOTRACER_PATH -t sqlite --file -i $inode -l b -s $storage_device > /tmp/trace_sqlite_storage_ram &
-sleep 5
-
 rm sqlite_results_storage_ram db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t sqlite --file -i $inode -l b -s $storage_device > /tmp/trace_sqlite_storage_ram_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_storage_ram >> /dev/null
-    truncate -s 0 /tmp/trace_sqlite_storage_ram
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_storage_ram
+    pkill python3
 done    
 
-pkill python3
 
 ## Output file for storing extracted run times
 output_file="run_times_storage.csv"

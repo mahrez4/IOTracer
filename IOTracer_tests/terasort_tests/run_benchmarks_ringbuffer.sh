@@ -36,7 +36,7 @@ ringbuf_size=32
 rm terasort_results_ringbuf_128kb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > trace_terasort_ringbuf_128kb &
+    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > traces_terasort/ringbuffer/trace_terasort_ringbuf_128kb_$i &
     sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
@@ -53,7 +53,7 @@ ringbuf_size=1024
 rm terasort_results_ringbuf_4mb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > trace_terasort_ringbuf_4mb &
+    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > traces_terasort/ringbuffer/trace_terasort_ringbuf_4mb_$i &
     sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
@@ -70,7 +70,7 @@ ringbuf_size=32768
 rm terasort_results_ringbuf_128mb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > trace_terasort_ringbuf_128mb &
+    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > traces_terasort/ringbuffer/trace_terasort_ringbuf_128mb_$i &
     sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
@@ -87,7 +87,7 @@ ringbuf_size=262144
 rm terasort_results_ringbuf_1G
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > trace_terasort_ringbuf_1G &
+    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > traces_terasort/ringbuffer/trace_terasort_ringbuf_1G_$i &
     sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output

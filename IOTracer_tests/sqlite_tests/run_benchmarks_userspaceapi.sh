@@ -28,36 +28,33 @@ done
 ##########
 
 userspace_api=p
-
-    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -u $userspace_api > trace_sqlite_userspace_poll &
-sleep 5
-
 rm sqlite_results_userspace_poll db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -u $userspace_api > traces_sqlite/userspace_api/trace_sqlite_userspace_poll_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_poll >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_poll
+    pkill python3
 done    
 
-pkill python3
+
 
 ##########
 
 userspace_api=c
-
-sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -u $userspace_api > trace_sqlite_userspace_consume &
-sleep 5
-
 rm sqlite_results_userspace_consume db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -u $userspace_api > traces_sqlite/userspace_api/trace_sqlite_userspace_consume_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_consume >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_consume
+    pkill python3
 done
 
-pkill python3
 
 ## Output file for storing extracted run times
 output_file="run_times_userspace_api.csv"

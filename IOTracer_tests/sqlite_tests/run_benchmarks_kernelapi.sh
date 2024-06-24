@@ -25,35 +25,36 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_kernel_notracing
 done  
 
+##########
+
 kernel_api=o
-
-sudo python3 $IOTRACER_PATH -t sqlite --file -i $inode -l b -k $kernel_api > trace_sqlite_kernel_output &
-sleep 5
-
 rm sqlite_results_kernel_output db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do 
+    sudo python3 $IOTRACER_PATH -t sqlite --file -i $inode -l b -k $kernel_api > trace_sqlite/kernel_api/trace_sqlite_kernel_output_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_kernel_output >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_kernel_output
+    pkill python3
 done    
 
-pkill python3
+
+##########
 
 kernel_api=s
-
-sudo python3 $IOTRACER_PATH -t sqlite --file -i $inode -l b -k $kernel_api > trace_sqlite_kernel_submit &
-sleep 5
-
 rm sqlite_results_kernel_submit db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t sqlite --file -i $inode -l b -k $kernel_api > trace_sqlite/kernel_api/trace_sqlite_kernel_submit_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_kernel_submit >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_kernel_submit
+    pkill python3
 done    
 
-pkill python3
+
 
 ## Output file for storing extracted run times
 output_file="run_times_kernel_api.csv"

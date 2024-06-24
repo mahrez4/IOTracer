@@ -1,123 +1,9 @@
 mongo client connection created with mongodb://localhost:27017/ycsb
-[OVERALL], RunTime(ms), 30131
-[OVERALL], Throughput(ops/sec), 3318.841060701603
-[TOTAL_GCS_G1_Young_Generation], Count, 15
-[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 83
-[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 0.27546380803823306
-[TOTAL_GCS_G1_Concurrent_GC], Count, 0
-[TOTAL_GC_TIME_G1_Concurrent_GC], Time(ms), 0
-[TOTAL_GC_TIME_%_G1_Concurrent_GC], Time(%), 0.0
-[TOTAL_GCS_G1_Old_Generation], Count, 0
-[TOTAL_GC_TIME_G1_Old_Generation], Time(ms), 0
-[TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
-[TOTAL_GCs], Count, 15
-[TOTAL_GC_TIME], Time(ms), 83
-[TOTAL_GC_TIME_%], Time(%), 0.27546380803823306
-[READ], Operations, 59857
-[READ], AverageLatency(us), 275.99553936882904
-[READ], MinLatency(us), 118
-[READ], MaxLatency(us), 57247
-[READ], 95thPercentileLatency(us), 484
-[READ], 99thPercentileLatency(us), 773
-[READ], Return=OK, 59857
-[CLEANUP], Operations, 1
-[CLEANUP], AverageLatency(us), 1863.0
-[CLEANUP], MinLatency(us), 1863
-[CLEANUP], MaxLatency(us), 1863
-[CLEANUP], 95thPercentileLatency(us), 1863
-[CLEANUP], 99thPercentileLatency(us), 1863
-[UPDATE], Operations, 40143
-[UPDATE], AverageLatency(us), 310.07749794484715
-[UPDATE], MinLatency(us), 136
-[UPDATE], MaxLatency(us), 38175
-[UPDATE], 95thPercentileLatency(us), 555
-[UPDATE], 99thPercentileLatency(us), 860
-[UPDATE], Return=OK, 40143
-
--------------------------------------------------------------------
-
-mongo client connection created with mongodb://localhost:27017/ycsb
-[OVERALL], RunTime(ms), 31668
-[OVERALL], Throughput(ops/sec), 3157.7617784514337
-[TOTAL_GCS_G1_Young_Generation], Count, 14
-[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 48
-[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 0.15157256536566882
-[TOTAL_GCS_G1_Concurrent_GC], Count, 0
-[TOTAL_GC_TIME_G1_Concurrent_GC], Time(ms), 0
-[TOTAL_GC_TIME_%_G1_Concurrent_GC], Time(%), 0.0
-[TOTAL_GCS_G1_Old_Generation], Count, 0
-[TOTAL_GC_TIME_G1_Old_Generation], Time(ms), 0
-[TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
-[TOTAL_GCs], Count, 14
-[TOTAL_GC_TIME], Time(ms), 48
-[TOTAL_GC_TIME_%], Time(%), 0.15157256536566882
-[READ], Operations, 60097
-[READ], AverageLatency(us), 284.1471454481921
-[READ], MinLatency(us), 117
-[READ], MaxLatency(us), 108671
-[READ], 95thPercentileLatency(us), 523
-[READ], 99thPercentileLatency(us), 1098
-[READ], Return=OK, 60097
-[CLEANUP], Operations, 1
-[CLEANUP], AverageLatency(us), 1549.0
-[CLEANUP], MinLatency(us), 1549
-[CLEANUP], MaxLatency(us), 1549
-[CLEANUP], 95thPercentileLatency(us), 1549
-[CLEANUP], 99thPercentileLatency(us), 1549
-[UPDATE], Operations, 39903
-[UPDATE], AverageLatency(us), 317.2259729844874
-[UPDATE], MinLatency(us), 138
-[UPDATE], MaxLatency(us), 14351
-[UPDATE], 95thPercentileLatency(us), 593
-[UPDATE], 99thPercentileLatency(us), 1176
-[UPDATE], Return=OK, 39903
-
--------------------------------------------------------------------
-
-mongo client connection created with mongodb://localhost:27017/ycsb
-[OVERALL], RunTime(ms), 30425
-[OVERALL], Throughput(ops/sec), 3286.770747740345
-[TOTAL_GCS_G1_Young_Generation], Count, 15
-[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 77
-[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 0.2530813475760066
-[TOTAL_GCS_G1_Concurrent_GC], Count, 0
-[TOTAL_GC_TIME_G1_Concurrent_GC], Time(ms), 0
-[TOTAL_GC_TIME_%_G1_Concurrent_GC], Time(%), 0.0
-[TOTAL_GCS_G1_Old_Generation], Count, 0
-[TOTAL_GC_TIME_G1_Old_Generation], Time(ms), 0
-[TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
-[TOTAL_GCs], Count, 15
-[TOTAL_GC_TIME], Time(ms), 77
-[TOTAL_GC_TIME_%], Time(%), 0.2530813475760066
-[READ], Operations, 60089
-[READ], AverageLatency(us), 276.60518564129876
-[READ], MinLatency(us), 122
-[READ], MaxLatency(us), 11575
-[READ], 95thPercentileLatency(us), 538
-[READ], 99thPercentileLatency(us), 923
-[READ], Return=OK, 60089
-[CLEANUP], Operations, 1
-[CLEANUP], AverageLatency(us), 1657.0
-[CLEANUP], MinLatency(us), 1657
-[CLEANUP], MaxLatency(us), 1657
-[CLEANUP], 95thPercentileLatency(us), 1657
-[CLEANUP], 99thPercentileLatency(us), 1657
-[UPDATE], Operations, 39911
-[UPDATE], AverageLatency(us), 314.7499937360627
-[UPDATE], MinLatency(us), 137
-[UPDATE], MaxLatency(us), 69055
-[UPDATE], 95thPercentileLatency(us), 620
-[UPDATE], 99thPercentileLatency(us), 1002
-[UPDATE], Return=OK, 39911
-
--------------------------------------------------------------------
-
-mongo client connection created with mongodb://localhost:27017/ycsb
-[OVERALL], RunTime(ms), 29733
-[OVERALL], Throughput(ops/sec), 3363.2664043318873
+[OVERALL], RunTime(ms), 25494
+[OVERALL], Throughput(ops/sec), 3922.4915666431316
 [TOTAL_GCS_G1_Young_Generation], Count, 15
 [TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 76
-[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 0.25560824672922344
+[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 0.298109359064878
 [TOTAL_GCS_G1_Concurrent_GC], Count, 0
 [TOTAL_GC_TIME_G1_Concurrent_GC], Time(ms), 0
 [TOTAL_GC_TIME_%_G1_Concurrent_GC], Time(%), 0.0
@@ -126,36 +12,36 @@ mongo client connection created with mongodb://localhost:27017/ycsb
 [TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
 [TOTAL_GCs], Count, 15
 [TOTAL_GC_TIME], Time(ms), 76
-[TOTAL_GC_TIME_%], Time(%), 0.25560824672922344
-[READ], Operations, 60206
-[READ], AverageLatency(us), 272.80802577816166
-[READ], MinLatency(us), 113
-[READ], MaxLatency(us), 71807
-[READ], 95thPercentileLatency(us), 473
-[READ], 99thPercentileLatency(us), 879
-[READ], Return=OK, 60206
+[TOTAL_GC_TIME_%], Time(%), 0.298109359064878
+[READ], Operations, 59668
+[READ], AverageLatency(us), 232.17454917208553
+[READ], MinLatency(us), 112
+[READ], MaxLatency(us), 62367
+[READ], 95thPercentileLatency(us), 405
+[READ], 99thPercentileLatency(us), 910
+[READ], Return=OK, 59668
 [CLEANUP], Operations, 1
-[CLEANUP], AverageLatency(us), 2281.0
-[CLEANUP], MinLatency(us), 2280
-[CLEANUP], MaxLatency(us), 2281
-[CLEANUP], 95thPercentileLatency(us), 2281
-[CLEANUP], 99thPercentileLatency(us), 2281
-[UPDATE], Operations, 39794
-[UPDATE], AverageLatency(us), 304.45949138061013
-[UPDATE], MinLatency(us), 132
-[UPDATE], MaxLatency(us), 12287
-[UPDATE], 95thPercentileLatency(us), 536
-[UPDATE], 99thPercentileLatency(us), 972
-[UPDATE], Return=OK, 39794
+[CLEANUP], AverageLatency(us), 1668.0
+[CLEANUP], MinLatency(us), 1668
+[CLEANUP], MaxLatency(us), 1668
+[CLEANUP], 95thPercentileLatency(us), 1668
+[CLEANUP], 99thPercentileLatency(us), 1668
+[UPDATE], Operations, 40332
+[UPDATE], AverageLatency(us), 260.8851284339978
+[UPDATE], MinLatency(us), 128
+[UPDATE], MaxLatency(us), 12223
+[UPDATE], 95thPercentileLatency(us), 467
+[UPDATE], 99thPercentileLatency(us), 958
+[UPDATE], Return=OK, 40332
 
 -------------------------------------------------------------------
 
 mongo client connection created with mongodb://localhost:27017/ycsb
-[OVERALL], RunTime(ms), 29851
-[OVERALL], Throughput(ops/sec), 3349.9715252420356
+[OVERALL], RunTime(ms), 24134
+[OVERALL], Throughput(ops/sec), 4143.5319466313085
 [TOTAL_GCS_G1_Young_Generation], Count, 15
-[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 75
-[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 0.25124786439315266
+[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 77
+[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 0.31905195989061075
 [TOTAL_GCS_G1_Concurrent_GC], Count, 0
 [TOTAL_GC_TIME_G1_Concurrent_GC], Time(ms), 0
 [TOTAL_GC_TIME_%_G1_Concurrent_GC], Time(%), 0.0
@@ -163,28 +49,104 @@ mongo client connection created with mongodb://localhost:27017/ycsb
 [TOTAL_GC_TIME_G1_Old_Generation], Time(ms), 0
 [TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
 [TOTAL_GCs], Count, 15
-[TOTAL_GC_TIME], Time(ms), 75
-[TOTAL_GC_TIME_%], Time(%), 0.25124786439315266
-[READ], Operations, 59814
-[READ], AverageLatency(us), 273.1356371418063
-[READ], MinLatency(us), 119
-[READ], MaxLatency(us), 79807
-[READ], 95thPercentileLatency(us), 462
-[READ], 99thPercentileLatency(us), 832
-[READ], Return=OK, 59814
+[TOTAL_GC_TIME], Time(ms), 77
+[TOTAL_GC_TIME_%], Time(%), 0.31905195989061075
+[READ], Operations, 59804
+[READ], AverageLatency(us), 219.83675005016386
+[READ], MinLatency(us), 111
+[READ], MaxLatency(us), 28927
+[READ], 95thPercentileLatency(us), 359
+[READ], 99thPercentileLatency(us), 638
+[READ], Return=OK, 59804
 [CLEANUP], Operations, 1
-[CLEANUP], AverageLatency(us), 1806.0
-[CLEANUP], MinLatency(us), 1806
-[CLEANUP], MaxLatency(us), 1806
-[CLEANUP], 95thPercentileLatency(us), 1806
-[CLEANUP], 99thPercentileLatency(us), 1806
-[UPDATE], Operations, 40186
-[UPDATE], AverageLatency(us), 305.213805803016
-[UPDATE], MinLatency(us), 133
-[UPDATE], MaxLatency(us), 10071
-[UPDATE], 95thPercentileLatency(us), 528
-[UPDATE], 99thPercentileLatency(us), 933
-[UPDATE], Return=OK, 40186
+[CLEANUP], AverageLatency(us), 1481.0
+[CLEANUP], MinLatency(us), 1481
+[CLEANUP], MaxLatency(us), 1481
+[CLEANUP], 95thPercentileLatency(us), 1481
+[CLEANUP], 99thPercentileLatency(us), 1481
+[UPDATE], Operations, 40196
+[UPDATE], AverageLatency(us), 247.13242611205095
+[UPDATE], MinLatency(us), 129
+[UPDATE], MaxLatency(us), 55071
+[UPDATE], 95thPercentileLatency(us), 400
+[UPDATE], 99thPercentileLatency(us), 675
+[UPDATE], Return=OK, 40196
+
+-------------------------------------------------------------------
+
+mongo client connection created with mongodb://localhost:27017/ycsb
+[OVERALL], RunTime(ms), 23558
+[OVERALL], Throughput(ops/sec), 4244.842516342644
+[TOTAL_GCS_G1_Young_Generation], Count, 15
+[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 71
+[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 0.3013838186603277
+[TOTAL_GCS_G1_Concurrent_GC], Count, 0
+[TOTAL_GC_TIME_G1_Concurrent_GC], Time(ms), 0
+[TOTAL_GC_TIME_%_G1_Concurrent_GC], Time(%), 0.0
+[TOTAL_GCS_G1_Old_Generation], Count, 0
+[TOTAL_GC_TIME_G1_Old_Generation], Time(ms), 0
+[TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
+[TOTAL_GCs], Count, 15
+[TOTAL_GC_TIME], Time(ms), 71
+[TOTAL_GC_TIME_%], Time(%), 0.3013838186603277
+[READ], Operations, 59941
+[READ], AverageLatency(us), 216.09517692397523
+[READ], MinLatency(us), 104
+[READ], MaxLatency(us), 68479
+[READ], 95thPercentileLatency(us), 342
+[READ], 99thPercentileLatency(us), 701
+[READ], Return=OK, 59941
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 1683.0
+[CLEANUP], MinLatency(us), 1683
+[CLEANUP], MaxLatency(us), 1683
+[CLEANUP], 95thPercentileLatency(us), 1683
+[CLEANUP], 99thPercentileLatency(us), 1683
+[UPDATE], Operations, 40059
+[UPDATE], AverageLatency(us), 240.4569260340997
+[UPDATE], MinLatency(us), 116
+[UPDATE], MaxLatency(us), 13591
+[UPDATE], 95thPercentileLatency(us), 382
+[UPDATE], 99thPercentileLatency(us), 737
+[UPDATE], Return=OK, 40059
+
+-------------------------------------------------------------------
+
+mongo client connection created with mongodb://localhost:27017/ycsb
+[OVERALL], RunTime(ms), 23751
+[OVERALL], Throughput(ops/sec), 4210.349037935245
+[TOTAL_GCS_G1_Young_Generation], Count, 15
+[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 70
+[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 0.2947244326554671
+[TOTAL_GCS_G1_Concurrent_GC], Count, 0
+[TOTAL_GC_TIME_G1_Concurrent_GC], Time(ms), 0
+[TOTAL_GC_TIME_%_G1_Concurrent_GC], Time(%), 0.0
+[TOTAL_GCS_G1_Old_Generation], Count, 0
+[TOTAL_GC_TIME_G1_Old_Generation], Time(ms), 0
+[TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
+[TOTAL_GCs], Count, 15
+[TOTAL_GC_TIME], Time(ms), 70
+[TOTAL_GC_TIME_%], Time(%), 0.2947244326554671
+[READ], Operations, 60057
+[READ], AverageLatency(us), 216.38838103801388
+[READ], MinLatency(us), 107
+[READ], MaxLatency(us), 12679
+[READ], 95thPercentileLatency(us), 346
+[READ], 99thPercentileLatency(us), 594
+[READ], Return=OK, 60057
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 1371.0
+[CLEANUP], MinLatency(us), 1371
+[CLEANUP], MaxLatency(us), 1371
+[CLEANUP], 95thPercentileLatency(us), 1371
+[CLEANUP], 99thPercentileLatency(us), 1371
+[UPDATE], Operations, 39943
+[UPDATE], AverageLatency(us), 244.28623288185665
+[UPDATE], MinLatency(us), 120
+[UPDATE], MaxLatency(us), 65919
+[UPDATE], 95thPercentileLatency(us), 391
+[UPDATE], 99thPercentileLatency(us), 646
+[UPDATE], Return=OK, 39943
 
 -------------------------------------------------------------------
 

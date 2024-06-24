@@ -24,37 +24,37 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_kernel_notracing
 done  
 
+##########
+
 kernel_api=o
-
-sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -k $kernel_api > trace_terasort_kernel_output &
-sleep 5
-
 rm terasort_results_kernel_output
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -k $kernel_api > traces_terasort/kernel_api/trace_terasort_kernel_output_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_kernel_output
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_kernel_output
+    pkill python3
 done    
 
-pkill python3
+
+##########
 
 kernel_api=s
-
-sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -k $kernel_api > trace_terasort_kernel_submit &
-sleep 5
-
 rm terasort_results_kernel_submit
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -k $kernel_api > traces_terasort/kernel_api/trace_terasort_kernel_submit_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_kernel_submit
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_kernel_submit
+    pkill python3
 done    
 
-pkill python3
 
 ## Output file for storing extracted run times
 output_file="run_times_kernel_api.csv"

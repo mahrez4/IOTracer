@@ -23,6 +23,7 @@ if [ -z "$1" ] && [ -z "$2"]; then
     for dir in *_tests; do
         echo -e "\n${CYAN}  **** Working on $dir   ****${NC}\n"
         cd $script_path/$dir
+        rm -rf traces_*/*/trace_*
         echo -e "\n${RED}   **** Starting Ringbuffer benchmark in $dir   ****${NC}\n"
         ./run_benchmarks_ringbuffer.sh
         echo -e "\n${RED}   **** Starting Userspace API benchmark in $dir   ****${NC}\n"
@@ -38,6 +39,7 @@ if [ ! -z "$1" ] && [ -z "$2" ]; then
     for dir in *_tests; do
         echo -e "\n${CYAN}  **** Working on $dir   ****${NC}\n"
         cd $script_path/$dir
+        rm -rf traces_*/*/trace_*
         echo -e "\n${RED}   **** Starting Ringbuffer benchmark in $dir   ****${NC}\n"
         ./run_benchmarks_ringbuffer.sh $1 
         echo -e "\n${RED}   **** Starting Userspace API benchmark in $dir   ****${NC}\n"
@@ -53,6 +55,7 @@ if [ ! -z "$1" ] && [ ! -z "$2" ]; then
     dir=$2
     echo -e "\n${CYAN}  **** Working on $dir   ****${NC}\n"
     cd $script_path/$dir
+    rm -rf traces_*/*/trace_*
     echo -e "\n${RED}   **** Starting Ringbuffer benchmark in $dir   ****${NC}\n"
     ./run_benchmarks_ringbuffer.sh $1 
     echo -e "\n${RED}   **** Starting Userspace API benchmark in $dir   ****${NC}\n"

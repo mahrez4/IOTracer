@@ -30,7 +30,7 @@ storage_device=d
 rm terasort_results_storage_disk
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -s $storage_device > trace_terasort_storage_disk &
+    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -s $storage_device > traces_terasort/storage/trace_terasort_storage_disk_$i &
     sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
@@ -45,7 +45,7 @@ storage_device=r
 rm terasort_results_storage_ram
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -s $storage_device > /tmp/trace_terasort_storage_ram &
+    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -s $storage_device > /tmp/trace_terasort_storage_ram_$i &
     sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
