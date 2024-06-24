@@ -29,35 +29,32 @@ done
 
 userspace_api=p
 
-sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b -u $userspace_api > trace_postmark_userspace_poll &
-sleep 5
-
 rm postmark_results_userspace_poll
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b -u $userspace_api > traces_postmark/userspace_api/trace_postmark_userspace_poll_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_userspace_poll
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_userspace_poll
+    pkill python3
 done    
-
-pkill python3
 
 ##########
 
 userspace_api=c
 
-sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b -u $userspace_api > trace_postmark_userspace_consume &
-sleep 5
-
 rm postmark_results_userspace_consume
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b -u $userspace_api > traces_postmark/userspace_api/trace_postmark_userspace_consume_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_userspace_consume
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_userspace_consume
+    pkill python3
 done    
 
-pkill python3
 
 ## Output file for storing extracted run times
 output_file="run_times_userspace_api.csv"

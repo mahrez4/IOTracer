@@ -622,7 +622,7 @@ int generic_file_read_iter_Leave(struct pt_regs *ctx, struct kiocb *iocb, struct
 }
 
 
-ssize_t btrfs_file_write_iter_Entry(struct pt_regs *ctx, struct kiocb *iocb, struct iov_iter *from){
+ssize_t fs_file_write_iter_Entry(struct pt_regs *ctx, struct kiocb *iocb, struct iov_iter *from){
 	char comm[20];
 	#ifdef app_only
 		bpf_get_current_comm(&comm, sizeof(comm));
@@ -680,7 +680,7 @@ ssize_t btrfs_file_write_iter_Entry(struct pt_regs *ctx, struct kiocb *iocb, str
 }
 
 
-ssize_t btrfs_file_write_iter_Leave(struct pt_regs *ctx, struct kiocb *iocb, struct iov_iter *from){
+ssize_t fs_file_write_iter_Leave(struct pt_regs *ctx, struct kiocb *iocb, struct iov_iter *from){
 	char comm[20];
 	#ifdef app_only
 		bpf_get_current_comm(&comm, sizeof(comm));
@@ -745,7 +745,7 @@ ssize_t btrfs_file_write_iter_Leave(struct pt_regs *ctx, struct kiocb *iocb, str
 }
 
 
-ssize_t btrfs_file_read_iter_Entry(struct pt_regs *ctx, struct kiocb *iocb, struct iov_iter *to){
+ssize_t fs_file_read_iter_Entry(struct pt_regs *ctx, struct kiocb *iocb, struct iov_iter *to){
 	char comm[20];
 	#ifdef app_only
 		bpf_get_current_comm(&comm, sizeof(comm));
@@ -804,7 +804,7 @@ ssize_t btrfs_file_read_iter_Entry(struct pt_regs *ctx, struct kiocb *iocb, stru
 }
 
 
-ssize_t btrfs_file_read_iter_Leave(struct pt_regs *ctx, struct kiocb *iocb, struct iov_iter *to){
+ssize_t fs_file_read_iter_Leave(struct pt_regs *ctx, struct kiocb *iocb, struct iov_iter *to){
 	char comm[20];
 	#ifdef app_only
 		bpf_get_current_comm(&comm, sizeof(comm));

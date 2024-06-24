@@ -47,7 +47,7 @@ def check_parameters(use_Perfbuf, use_Ringbuf, use_Submit, use_Output, use_Poll,
 	if err:
 		sys.exit(0)
 
-def signal_handler(sig, frame):
+def signal_handler_exit(sig, frame):
 	if store_RAM:
 		print(trace,flush=True)
 	s = ""
@@ -61,6 +61,18 @@ def signal_handler(sig, frame):
 	#	os.system('pkill python')
 	#else:
 	#	sys.exit(0)
+
+
+def get_filesystem_type(path):
+    with open('/proc/mounts', 'r') as f:
+        mounts = f.readlines()
+    path = os.path.abspath(path)
+    for mount in mounts:
+        mount_info = mount.split()
+        device, mount_point, fs_type = mount_info[0], mount_info[1], mount_info[2]
+        if path.startswith(mount_point):
+            return fs_type
+    return None
 
 def afficher_evenement(cpu, data, size):
 	global time  
@@ -328,14 +340,30 @@ if(level.find('p')!=-1 or level.find('P')!=-1 ):
 		b.attach_kretprobe(event="generic_file_read_iter", fn_name="generic_file_read_iter_Leave")
 
 ######### FS probes ############
-	
-if(level.find('f')!=-1 or level.find('F')!=-1 ):
-	print("activate fs probes")
-	b.attach_kprobe(event="btrfs_file_write_iter", fn_name="btrfs_file_write_iter_Entry")
-	b.attach_kprobe(event="btrfs_file_read_iter", fn_name="btrfs_file_read_iter_Entry")
-	if trace_exits:
-		b.attach_kretprobe(event="btrfs_file_write_iter", fn_name="btrfs_file_write_iter_Leave")
-		b.attach_kretprobe(event="btrfs_file_read_iter", fn_name="btrfs_file_read_iter_Leave")
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+fs_type = get_filesystem_type(script_dir)
+
+#btrfs
+if fs_type == 'btrfs':
+	if(level.find('f')!=-1 or level.find('F')!=-1 ):
+		print("activate fs probes")
+		b.attach_kprobe(event="btrfs_file_write_iter", fn_name="fs_file_write_iter_Entry")
+		b.attach_kprobe(event="btrfs_file_read_iter", fn_name="fs_file_read_iter_Entry")
+		if trace_exits:
+			b.attach_kretprobe(event="btrfs_file_write_iter", fn_name="fs_file_write_iter_Leave")
+			b.attach_kretprobe(event="btrfs_file_read_iter", fn_name="fs_file_read_iter_Leave")
+#ext4
+elif fs_type == 'ext4':
+	if(level.find('f')!=-1 or level.find('F')!=-1 ):
+		print("activate fs probes")
+		b.attach_kprobe(event="ext4_file_write_iter", fn_name="fs_file_write_iter_Entry")
+		b.attach_kprobe(event="ext4_file_read_iter", fn_name="fs_file_read_iter_Entry")
+		if trace_exits:
+			b.attach_kretprobe(event="ext4_file_write_iter", fn_name="fs_file_write_iter_Leave")
+			b.attach_kretprobe(event="ext4_file_read_iter", fn_name="fs_file_read_iter_Leave")
+
 
 ######### BLK probes ############ 
 	
@@ -406,9 +434,8 @@ if use_Perfbuf:
 if use_Ringbuf:
 	b["events"].open_ring_buffer(afficher_evenement)
 
-
-signal.signal(signal.SIGINT, signal_handler)
-signal.signal(signal.SIGTERM, signal_handler)
+signal.signal(signal.SIGINT, signal_handler_exit)
+signal.signal(signal.SIGTERM, signal_handler_exit)
 
 # ------------------ Report traces to user -----------------------
 # -------------------------------------------------------------------------

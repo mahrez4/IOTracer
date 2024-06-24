@@ -27,66 +27,62 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_notracing
 done  
 
+########## 
+
 inode=`stat -c '%i' $traced_path`
-
 ringbuf_size=32
-sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > trace_fio_ringbuf_128kb &
-sleep 5
-
 rm fio_results_ringbuf_128kb
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > traces_fio/ringbuffer/trace_fio_ringbuf_128kb_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_128kb
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_128kb
+    pkill python3
 done    
 
-pkill python3
+########## 
 
 ringbuf_size=1024
-
-sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > trace_fio_ringbuf_4mb &
-sleep 5
-
 rm fio_results_ringbuf_4mb
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > traces_fio/ringbuffer/trace_fio_ringbuf_4mb_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_4mb
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_4mb
+    pkill python3
 done    
 
-pkill python3
+########## 
 
 ringbuf_size=32768
-
-sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > trace_fio_ringbuf_128mb &
-sleep 5
-
 rm fio_results_ringbuf_128mb
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > traces_fio/ringbuffer/trace_fio_ringbuf_128mb_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_128mb
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_128mb
+    pkill python3
 done    
 
-pkill python3
+########## 
 
 ringbuf_size=262144
-
-sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > trace_fio_ringbuf_1gb &
-sleep 5
-
 rm fio_results_ringbuf_1gb
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > traces_fio/ringbuffer/trace_fio_ringbuf_1gb_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_1gb
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_1gb
+    pkill python3
 done    
-
-pkill python3
 
 ## Output file for storing extracted run times
 output_file="run_times_ringbufsize.csv"

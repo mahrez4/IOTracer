@@ -21,38 +21,36 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_storage_notracing
 done  
 
+##########
+
 inode=`stat -c '%i' $traced_path`
 
 storage_device=d
-
-sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -s $storage_device > trace_fio_storage_disk &
-sleep 5
-
 rm fio_results_storage_disk
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -s $storage_device > traces_fio/storage/trace_fio_storage_disk_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_storage_disk
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_storage_disk
+    pkill python3
 done    
 
-pkill python3
+##########
 
 storage_device=r
-
-sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b > /tmp/trace_fio_storage_ram &
-sleep 5
-
 rm fio_results_storage_ram
 
 for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b > /tmp/trace_fio_storage_ram_$i &
+    sleep 5
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_storage_ram
-    truncate -s 0 /tmp/trace_fio_storage_ram
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_storage_ram
+    pkill python3
 done    
 
-pkill python3
 
 ## Output file for storing extracted run times
 output_file="run_times_storage.csv"

@@ -1,4 +1,4 @@
-Userspace Api,run_0,run_1,run_2,run_3,run_4
-consume,61.952,60.096,61.126,60.238,59.314
-notracing,45.465,47.488,46.636,45.649,45.501
-poll,48.579,50.586,59.123,64.296,63.155
+Userspace Api,run_0
+consume,50.618
+notracing,45.602
+poll,55.962
