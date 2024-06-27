@@ -28,11 +28,11 @@ rm ycsb_results_storage_disk
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod  -l vfb -s $storage_device > traces_ycsb/storage/trace_ycsb_storage_disk_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_storage_disk
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_storage_disk
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 ##########
@@ -42,11 +42,11 @@ rm ycsb_results_storage_ram
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod  -l vfb -s $storage_device > /tmp/trace_ycsb_storage_ram_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_storage_ram
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_storage_ram
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 

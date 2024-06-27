@@ -31,12 +31,12 @@ rm terasort_results_storage_disk
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -s $storage_device > traces_terasort/storage/trace_terasort_storage_disk_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_storage_disk
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_storage_disk
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 ##########
@@ -46,15 +46,15 @@ rm terasort_results_storage_ram
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -s $storage_device > /tmp/trace_terasort_storage_ram_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_storage_ram
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_storage_ram
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
-pkill python3
+pkill python3; sleep 1;
 
 ## Output file for storing extracted run times
 output_file="run_times_storage.csv"

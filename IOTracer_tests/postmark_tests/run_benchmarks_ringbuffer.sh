@@ -36,11 +36,11 @@ rm postmark_results_ringbuf_128kb
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b -size $ringbuf_size > traces_postmark/ringbuffer/trace_postmark_ringbuf_128kb_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_128kb
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_ringbuf_128kb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 
@@ -51,11 +51,11 @@ rm postmark_results_ringbuf_4mb
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b -size $ringbuf_size > traces_postmark/ringbuffer/trace_postmark_ringbuf_4mb_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_4mb
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_ringbuf_4mb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 
@@ -66,11 +66,11 @@ rm postmark_results_ringbuf_128mb
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b -size $ringbuf_size > traces_postmark/ringbuffer/trace_postmark_ringbuf_128mb_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_128mb
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_ringbuf_128mb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 
@@ -82,11 +82,11 @@ rm postmark_results_ringbuf_1G
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b -size $ringbuf_size > traces_postmark/ringbuffer/trace_postmark_ringbuf_1G_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_1G
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_ringbuf_1G
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
     

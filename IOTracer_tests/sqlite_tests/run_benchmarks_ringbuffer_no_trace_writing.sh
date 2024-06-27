@@ -37,11 +37,11 @@ rm sqlite_results_ringbuf_128kb db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size >> /dev/null &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_128kb >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_ringbuf_128kb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 ##########
@@ -51,11 +51,11 @@ rm sqlite_results_ringbuf_4mb db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size >> /dev/null &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_4mb >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_ringbuf_4mb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 ##########
@@ -65,11 +65,11 @@ rm sqlite_results_ringbuf_128mb db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size >> /dev/null &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_128mb >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_ringbuf_128mb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 
@@ -81,11 +81,11 @@ rm sqlite_results_ringbuf_1G db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size >> /dev/null &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_1G >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> /dev/null
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 

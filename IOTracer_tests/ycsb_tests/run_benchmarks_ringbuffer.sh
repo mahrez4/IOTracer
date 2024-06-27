@@ -32,11 +32,11 @@ rm ycsb_results_ringbuf_128kb
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -size $ringbuf_size > traces_ycsb/ringbuffer/trace_ycsb_ringbuf_128kb_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_ringbuf_128kb
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_128kb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 ##########
@@ -46,11 +46,11 @@ rm ycsb_results_ringbuf_4mb
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -size $ringbuf_size > traces_ycsb/ringbuffer/trace_ycsb_ringbuf_4mb_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_ringbuf_4mb
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_4mb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 ##########
@@ -60,11 +60,11 @@ rm ycsb_results_ringbuf_128mb
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -size $ringbuf_size > traces_ycsb/ringbuffer/trace_ycsb_ringbuf_128mb_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_ringbuf_128mb
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_128mb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 ##########
@@ -74,11 +74,11 @@ rm ycsb_results_ringbuf_1gb
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l vfb -size $ringbuf_size > traces_ycsb/ringbuffer/trace_ycsb_ringbuf_1gb_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_ringbuf_1gb
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_ringbuf_1gb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 

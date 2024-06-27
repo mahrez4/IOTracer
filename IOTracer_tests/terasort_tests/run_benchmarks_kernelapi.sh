@@ -31,12 +31,12 @@ rm terasort_results_kernel_output
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -k $kernel_api > traces_terasort/kernel_api/trace_terasort_kernel_output_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_kernel_output
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_kernel_output
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 
@@ -47,12 +47,12 @@ rm terasort_results_kernel_submit
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -k $kernel_api > traces_terasort/kernel_api/trace_terasort_kernel_submit_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_kernel_submit
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_kernel_submit
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 

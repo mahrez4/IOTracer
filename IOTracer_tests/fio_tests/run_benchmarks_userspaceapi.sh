@@ -30,11 +30,11 @@ rm fio_results_userspace_poll
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -u $userspace_api > traces_fio/userspace_api/trace_fio_userspace_poll_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_userspace_poll
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_poll
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 
@@ -46,11 +46,11 @@ rm fio_results_userspace_consume
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -u $userspace_api > traces_fio/userspace_api/trace_fio_userspace_consume_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_userspace_consume
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_consume
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 

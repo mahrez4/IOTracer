@@ -32,11 +32,11 @@ rm postmark_results_storage_disk
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t postmark --file -i $inode -l b -s $storage_device > traces_postmark/storage/trace_postmark_storage_disk_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_storage_disk
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_storage_disk
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 ########
@@ -46,11 +46,11 @@ rm postmark_results_storage_ram
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t postmark --file -i $inode -l b -s $storage_device > /tmp/trace_postmark_storage_ram_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_storage_ram
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_storage_ram
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 

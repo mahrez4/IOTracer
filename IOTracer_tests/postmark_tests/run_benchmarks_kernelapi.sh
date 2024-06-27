@@ -33,19 +33,19 @@ rm postmark_results_kernel_output
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t postmark --file -i $inode -l b -k $kernel_api > traces_postmark/kernel_api/trace_postmark_kernel_output_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_kernel_output
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_kernel_output
-    pkill python3
+    pkill python3; sleep 1;
 done    
 ²²
     sudo python3 $IOTRACER_PATH -t postmark --file -i $inode -l b -k $kernel_api > traces_postmark/kernel_api/trace_postmark_kernel_submit_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_kernel_submit
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_kernel_submit
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 

@@ -37,15 +37,15 @@ rm terasort_results_ringbuf_128kb
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > traces_terasort/ringbuffer/trace_terasort_ringbuf_128kb_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_128kb
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_128kb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
-pkill python3
+pkill python3; sleep 1;
 
 ##########
 
@@ -54,12 +54,12 @@ rm terasort_results_ringbuf_4mb
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > traces_terasort/ringbuffer/trace_terasort_ringbuf_4mb_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_4mb
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_4mb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 
@@ -71,15 +71,15 @@ rm terasort_results_ringbuf_128mb
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > traces_terasort/ringbuffer/trace_terasort_ringbuf_128mb_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_128mb
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_128mb
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
-pkill python3
+pkill python3; sleep 1;
 
 ##########
 
@@ -88,15 +88,15 @@ rm terasort_results_ringbuf_1G
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -size $ringbuf_size > traces_terasort/ringbuffer/trace_terasort_ringbuf_1G_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_1G
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_1G
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
-pkill python3
+pkill python3; sleep 1;
 
 ## Output file for storing extracted run times
 output_file="run_times_ringbufsize.csv"

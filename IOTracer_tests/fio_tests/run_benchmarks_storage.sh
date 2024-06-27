@@ -30,11 +30,11 @@ rm fio_results_storage_disk
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -s $storage_device > traces_fio/storage/trace_fio_storage_disk_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_storage_disk
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_storage_disk
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 ##########
@@ -44,11 +44,11 @@ rm fio_results_storage_ram
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b > /tmp/trace_fio_storage_ram_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_storage_ram
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_storage_ram
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 

@@ -29,11 +29,11 @@ rm fio_results_kernel_output
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -k $kernel_api > traces_fio/kernel_api/trace_fio_kernel_output_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_kernel_output
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_kernel_output
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 ##########
@@ -43,11 +43,11 @@ rm fio_results_kernel_submit
 
 for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -k $kernel_api > traces_fio/kernel_api/trace_fio_kernel_submit_$i &
-    sleep 5
+    sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_kernel_submit
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_kernel_submit
-    pkill python3
+    pkill python3; sleep 1;
 done    
 
 
