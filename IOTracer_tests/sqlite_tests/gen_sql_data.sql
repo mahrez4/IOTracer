@@ -1,5 +1,6 @@
 PRAGMA synchronous=OFF;
 PRAGMA journal_mode=MEMORY;
+--PRAGMA page_size=1024;
 
 -- PRAGMA count_changes=OFF;
 -- PRAGMA temp_store=MEMORY;

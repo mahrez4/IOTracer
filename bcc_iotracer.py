@@ -56,8 +56,8 @@ def signal_handler_exit(sig, frame):
 		v.value = 0
 	print(s,flush=True)
 	print('Exiting...',flush=True)
-	sys.exit(0)
-	#os._exit(1)
+	#sys.exit(0)
+	os._exit(1)
 	#os.system("pkill -9 -f 'python.*[^ ]*bcc_iotracer.py'")
 	#if sig == signal.SIGINT:
 	#	os.system('pkill python')
