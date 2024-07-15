@@ -30,7 +30,7 @@ userspace_api=p
 rm terasort_results_userspace_poll
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -u $userspace_api > traces_terasort/userspace_api/trace_terasort_userspace_poll_$i &
+    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l b -u $userspace_api > traces_terasort/userspace_api/trace_terasort_userspace_poll_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
@@ -46,7 +46,7 @@ userspace_api=c
 rm terasort_results_userspace_consume
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -u $userspace_api > traces_terasort/userspace_api/trace_terasort_userspace_consume_$i &
+    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l b -u $userspace_api > traces_terasort/userspace_api/trace_terasort_userspace_consume_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output

@@ -30,7 +30,7 @@ kernel_api=o
 rm terasort_results_kernel_output
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -k $kernel_api > traces_terasort/kernel_api/trace_terasort_kernel_output_$i &
+    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l b -k $kernel_api > traces_terasort/kernel_api/trace_terasort_kernel_output_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output
@@ -46,7 +46,7 @@ kernel_api=s
 rm terasort_results_kernel_submit
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l vfb -k $kernel_api > traces_terasort/kernel_api/trace_terasort_kernel_submit_$i &
+    sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l b -k $kernel_api > traces_terasort/kernel_api/trace_terasort_kernel_submit_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     rm -rf terasort_datadir/terasort_output

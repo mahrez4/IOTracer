@@ -1,10 +1,10 @@
-
 #include <linux/fs.h>
 #include <linux/aio.h>
 #include <linux/uio.h>
 #include <linux/bio.h>
 #include <linux/blk_types.h>
 #include <linux/blk-mq.h>
+//#include </usr/include/bpf/bpf_helpers.h>
 //#include <linux/genhd.h>
 #include <linux/dcache.h> 
 #include <linux/path.h>
@@ -12,6 +12,7 @@
 #include <linux/mm.h>
 #include <linux/mm_types.h>
 #include <linux/file.h>
+#include <linux/fdtable.h>
 
 #define DIO_PAGES		64
 #define IO_READ_EVENT  ('R')
@@ -275,6 +276,13 @@ ssize_t VFS_read_Entry(struct pt_regs *ctx,struct file * file, const char __user
 		struct data_log *log = &log_struct;
 	#endif
 
+	//bpf_trace_printk("%p - VFS file pointer", file);
+	//struct task_struct *t = (struct task_struct *)bpf_get_current_task();
+	//bpf_trace_printk("VFS read files");
+	//for (int x = 0; x < NR_OPEN_DEFAULT; x++)
+	//{
+	//	bpf_trace_printk("%p - %d", t->files->fd_array[x],x);
+	//}
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
 	log->timestamp = bpf_ktime_get_ns();
 	log->address = file->f_pos;	
@@ -645,7 +653,6 @@ ssize_t fs_file_write_iter_Entry(struct pt_regs *ctx, struct kiocb *iocb, struct
 		struct data_log log_struct = {};
 		struct data_log *log = &log_struct;
 	#endif
-
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
 	size_t s = iov_iter_count(from);
 	log->timestamp = bpf_ktime_get_ns();
@@ -770,6 +777,13 @@ ssize_t fs_file_read_iter_Entry(struct pt_regs *ctx, struct kiocb *iocb, struct 
 		struct data_log *log = &log_struct;
 	#endif
 
+	//struct task_struct *t = (struct task_struct *)bpf_get_current_task();
+	//bpf_trace_printk("fs_file_read_iter files");
+	//for (int x = 0; x < t->files->max_fds; x++)
+	//{
+	//	bpf_trace_printk("%p - %d", t->files->fd[x],x);
+	//}
+	//bpf_trace_printk("fileSys: prog_iter_type = %d: %p\n", to->iter_type, &to->__ubuf_iovec);
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
 	log->timestamp = bpf_ktime_get_ns();
 	log->address = iocb->ki_pos; 
@@ -870,11 +884,11 @@ ssize_t fs_file_read_iter_Leave(struct pt_regs *ctx, struct kiocb *iocb, struct 
 blk_qc_t submit_bio_Entry(struct pt_regs *ctx, struct bio* bio) {
 	
 	char comm[20];
-	#ifdef app_only
-		bpf_get_current_comm(&comm, sizeof(comm));
-		if (filter_comm(comm))
-			return 1;
-	#endif
+	//#ifdef app_only
+	//	bpf_get_current_comm(&comm, sizeof(comm));
+	//	if (filter_comm(comm))
+	//		return 1;
+	//#endif
 	
 	struct dio * dio = (struct dio *) bio->bi_private;
 	//unsigned long i_ino  = dio->refcount;
@@ -887,6 +901,14 @@ blk_qc_t submit_bio_Entry(struct pt_regs *ctx, struct bio* bio) {
 
 	//if(FILTER_DIR)
 	//	return 0;
+
+	//struct task_struct *t = (struct task_struct *)bpf_get_current_task();
+	//bpf_trace_printk("submit bio files");
+	//for (int x = 0; x < NR_OPEN_DEFAULT; x++)
+	//{
+	//	bpf_trace_printk("%p - %d", t->files->fd_array[x],x);
+	//}
+	//bpf_trace_printk("Block: bvec addr = %p\n", bio->bi_io_vec);
 
 	/********************************* NO FILTERING BECAUSE i_ino and i_inop = 0 ***************************/
 	/********************************* NO FILTERING BECAUSE i_ino and i_inop = 0 ***************************/
@@ -1154,6 +1176,33 @@ struct tp_syscalls_read_write {
     size_t count;
 };
 
+struct tp_syscalls_preadv_pwritev {
+	int __syscall_nr;
+    unsigned long fd;
+    const struct iovec * vec;
+    unsigned long vlen;
+    unsigned long pos_l;
+    unsigned long pos_h;
+};
+
+struct tp_syscalls_preadv2_pwritev2 {
+	int __syscall_nr;
+    unsigned long fd;
+    const struct iovec * vec;
+    unsigned long vlen;
+    unsigned long pos_l;
+    unsigned long pos_h;
+    rwf_t flags;
+};
+
+struct tp_syscalls_pread64_pwrite64 {
+	int __syscall_nr;
+    unsigned int fd;
+    char * buf;
+    size_t count;
+    loff_t pos;
+};
+
 struct tp_blk_rq_issue {
 	dev_t dev;
     sector_t sector;
@@ -1205,6 +1254,40 @@ struct tp_nvme_complete_rq_struct {
     u16 status;
 };
 
+struct tp_scsi_dispatch_cmd_start {
+	unsigned int host_no;
+    unsigned int channel;
+    unsigned int id;
+    unsigned int lun;
+    unsigned int opcode;
+    unsigned int cmd_len;
+    int driver_tag;
+    int scheduler_tag;
+    unsigned int data_sglen;
+    unsigned int prot_sglen;
+    unsigned char prot_op;
+    __data_loc unsigned char[] cmnd;
+};
+
+struct scsi_dispatch_cmd_done {
+	unsigned int host_no;
+    unsigned int channel;
+    unsigned int id;
+    unsigned int lun;
+    int result;
+    unsigned int opcode;
+    unsigned int cmd_len;
+    int driver_tag;
+    int scheduler_tag;
+    unsigned int data_sglen;
+    unsigned int prot_sglen;
+    unsigned char prot_op;
+    __data_loc unsigned char[] cmnd;
+    u8 sense_key;
+    u8 asc;
+    u8 ascq;
+};
+
 ///
 ///
 /// READ AND WRITE SYSCALLS
@@ -1218,23 +1301,44 @@ int tp_sys_enter_write(struct tp_syscalls_read_write *args) {
 		if (filter_comm(comm))
 			return 1;
 	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(15);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
 
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
-	struct data_log log = {};
-	log.timestamp = bpf_ktime_get_ns();
-	log.address = -1;
-	log.size = args->count;
-	log.tid = bpf_get_current_pid_tgid();
-	log.pid = (pid_t)(pid_tgid >> 32);
-	log.level = 'S';
-	log.op  = 'W';
-	log.probe = '0';
-	log.label = 'E';
-	log.inode = -1;
-	log.inode = -1;
-	bpf_get_current_comm(&log.comm, sizeof(log.comm));
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = args->count;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'W';
+	log->probe = '0';
+	log->label = 'E';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
 	#ifdef perfbuf
-		events.perf_submit(args, &log, sizeof(log));
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(15);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(15);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
 	#endif
 	return 0;
 }
@@ -1246,23 +1350,44 @@ int tp_sys_exit_write(struct tp_syscalls_read_write *args) {
 		if (filter_comm(comm))
 			return 1;
 	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(16);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
 
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
-	struct data_log log = {};
-	log.timestamp = bpf_ktime_get_ns();
-	log.address = -1;
-	log.size = args->count;
-	log.tid = bpf_get_current_pid_tgid();
-	log.pid = (pid_t)(pid_tgid >> 32);
-	log.level = 'S';
-	log.op  = 'W';
-	log.probe = '0';
-	log.label = 'L';
-	log.inode = -1;
-	log.inode = -1;
-	bpf_get_current_comm(&log.comm, sizeof(log.comm));
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = args->count;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'W';
+	log->probe = '0';
+	log->label = 'L';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
 	#ifdef perfbuf
-		events.perf_submit(args, &log, sizeof(log));
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(16);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(16);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
 	#endif
 	return 0;
 }
@@ -1274,23 +1399,44 @@ int tp_sys_enter_read(struct tp_syscalls_read_write *args) {
 		if (filter_comm(comm))
 			return 1;
 	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(17);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
 
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
-	struct data_log log = {};
-	log.timestamp = bpf_ktime_get_ns();
-	log.address = -1;
-	log.size = args->count;
-	log.tid = bpf_get_current_pid_tgid();
-	log.pid = (pid_t)(pid_tgid >> 32);
-	log.level = 'S';
-	log.op  = 'R';
-	log.probe = '0';
-	log.label = 'E';
-	log.inode = -1;
-	log.inode = -1;
-	bpf_get_current_comm(&log.comm, sizeof(log.comm));
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = args->count;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'R';
+	log->probe = '0';
+	log->label = 'E';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
 	#ifdef perfbuf
-		events.perf_submit(args, &log, sizeof(log));
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(17);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(17);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
 	#endif
 	return 0;
 }
@@ -1302,23 +1448,648 @@ int tp_sys_exit_read(struct tp_syscalls_read_write *args) {
 		if (filter_comm(comm))
 			return 1;
 	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(18);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
 
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
-	struct data_log log = {};
-	log.timestamp = bpf_ktime_get_ns();
-	log.address = -1;
-	log.size = args->count;
-	log.tid = bpf_get_current_pid_tgid();
-	log.pid = (pid_t)(pid_tgid >> 32);
-	log.level = 'S';
-	log.op  = 'R';
-	log.probe = '0';
-	log.label = 'L';
-	log.inode = -1;
-	log.inode = -1;
-	bpf_get_current_comm(&log.comm, sizeof(log.comm));
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = args->count;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'R';
+	log->probe = '0';
+	log->label = 'L';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
 	#ifdef perfbuf
-		events.perf_submit(args, &log, sizeof(log));
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(18);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(18);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+//
+// pread64 and pwrite64
+//
+
+
+int tp_sys_enter_pwrite64(struct tp_syscalls_pread64_pwrite64 *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(19);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = (unsigned long) args->pos;
+	bpf_trace_printk("pos: %lx", ((unsigned long)(args->pos)));
+	log->size = args->count;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'W';
+	log->probe = '0';
+	log->label = 'E';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(19);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(19);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+int tp_sys_exit_pwrite64(struct tp_syscalls_pread64_pwrite64 *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(20);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	//log->address = (unsigned long) args->pos;
+	log->size = args->count;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'W';
+	log->probe = '0';
+	log->label = 'L';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(20);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(20);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+int tp_sys_enter_pread64(struct tp_syscalls_pread64_pwrite64 *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(21);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = (unsigned long) args->pos;
+	log->size = args->count;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'R';
+	log->probe = '0';
+	log->label = 'E';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(21);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(21);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+int tp_sys_exit_pread64(struct tp_syscalls_pread64_pwrite64 *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(22);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	//log->address = (unsigned long) args->pos;
+	log->size = args->count;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'R';
+	log->probe = '0';
+	log->label = 'L';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(22);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(22);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+//
+// preadv and pwritev
+//
+
+
+int tp_sys_enter_pwritev(struct tp_syscalls_preadv_pwritev *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(23);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = -1;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'W';
+	log->probe = '0';
+	log->label = 'E';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(23);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(23);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+int tp_sys_exit_pwritev(struct tp_syscalls_preadv_pwritev *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(24);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = -1;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'W';
+	log->probe = '0';
+	log->label = 'L';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(24);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(24);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+int tp_sys_enter_preadv(struct tp_syscalls_preadv_pwritev *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(25);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = -1;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'R';
+	log->probe = '0';
+	log->label = 'E';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(25);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(25);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+int tp_sys_exit_preadv(struct tp_syscalls_preadv_pwritev *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(26);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = -1;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'R';
+	log->probe = '0';
+	log->label = 'L';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(26);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(26);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+//
+// preadv2 and pwritev2
+//
+
+
+int tp_sys_enter_pwritev2(struct tp_syscalls_preadv2_pwritev2 *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(27);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = -1;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'W';
+	log->probe = '0';
+	log->label = 'E';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(27);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(27);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+int tp_sys_exit_pwritev2(struct tp_syscalls_preadv2_pwritev2 *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(28);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = -1;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'W';
+	log->probe = '0';
+	log->label = 'L';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(28);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(28);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+int tp_sys_enter_preadv2(struct tp_syscalls_preadv2_pwritev2 *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(29);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = -1;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'R';
+	log->probe = '0';
+	log->label = 'E';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(29);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(29);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+int tp_sys_exit_preadv2(struct tp_syscalls_preadv2_pwritev2 *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(30);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = -1;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'S';
+	log->op  = 'R';
+	log->probe = '0';
+	log->label = 'L';
+	log->inode = -1;
+	log->inodep = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(30);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(30);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
 	#endif
 	return 0;
 }
@@ -1503,6 +2274,7 @@ int tp_blk_bio_complete(struct tp_blk_bio_complete *args) {
 /// DEVICE DRIVER 
 ///
 
+//NVME
 /*	char disk[32]
     int ctrl_id
     int qid
@@ -1521,55 +2293,224 @@ int tp_nvme_setup_cmd(struct tp_nvme_setup_cmd_struct *args) {
 		if (filter_comm(comm))
 			return 1;
 	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(31);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+	//bpf_trace_printk("disk %s : ctrl_id %d : qid  %d",args->disk, args->ctrl_id, args->qid);
+	//bpf_trace_printk("opcode %d : flags %d : fctype %d", args->opcode, args->flags, args->fctype);
+	//bpf_trace_printk("cid %d : nsid %d : cdw10 %s", args->cid, args->nsid, args->cdw10);
 
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
-	struct data_log log = {};
-	bpf_trace_printk("disk %s : ctrl_id %d : qid  %d",args->disk, args->ctrl_id, args->qid);
-	bpf_trace_printk("opcode %d : flags %d : fctype %d", args->opcode, args->flags, args->fctype);
-	bpf_trace_printk("cid %d : nsid %d : cdw10 %s", args->cid, args->nsid, args->cdw10);
-
-	log.timestamp = bpf_ktime_get_ns();
-	log.address = -1;
-	log.size = 9090;
-	log.tid = bpf_get_current_pid_tgid();
-	log.pid = (pid_t)(pid_tgid >> 32);
-	log.level = 'D';
-	log.op  = 'R';
-	log.probe = '0';
-	log.label = 'E';
-	log.inode = -1;
-	log.inode = -1;
-	bpf_get_current_comm(&log.comm, sizeof(log.comm));
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = 9090;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'D';
+	log->op  = 'R';
+	log->probe = '0';
+	log->label = 'E';
+	log->inode = -1;
+	log->inode = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
 	#ifdef perfbuf
-		events.perf_submit(args, &log, sizeof(log));
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(31);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(31);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
 	#endif
 	return 0;
 }
 
 int tp_nvme_complete_rq(struct tp_nvme_complete_rq_struct *args) {
 	char comm[20];
-	//#ifdef app_only
-	//	bpf_get_current_comm(&comm, sizeof(comm));
-	//	if (filter_comm(comm))
-	//		return 1;
-	//#endif
-
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(32);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
-	struct data_log log = {};
-	log.timestamp = bpf_ktime_get_ns();
-	log.address = -1;
-	log.size = 9090;
-	log.tid = bpf_get_current_pid_tgid();
-	log.pid = (pid_t)(pid_tgid >> 32);
-	log.level = 'D';
-	log.op  = 'R';
-	log.probe = '0';
-	log.label = 'L';
-	log.inode = -1;
-	log.inode = -1;
-	bpf_get_current_comm(&log.comm, sizeof(log.comm));
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = 9090;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'D';
+	log->op  = 'R';
+	log->probe = '0';
+	log->label = 'L';
+	log->inode = -1;
+	log->inode = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
 	#ifdef perfbuf
-		events.perf_submit(args, &log, sizeof(log));
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(32);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(32);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+//SCSI 
+//tracepoint:scsi:scsi_dispatch_cmd_start
+  /*  unsigned int host_no
+    unsigned int channel
+    unsigned int id
+    unsigned int lun
+    unsigned int opcode
+    unsigned int cmd_len
+    int driver_tag
+    int scheduler_tag
+    unsigned int data_sglen
+    unsigned int prot_sglen
+    unsigned char prot_op
+    __data_loc unsigned char[] cmnd */
+
+//tracepoint:scsi:scsi_dispatch_cmd_done
+  /*  unsigned int host_no
+    unsigned int channel
+    unsigned int id
+    unsigned int lun
+    int result
+    unsigned int opcode
+    unsigned int cmd_len
+    int driver_tag
+    int scheduler_tag
+    unsigned int data_sglen
+    unsigned int prot_sglen
+    unsigned char prot_op
+    __data_loc unsigned char[] cmnd
+    u8 sense_key
+    u8 asc
+    u8 ascq */
+
+int tp_scsi_dispatch_cmd_start(struct tp_scsi_dispatch_cmd_start *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(32);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = 9090;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'D';
+	log->op  = 'R';
+	log->probe = '0';
+	log->label = 'L';
+	log->inode = -1;
+	log->inode = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(32);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(32);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
+	#endif
+	return 0;
+}
+
+int tp_scsi_dispatch_cmd_done(struct tp_scsi_dispatch_cmd_done_struct *args) {
+	char comm[20];
+	#ifdef app_only
+		bpf_get_current_comm(&comm, sizeof(comm));
+		if (filter_comm(comm))
+			return 1;
+	#endif
+	#ifdef submit  
+		struct data_log *log = events.ringbuf_reserve(sizeof(struct data_log));
+		if (!log) {
+			return inc_counter_lost_event(33);
+		}
+	#else
+		struct data_log log_struct = {};
+		struct data_log *log = &log_struct;
+	#endif
+	uint64_t pid_tgid = bpf_get_current_pid_tgid();
+	log->timestamp = bpf_ktime_get_ns();
+	log->address = -1;
+	log->size = 9090;
+	log->tid = bpf_get_current_pid_tgid();
+	log->pid = (pid_t)(pid_tgid >> 32);
+	log->level = 'D';
+	log->op  = 'R';
+	log->probe = '0';
+	log->label = 'L';
+	log->inode = -1;
+	log->inode = -1;
+	bpf_get_current_comm(&log->comm, sizeof(log->comm));
+	#ifdef perfbuf
+		if (events.perf_submit(args, log, sizeof(*log)) != 0) {
+			return inc_counter_lost_event(33);
+		}
+	#endif
+
+	#ifdef ringbuf
+		#ifdef output
+			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+				return inc_counter_lost_event(33);
+			}
+		#endif
+		#ifdef submit
+			events.ringbuf_submit(log, 0);
+		#endif
 	#endif
 	return 0;
 }

@@ -52,7 +52,65 @@ def signal_handler_exit(sig, frame):
 		print(trace,flush=True)
 	s = ""
 	for k,v in b["loss_counters"].items():
-		s += f"ID {k.value}: {v.value}\t"
+		if k.value == 0:
+			event = "VFS_write_Entry"
+		elif k.value == 1:
+			event = "VFS_write_Leave"
+		elif k.value == 2:
+			event = "VFS_read_Entry"
+		elif k.value == 3:
+			event = "VFS_read_Leave"
+		elif k.value == 4:
+			event = "generic_file_write_iter_Entry"
+		elif k.value == 5:
+			event = "generic_file_write_iter_Leave"
+		elif k.value == 6:
+			event = "generic_file_read_iter_Entry"
+		elif k.value == 7:
+			event = "generic_file_read_iter_Leave"
+		elif k.value == 8:
+			event = "fs_file_write_iter_Entry"
+		elif k.value == 9:
+			event = "fs_file_write_iter_Leave"
+		elif k.value == 10:
+			event = "fs_file_read_iter_Entry"
+		elif k.value == 11:
+			event = "fs_file_read_iter_Leave"
+		elif k.value == 12:
+			event = "submit_bio_Entry"
+		elif k.value == 15:
+			event = "tp_sys_enter_write"
+		elif k.value == 16:
+			event = "tp_sys_exit_write"
+		elif k.value == 17:
+			event = "tp_sys_enter_read"
+		elif k.value == 18:
+			event = "tp_sys_exit_read"
+		elif k.value == 19:
+			event = "tp_sys_enter_pwrite64"
+		elif k.value == 20:
+			event = "tp_sys_exit_pwrite64"
+		elif k.value == 21:
+			event = "tp_sys_enter_pread64"
+		elif k.value == 22:
+			event = "tp_sys_exit_pread64"
+		elif k.value == 23:
+			event = "tp_sys_enter_pwritev"
+		elif k.value == 24:
+			event = "tp_sys_exit_pwritev"
+		elif k.value == 25:
+			event = "tp_sys_enter_preadv"
+		elif k.value == 26:
+			event = "tp_sys_exit_preadv"
+		elif k.value == 27:
+			event = "tp_sys_enter_pwritev2"
+		elif k.value == 28:
+			event = "tp_sys_exit_pwritev2"
+		elif k.value == 29:
+			event = "tp_sys_enter_preadv2"
+		elif k.value == 30:
+			event = "tp_sys_exit_preadv2"
+		s += f"\nevent={event} ID={k.value}: {v.value}\t/\t"
 		v.value = 0
 	print(s,flush=True)
 	print('Exiting...',flush=True)
@@ -391,15 +449,28 @@ if(level.find('b')!=-1 or level.find('B')!=-1 ):
 if (level.find('d')!=-1 or level.find('D')!=-1):
 	print("activating device driver probes")
 	b.attach_tracepoint(tp="nvme:nvme_setup_cmd", fn_name="tp_nvme_setup_cmd")
-	b.attach_tracepoint(tp="nvme:nvme_complete_rq", fn_name="tp_nvme_complete_rq")
+	b.attach_tracepoint(tp="tracepoint:scsi:scsi_dispatch_cmd_start", fn_name="tp_scsi_dispatch_cmd_start")
+	if trace_exits:
+		b.attach_tracepoint(tp="nvme:nvme_complete_rq", fn_name="tp_nvme_complete_rq")
+		b.attach_tracepoint(tp="tracepoint:scsi:scsi_dispatch_cmd_done", fn_name="tp_scsi_dispatch_cmd_done")
+
 
 
 if (level.find('s')!=-1 or level.find('S')!=-1):
 	print("activating syscall probes")
+	#read and write
 	b.attach_tracepoint(tp="syscalls:sys_enter_write",fn_name="tp_sys_enter_write")
-	b.attach_tracepoint(tp="syscalls:sys_exit_write",fn_name="tp_sys_exit_write")
 	b.attach_tracepoint(tp="syscalls:sys_enter_read",fn_name="tp_sys_enter_read")
-	b.attach_tracepoint(tp="syscalls:sys_exit_read",fn_name="tp_sys_exit_read")	
+	if trace_exits:
+		b.attach_tracepoint(tp="syscalls:sys_exit_write",fn_name="tp_sys_exit_write")
+		b.attach_tracepoint(tp="syscalls:sys_exit_read",fn_name="tp_sys_exit_read")
+	
+	# pread64 and pwrite64
+	b.attach_tracepoint(tp="syscalls:sys_enter_pwrite64",fn_name="tp_sys_enter_pwrite64")
+	b.attach_tracepoint(tp="syscalls:sys_enter_pread64",fn_name="tp_sys_enter_pread64")
+	if trace_exits:
+		b.attach_tracepoint(tp="syscalls:sys_exit_pwrite64",fn_name="tp_sys_exit_pwrite64")
+		b.attach_tracepoint(tp="syscalls:sys_exit_pread64",fn_name="tp_sys_exit_pread64")	
 
 
 
