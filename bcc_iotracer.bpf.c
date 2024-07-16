@@ -2464,6 +2464,7 @@ int tp_scsi_dispatch_cmd_start(struct tp_scsi_dispatch_cmd_start_struct *args) {
 		struct data_log log_struct = {};
 		struct data_log *log = &log_struct;
 	#endif
+	bpf_trace_printk("cmnd: %s\n", args->cmnd);
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
 	log->timestamp = bpf_ktime_get_ns();
 	log->address = -1;
