@@ -1295,7 +1295,7 @@ struct tp_scsi_dispatch_cmd_start_struct {
     unsigned int data_sglen;
     unsigned int prot_sglen;
     unsigned char prot_op;
-    //__data_loc unsigned char[] cmnd;
+    unsigned char cmnd[];
 };
 
 struct tp_scsi_dispatch_cmd_done_struct {
@@ -1311,10 +1311,10 @@ struct tp_scsi_dispatch_cmd_done_struct {
     unsigned int data_sglen;
     unsigned int prot_sglen;
     unsigned char prot_op;
-    //__data_loc unsigned char[] cmnd;
-    u8 sense_key;
-    u8 asc;
-    u8 ascq;
+    unsigned char cmnd[];
+    //u8 sense_key;
+    //u8 asc;
+    //u8 ascq;
 };
 
 ///

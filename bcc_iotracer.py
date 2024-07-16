@@ -474,10 +474,10 @@ if(level.find('b')!=-1 or level.find('B')!=-1 ):
 
 if (level.find('d')!=-1 or level.find('D')!=-1):
 	print("activating device driver probes")
-	#b.attach_tracepoint(tp="nvme:nvme_setup_cmd", fn_name="tp_nvme_setup_cmd")
+	b.attach_tracepoint(tp="nvme:nvme_setup_cmd", fn_name="tp_nvme_setup_cmd")
 	b.attach_tracepoint(tp="scsi:scsi_dispatch_cmd_start", fn_name="tp_scsi_dispatch_cmd_start")
 	if trace_exits:
-		#b.attach_tracepoint(tp="nvme:nvme_complete_rq", fn_name="tp_nvme_complete_rq")
+		b.attach_tracepoint(tp="nvme:nvme_complete_rq", fn_name="tp_nvme_complete_rq")
 		b.attach_tracepoint(tp="scsi:scsi_dispatch_cmd_done", fn_name="tp_scsi_dispatch_cmd_done")
 
 
