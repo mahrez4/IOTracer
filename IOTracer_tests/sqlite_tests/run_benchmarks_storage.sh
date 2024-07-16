@@ -33,7 +33,7 @@ storage_device=d
 rm sqlite_results_storage_disk db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do 
-    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -s $storage_device > traces_sqlite/storage/trace_sqlite_storage_disk_$i &
+    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l s -s $storage_device > traces_sqlite/storage/trace_sqlite_storage_disk_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_storage_disk >> /dev/null
@@ -48,7 +48,7 @@ storage_device=r
 rm sqlite_results_storage_ram db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -s $storage_device > /tmp/trace_sqlite_storage_ram_$i &
+    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l s -s $storage_device > /tmp/trace_sqlite_storage_ram_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_storage_ram >> /dev/null

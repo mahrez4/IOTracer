@@ -32,7 +32,7 @@ kernel_api=o
 rm sqlite_results_kernel_output db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do 
-    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -k $kernel_api > traces_sqlite/kernel_api/trace_sqlite_kernel_output_$i &
+    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l s -k $kernel_api > traces_sqlite/kernel_api/trace_sqlite_kernel_output_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_kernel_output >> /dev/null
@@ -48,7 +48,7 @@ kernel_api=s
 rm sqlite_results_kernel_submit db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -k $kernel_api > traces_sqlite/kernel_api/trace_sqlite_kernel_submit_$i &
+    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l s -k $kernel_api > traces_sqlite/kernel_api/trace_sqlite_kernel_submit_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_kernel_submit >> /dev/null

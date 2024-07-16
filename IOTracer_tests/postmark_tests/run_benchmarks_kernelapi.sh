@@ -26,9 +26,6 @@ for (( i = 0; i < $exec_count; i++)); do
 done  
 
 kernel_api=o
-
-
-
 rm postmark_results_kernel_output
 
 for (( i = 0; i < $exec_count; i++)); do
@@ -39,7 +36,11 @@ for (( i = 0; i < $exec_count; i++)); do
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_kernel_output
     pkill python3; sleep 1;
 done    
-²²
+
+kernel_api=s
+rm postmark_results_kernel_submit
+
+for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t postmark --file -i $inode -l b -k $kernel_api > traces_postmark/kernel_api/trace_postmark_kernel_submit_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 

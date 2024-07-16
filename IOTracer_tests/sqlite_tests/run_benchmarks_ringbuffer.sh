@@ -37,7 +37,7 @@ ringbuf_size=32
 rm sqlite_results_ringbuf_128kb db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > traces_sqlite/ringbuffer/trace_sqlite_ringbuf_128kb_$i &
+    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l s -size $ringbuf_size > traces_sqlite/ringbuffer/trace_sqlite_ringbuf_128kb_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_128kb >> /dev/null
@@ -52,7 +52,7 @@ ringbuf_size=1024
 rm sqlite_results_ringbuf_4mb db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > traces_sqlite/ringbuffer/trace_sqlite_ringbuf_4mb_$i &
+    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l s -size $ringbuf_size > traces_sqlite/ringbuffer/trace_sqlite_ringbuf_4mb_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_4mb >> /dev/null
@@ -67,7 +67,7 @@ ringbuf_size=32768
 rm sqlite_results_ringbuf_128mb db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > traces_sqlite/ringbuffer/trace_sqlite_ringbuf_128mb_$i &
+    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l s -size $ringbuf_size > traces_sqlite/ringbuffer/trace_sqlite_ringbuf_128mb_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_128mb >> /dev/null
@@ -84,7 +84,7 @@ ringbuf_size=262144
 rm sqlite_results_ringbuf_1G db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l b -size $ringbuf_size > traces_sqlite/ringbuffer/trace_sqlite_ringbuf_1G_$i &
+    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l s -size $ringbuf_size > traces_sqlite/ringbuffer/trace_sqlite_ringbuf_1G_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_ringbuf_1G >> /dev/null
