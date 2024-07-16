@@ -23,8 +23,9 @@
 USE_PERFBUF_RINGBUF
 USE_SUBMIT_OUTPUT
 TRACE_APP
-MAX_COMMS
-
+FILTER_DEV
+NUM_COMMS
+NUM_DEVS
 
 struct dio {
 	int flags;			/* doesn't change */
@@ -93,7 +94,7 @@ int static filter_comm(char *comm)
 	COMMS_LIST
 	COMM_LENGHTS
 	int filter = 1;
-	for (int i = 0; i < MAX_CMDS; i++) {
+	for (int i = 0; i < NB_CMDS; i++) {
 		bool match = true;
 		for (int j = 0; j < len[i]; ++j) {
 			if (comm[j] != cmds[i][j]) {
@@ -111,6 +112,27 @@ int static filter_comm(char *comm)
 		//if (__builtin_memcmp(comm, cmds[i], len[i]) == 0) {
 		//	filter = 0;
 		//}
+	}	
+    return filter;
+}
+
+int static filter_device(char *device)
+{
+	DEVS_LIST
+	DEVS_LENGHTS
+	int filter = 1;
+	for (int i = 0; i < NB_DEVICES; i++) {
+		bool match = true;
+		for (int j = 0; j < len[i]; ++j) {
+			if (device[j] != devs[i][j]) {
+				match = false;
+				break;
+			}
+		}
+		if (match) {
+			filter = 0;
+			break;
+		}
 	}	
     return filter;
 }
@@ -890,6 +912,10 @@ blk_qc_t submit_bio_Entry(struct pt_regs *ctx, struct bio* bio) {
 	//		return 1;
 	//#endif
 	
+	#ifdef filter_dev
+		if (filter_device(bio->bi_bdev->bd_disk->disk_name))
+			return 1;
+	#endif
 	struct dio * dio = (struct dio *) bio->bi_private;
 	//unsigned long i_ino  = dio->refcount;
 	unsigned long i_ino  = bio->bi_io_vec->bv_page->mapping->host->i_ino;
@@ -910,6 +936,9 @@ blk_qc_t submit_bio_Entry(struct pt_regs *ctx, struct bio* bio) {
 	//}
 	//bpf_trace_printk("Block: bvec addr = %p\n", bio->bi_io_vec);
 
+
+	bpf_trace_printk("Device: %s\n", bio->bi_bdev->bd_disk->disk_name);
+	bpf_trace_printk("major: %d first_minor: %d, minors:%d\n", bio->bi_bdev->bd_disk->major,bio->bi_bdev->bd_disk->first_minor,bio->bi_bdev->bd_disk->minors);
 	/********************************* NO FILTERING BECAUSE i_ino and i_inop = 0 ***************************/
 	/********************************* NO FILTERING BECAUSE i_ino and i_inop = 0 ***************************/
 	/********************************* NO FILTERING BECAUSE i_ino and i_inop = 0 ***************************/

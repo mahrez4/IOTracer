@@ -229,6 +229,9 @@ parser.add_argument('-s', "--storage",
 parser.add_argument('-size', "--bufsize",
 					help="set ring buffer size in number of pages 32:128KB, 1024:4MB,32768:128MB,262144:1G")
 
+parser.add_argument("-dev", "--device",
+                    help="For submit_bio: only trace specified device (or devices separated by comma)")
+
 args = parser.parse_args()
 name = args.task
 inode = args.inode
@@ -318,9 +321,9 @@ if use_Output:
 
 if args.task:
 	tasks = args.task.split(",")
-	program = program.replace("MAX_COMMS","#define MAX_CMDS "+str(len(tasks)))
-	comms_define = "char cmds[MAX_CMDS][20] = {"
-	comms_lengths = "int len[MAX_CMDS] = {"
+	program = program.replace("NUM_COMMS","#define NB_CMDS "+str(len(tasks)))
+	comms_define = "char cmds[NB_CMDS][20] = {"
+	comms_lengths = "int len[NB_CMDS] = {"
 	for i in range(0,len(tasks)):
 		if i == len(tasks)-1:
 			comms_define += '"'+ tasks[i] +'"'
@@ -337,10 +340,33 @@ if args.task:
 	program = program.replace('TRACE_APP','#define app_only')
     #print("FILTER_CMD")
 else:
-	program = program.replace("MAX_COMMS","#define MAX_CMDS 0")
+	program = program.replace("NUM_COMMS","#define NB_CMDS 0")
 	program = program.replace('TRACE_APP','')
 	program = program.replace('COMMS_LIST','char cmds[1][20] = {};')
 	program = program.replace('COMM_LENGHTS','int len[1];')
+
+if args.device:
+	devices = args.device.split(",")
+	program = program.replace("NUM_DEVS","#define NB_DEVICES "+str(len(devices)))
+	devs_define = "char devs[NB_DEVICES][20] = {"
+	devs_lengths = "int len[NB_DEVICES] = {"
+	for i in range(0,len(devices)):
+		if i == len(devices)-1:
+			devs_define += '"'+ devices[i] +'"'
+			devs_lengths += str(len(devices[i]))
+		else:
+			devs_define += '"'+ devices[i] +'", '
+			devs_lengths += str(len(devices[i])) +', '
+	devs_define += "};"
+	devs_lengths += "};"
+	program = program.replace('DEVS_LIST', devs_define)
+	program = program.replace('DEVS_LENGHTS', devs_lengths)
+	program = program.replace('FILTER_DEV','#define filter_dev')
+else:
+	program = program.replace("NUM_DEVS","#define NB_DEVICES 0")
+	program = program.replace('FILTER_DEV','')
+	program = program.replace('DEVS_LIST','char devs[1][20] = {};')
+	program = program.replace('DEVS_LENGHTS','int len[1];')
 	
 #---------------------------------------------------------------------------------------#	
 #---------------------------------------------------------------------------------------#
