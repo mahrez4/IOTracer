@@ -937,8 +937,8 @@ blk_qc_t submit_bio_Entry(struct pt_regs *ctx, struct bio* bio) {
 	//bpf_trace_printk("Block: bvec addr = %p\n", bio->bi_io_vec);
 
 
-	bpf_trace_printk("Device: %s\n", bio->bi_bdev->bd_disk->disk_name);
-	bpf_trace_printk("major: %d first_minor: %d, minors:%d\n", bio->bi_bdev->bd_disk->major,bio->bi_bdev->bd_disk->first_minor,bio->bi_bdev->bd_disk->minors);
+	//bpf_trace_printk("Device: %s\n", bio->bi_bdev->bd_disk->disk_name);
+	//bpf_trace_printk("major: %d first_minor: %d, minors:%d\n", bio->bi_bdev->bd_disk->major,bio->bi_bdev->bd_disk->first_minor,bio->bi_bdev->bd_disk->minors);
 	/********************************* NO FILTERING BECAUSE i_ino and i_inop = 0 ***************************/
 	/********************************* NO FILTERING BECAUSE i_ino and i_inop = 0 ***************************/
 	/********************************* NO FILTERING BECAUSE i_ino and i_inop = 0 ***************************/
@@ -1544,7 +1544,7 @@ int tp_sys_enter_pwrite64(struct tp_syscalls_pread64_pwrite64 *args) {
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
 	log->timestamp = bpf_ktime_get_ns();
 	log->address = (unsigned long) args->pos;
-	bpf_trace_printk("pos: %lx", ((unsigned long)(args->pos)));
+	//bpf_trace_printk("pos: %lx", ((unsigned long)(args->pos)));
 	log->size = args->count;
 	log->tid = bpf_get_current_pid_tgid();
 	log->pid = (pid_t)(pid_tgid >> 32);
@@ -2464,7 +2464,11 @@ int tp_scsi_dispatch_cmd_start(struct tp_scsi_dispatch_cmd_start_struct *args) {
 		struct data_log log_struct = {};
 		struct data_log *log = &log_struct;
 	#endif
-	bpf_trace_printk("cmnd: %s\n", args->cmnd);
+
+	//bpf_trace_printk("host_no= %d, channel= %d, scheduler_tag= %d\n", args->host_no, args->channel, args->scheduler_tag);
+	bpf_trace_printk("cmd_len= %d, driver_tag= %d, data_sglen= %d\n", args->cmd_len, args->driver_tag, args->data_sglen);
+	bpf_trace_printk("scheduler_tag= %d\n",args->scheduler_tag);
+	//bpf_trace_printk("host_no= %d\n",args->host_no);
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
 	log->timestamp = bpf_ktime_get_ns();
 	log->address = -1;
