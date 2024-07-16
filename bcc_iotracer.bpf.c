@@ -1254,7 +1254,7 @@ struct tp_nvme_complete_rq_struct {
     u16 status;
 };
 
-struct tp_scsi_dispatch_cmd_start {
+struct tp_scsi_dispatch_cmd_start_struct {
 	unsigned int host_no;
     unsigned int channel;
     unsigned int id;
@@ -1266,10 +1266,10 @@ struct tp_scsi_dispatch_cmd_start {
     unsigned int data_sglen;
     unsigned int prot_sglen;
     unsigned char prot_op;
-    __data_loc unsigned char[] cmnd;
+    //__data_loc unsigned char[] cmnd;
 };
 
-struct scsi_dispatch_cmd_done {
+struct tp_scsi_dispatch_cmd_done_struct {
 	unsigned int host_no;
     unsigned int channel;
     unsigned int id;
@@ -1282,7 +1282,7 @@ struct scsi_dispatch_cmd_done {
     unsigned int data_sglen;
     unsigned int prot_sglen;
     unsigned char prot_op;
-    __data_loc unsigned char[] cmnd;
+    //__data_loc unsigned char[] cmnd;
     u8 sense_key;
     u8 asc;
     u8 ascq;
@@ -2419,7 +2419,7 @@ int tp_nvme_complete_rq(struct tp_nvme_complete_rq_struct *args) {
     u8 asc
     u8 ascq */
 
-int tp_scsi_dispatch_cmd_start(struct tp_scsi_dispatch_cmd_start *args) {
+int tp_scsi_dispatch_cmd_start(struct tp_scsi_dispatch_cmd_start_struct *args) {
 	char comm[20];
 	#ifdef app_only
 		bpf_get_current_comm(&comm, sizeof(comm));
