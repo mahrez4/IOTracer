@@ -7,7 +7,12 @@ traced_path="./fio_file"
 fio_config="./fio_config.fio"
 
 
+block_device=""
 exec_count=5
+if [ ! -z "$2" ]; then
+   block_device="-dev $2"
+fi
+
 if [ ! -z "$1" ]; then
     exec_count=$1
 fi
@@ -34,7 +39,7 @@ ringbuf_size=32
 rm fio_results_ringbuf_128kb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > traces_fio/ringbuffer/trace_fio_ringbuf_128kb_$i &
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b $block_device -size $ringbuf_size > traces_fio/ringbuffer/trace_fio_ringbuf_128kb_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_128kb
@@ -48,7 +53,7 @@ ringbuf_size=1024
 rm fio_results_ringbuf_4mb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > traces_fio/ringbuffer/trace_fio_ringbuf_4mb_$i &
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b $block_device -size $ringbuf_size > traces_fio/ringbuffer/trace_fio_ringbuf_4mb_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_4mb
@@ -62,7 +67,7 @@ ringbuf_size=32768
 rm fio_results_ringbuf_128mb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > traces_fio/ringbuffer/trace_fio_ringbuf_128mb_$i &
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b $block_device -size $ringbuf_size > traces_fio/ringbuffer/trace_fio_ringbuf_128mb_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_128mb
@@ -76,7 +81,7 @@ ringbuf_size=262144
 rm fio_results_ringbuf_1gb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size > traces_fio/ringbuffer/trace_fio_ringbuf_1gb_$i &
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b $block_device -size $ringbuf_size > traces_fio/ringbuffer/trace_fio_ringbuf_1gb_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_1gb

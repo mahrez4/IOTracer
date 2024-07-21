@@ -20,8 +20,11 @@
 #define SECTOR_SIZE 512
 #define RWBS_LEN 8
 
+
 USE_PERFBUF_RINGBUF
 USE_SUBMIT_OUTPUT
+//USE_WAKE_UP_NOTIFICATIONS
+#define WAKE_UP_NOTIF 0
 TRACE_APP
 FILTER_DEV
 NUM_COMMS
@@ -197,12 +200,12 @@ ssize_t VFS_write_Entry(struct pt_regs *ctx,struct file * file, const char __use
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(0);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -260,12 +263,12 @@ ssize_t VFS_write_Leave(struct pt_regs *ctx,struct file * file, const char __use
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(1);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -327,12 +330,12 @@ ssize_t VFS_read_Entry(struct pt_regs *ctx,struct file * file, const char __user
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(2);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -391,12 +394,12 @@ ssize_t VFS_read_Leave(struct pt_regs *ctx,struct file * file, const char __user
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(3);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -450,12 +453,12 @@ int generic_file_write_iter_Entry(struct pt_regs *ctx, struct kiocb *iocb, struc
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(4);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -515,12 +518,12 @@ int generic_file_write_iter_Leave(struct pt_regs *ctx, struct kiocb *iocb, struc
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(5);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -575,12 +578,12 @@ int generic_file_read_iter_Entry(struct pt_regs *ctx, struct kiocb *iocb, struct
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(6);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -640,12 +643,12 @@ int generic_file_read_iter_Leave(struct pt_regs *ctx, struct kiocb *iocb, struct
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(7);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -697,12 +700,12 @@ ssize_t fs_file_write_iter_Entry(struct pt_regs *ctx, struct kiocb *iocb, struct
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(8);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -762,12 +765,12 @@ ssize_t fs_file_write_iter_Leave(struct pt_regs *ctx, struct kiocb *iocb, struct
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(9);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -828,12 +831,12 @@ ssize_t fs_file_read_iter_Entry(struct pt_regs *ctx, struct kiocb *iocb, struct 
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(10);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -892,12 +895,12 @@ ssize_t fs_file_read_iter_Leave(struct pt_regs *ctx, struct kiocb *iocb, struct 
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(11);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -937,7 +940,7 @@ blk_qc_t submit_bio_Entry(struct pt_regs *ctx, struct bio* bio) {
 	//bpf_trace_printk("Block: bvec addr = %p\n", bio->bi_io_vec);
 
 
-	//bpf_trace_printk("Device: %s\n", bio->bi_bdev->bd_disk->disk_name);
+	bpf_trace_printk("Device: %s\n", bio->bi_bdev->bd_disk->disk_name);
 	//bpf_trace_printk("major: %d first_minor: %d, minors:%d\n", bio->bi_bdev->bd_disk->major,bio->bi_bdev->bd_disk->first_minor,bio->bi_bdev->bd_disk->minors);
 	/********************************* NO FILTERING BECAUSE i_ino and i_inop = 0 ***************************/
 	/********************************* NO FILTERING BECAUSE i_ino and i_inop = 0 ***************************/
@@ -976,12 +979,13 @@ blk_qc_t submit_bio_Entry(struct pt_regs *ctx, struct bio* bio) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF) != 0) {
 				return inc_counter_lost_event(12);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			//BPF_RB_NO_WAKEUP
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 		//submit_bio_info.update(&bio, log);
 	#endif
@@ -1084,12 +1088,12 @@ blk_qc_t bio_endio_Entry(struct pt_regs *ctx, struct bio *bio){
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(0);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0; */
@@ -1361,12 +1365,12 @@ int tp_sys_enter_write(struct tp_syscalls_read_write *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(15);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -1410,12 +1414,12 @@ int tp_sys_exit_write(struct tp_syscalls_read_write *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(16);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -1459,12 +1463,12 @@ int tp_sys_enter_read(struct tp_syscalls_read_write *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(17);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -1508,12 +1512,12 @@ int tp_sys_exit_read(struct tp_syscalls_read_write *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(18);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -1563,12 +1567,12 @@ int tp_sys_enter_pwrite64(struct tp_syscalls_pread64_pwrite64 *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(19);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -1612,12 +1616,12 @@ int tp_sys_exit_pwrite64(struct tp_syscalls_pread64_pwrite64 *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(20);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -1661,12 +1665,12 @@ int tp_sys_enter_pread64(struct tp_syscalls_pread64_pwrite64 *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(21);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -1710,12 +1714,12 @@ int tp_sys_exit_pread64(struct tp_syscalls_pread64_pwrite64 *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(22);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -1764,12 +1768,12 @@ int tp_sys_enter_pwritev(struct tp_syscalls_preadv_pwritev *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(23);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -1813,12 +1817,12 @@ int tp_sys_exit_pwritev(struct tp_syscalls_preadv_pwritev *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(24);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -1862,12 +1866,12 @@ int tp_sys_enter_preadv(struct tp_syscalls_preadv_pwritev *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(25);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -1911,12 +1915,12 @@ int tp_sys_exit_preadv(struct tp_syscalls_preadv_pwritev *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(26);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -1965,12 +1969,12 @@ int tp_sys_enter_pwritev2(struct tp_syscalls_preadv2_pwritev2 *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(27);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -2014,12 +2018,12 @@ int tp_sys_exit_pwritev2(struct tp_syscalls_preadv2_pwritev2 *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(28);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -2063,12 +2067,12 @@ int tp_sys_enter_preadv2(struct tp_syscalls_preadv2_pwritev2 *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(29);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -2112,12 +2116,12 @@ int tp_sys_exit_preadv2(struct tp_syscalls_preadv2_pwritev2 *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(30);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -2356,12 +2360,12 @@ int tp_nvme_setup_cmd(struct tp_nvme_setup_cmd_struct *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(31);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -2404,12 +2408,12 @@ int tp_nvme_complete_rq(struct tp_nvme_complete_rq_struct *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(32);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -2490,12 +2494,12 @@ int tp_scsi_dispatch_cmd_start(struct tp_scsi_dispatch_cmd_start_struct *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(32);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;
@@ -2538,12 +2542,12 @@ int tp_scsi_dispatch_cmd_done(struct tp_scsi_dispatch_cmd_done_struct *args) {
 
 	#ifdef ringbuf
 		#ifdef output
-			if (events.ringbuf_output(log, sizeof(*log), 0 ) != 0) {
+			if (events.ringbuf_output(log, sizeof(*log), WAKE_UP_NOTIF ) != 0) {
 				return inc_counter_lost_event(33);
 			}
 		#endif
 		#ifdef submit
-			events.ringbuf_submit(log, 0);
+			events.ringbuf_submit(log, WAKE_UP_NOTIF);
 		#endif
 	#endif
 	return 0;

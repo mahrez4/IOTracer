@@ -33,7 +33,7 @@ ringbuf_size=32
 rm fio_results_ringbuf_128kb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size >> /dev/null &
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b $block_device -size $ringbuf_size >> /dev/null &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_128kb
@@ -47,7 +47,7 @@ ringbuf_size=1024
 rm fio_results_ringbuf_4mb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size >> /dev/null &
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b $block_device -size $ringbuf_size >> /dev/null &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_4mb
@@ -61,7 +61,7 @@ ringbuf_size=32768
 rm fio_results_ringbuf_128mb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size >> /dev/null &
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b $block_device -size $ringbuf_size >> /dev/null &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_128mb
@@ -75,7 +75,7 @@ ringbuf_size=262144
 rm fio_results_ringbuf_1gb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -size $ringbuf_size >> /dev/null &
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b $block_device -size $ringbuf_size >> /dev/null &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_1gb

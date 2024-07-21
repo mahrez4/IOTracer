@@ -6,7 +6,12 @@ traced_path="./fio_file"
 
 fio_config="./fio_config.fio"
 
+block_device=""
 exec_count=5
+if [ ! -z "$2" ]; then
+   block_device="-dev $2"
+fi
+
 if [ ! -z "$1" ]; then
     exec_count=$1
 fi
@@ -29,7 +34,7 @@ storage_device=d
 rm fio_results_storage_disk
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b -s $storage_device > traces_fio/storage/trace_fio_storage_disk_$i &
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b $block_device -s $storage_device > traces_fio/storage/trace_fio_storage_disk_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_storage_disk
@@ -43,7 +48,7 @@ storage_device=r
 rm fio_results_storage_ram
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b > /tmp/trace_fio_storage_ram_$i &
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b $block_device > /tmp/trace_fio_storage_ram_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_storage_ram

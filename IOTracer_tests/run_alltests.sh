@@ -6,6 +6,8 @@ RED='\033[0;31m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color (reset)
 
+disk=nvme0n1
+
 show_help() {
     echo -e "Usage: ./run_alltests.sh [exec count] [directory of tests]"
     echo -e "Example: ./run_alltests.sh 10 fio_tests ---- run fio_tests with 10 executions"
@@ -41,13 +43,13 @@ if [ ! -z "$1" ] && [ -z "$2" ]; then
         cd $script_path/$dir
         rm -rf traces_*/*/trace_*
         echo -e "\n${RED}   **** Starting Ringbuffer benchmark in $dir   ****${NC}\n"
-        ./run_benchmarks_ringbuffer.sh $1 
+        ./run_benchmarks_ringbuffer.sh $1 $disk
         echo -e "\n${RED}   **** Starting Userspace API benchmark in $dir   ****${NC}\n"
-        ./run_benchmarks_userspaceapi.sh $1
+        ./run_benchmarks_userspaceapi.sh $1 $disk
         echo -e "\n${RED}   **** Starting Kernel API benchmark. in $dir   ****${NC}\n"
-        ./run_benchmarks_kernelapi.sh $1
+        ./run_benchmarks_kernelapi.sh $1 $disk
         echo -e "\n${RED}   **** Starting Storage benchmark. in $dir   ****${NC}\n"
-        ./run_benchmarks_storage.sh $1
+        ./run_benchmarks_storage.sh $1 $disk
     done
 fi
 
@@ -57,11 +59,11 @@ if [ ! -z "$1" ] && [ ! -z "$2" ]; then
     cd $script_path/$dir
     rm -rf traces_*/*/trace_*
     echo -e "\n${RED}   **** Starting Ringbuffer benchmark in $dir   ****${NC}\n"
-    ./run_benchmarks_ringbuffer.sh $1 
+    ./run_benchmarks_ringbuffer.sh $1 $disk
     echo -e "\n${RED}   **** Starting Userspace API benchmark in $dir   ****${NC}\n"
-    ./run_benchmarks_userspaceapi.sh $1
+    ./run_benchmarks_userspaceapi.sh $1 $disk
     echo -e "\n${RED}   **** Starting Kernel API benchmark. in $dir   ****${NC}\n"
-    ./run_benchmarks_kernelapi.sh $1
+    ./run_benchmarks_kernelapi.sh $1 $disk
     echo -e "\n${RED}   **** Starting Storage benchmark. in $dir   ****${NC}\n"
-    ./run_benchmarks_storage.sh $1
+    ./run_benchmarks_storage.sh $1 $disk
 fi

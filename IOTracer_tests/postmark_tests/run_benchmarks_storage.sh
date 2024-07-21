@@ -10,7 +10,12 @@ postmark="postmark/postmark"
 
 inode=`stat -c '%i' $traced_path`
 
+block_device=""
 exec_count=5
+if [ ! -z "$2" ]; then
+   block_device="-dev $2"
+fi
+
 if [ ! -z "$1" ]; then
     exec_count=$1
 fi
@@ -31,7 +36,7 @@ storage_device=d
 rm postmark_results_storage_disk
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t postmark --file -i $inode -l b -s $storage_device > traces_postmark/storage/trace_postmark_storage_disk_$i &
+    sudo python3 $IOTRACER_PATH -t postmark --file -i $inode -l b $block_device -s $storage_device > traces_postmark/storage/trace_postmark_storage_disk_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_storage_disk
@@ -45,7 +50,7 @@ storage_device=r
 rm postmark_results_storage_ram
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t postmark --file -i $inode -l b -s $storage_device > /tmp/trace_postmark_storage_ram_$i &
+    sudo python3 $IOTRACER_PATH -t postmark --file -i $inode -l b $block_device -s $storage_device > /tmp/trace_postmark_storage_ram_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_storage_ram

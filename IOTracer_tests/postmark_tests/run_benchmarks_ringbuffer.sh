@@ -10,7 +10,12 @@ postmark="postmark/postmark"
 
 inode=`stat -c '%i' $traced_path`
 
+block_device=""
 exec_count=5
+if [ ! -z "$2" ]; then
+   block_device="-dev $2"
+fi
+
 if [ ! -z "$1" ]; then
     exec_count=$1
 fi
@@ -35,7 +40,7 @@ ringbuf_size=32
 rm postmark_results_ringbuf_128kb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b -size $ringbuf_size > traces_postmark/ringbuffer/trace_postmark_ringbuf_128kb_$i &
+    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b $block_device -size $ringbuf_size > traces_postmark/ringbuffer/trace_postmark_ringbuf_128kb_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_128kb
@@ -50,7 +55,7 @@ ringbuf_size=1024
 rm postmark_results_ringbuf_4mb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b -size $ringbuf_size > traces_postmark/ringbuffer/trace_postmark_ringbuf_4mb_$i &
+    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b $block_device -size $ringbuf_size > traces_postmark/ringbuffer/trace_postmark_ringbuf_4mb_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_4mb
@@ -65,7 +70,7 @@ ringbuf_size=32768
 rm postmark_results_ringbuf_128mb
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b -size $ringbuf_size > traces_postmark/ringbuffer/trace_postmark_ringbuf_128mb_$i &
+    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b $block_device -size $ringbuf_size > traces_postmark/ringbuffer/trace_postmark_ringbuf_128mb_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_128mb
@@ -81,7 +86,7 @@ ringbuf_size=262144
 rm postmark_results_ringbuf_1G
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b -size $ringbuf_size > traces_postmark/ringbuffer/trace_postmark_ringbuf_1G_$i &
+    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l b $block_device -size $ringbuf_size > traces_postmark/ringbuffer/trace_postmark_ringbuf_1G_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_ringbuf_1G

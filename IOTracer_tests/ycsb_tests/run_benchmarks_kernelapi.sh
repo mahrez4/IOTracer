@@ -6,7 +6,12 @@ mongosh < ycsb_datadir/drop_db
 
 python2 ycsb_datadir/bin/ycsb load mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb
 
+block_device=""
 exec_count=5
+if [ ! -z "$2" ]; then
+   block_device="-dev $2"
+fi
+
 if [ ! -z "$1" ]; then
     exec_count=$1
 fi
@@ -27,7 +32,7 @@ kernel_api=o
 rm ycsb_results_kernel_output
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l b -k $kernel_api > traces_ycsb/kernel_api/trace_ycsb_kernel_output_$i &
+    sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l b $block_device -k $kernel_api > traces_ycsb/kernel_api/trace_ycsb_kernel_output_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_kernel_output
@@ -41,7 +46,7 @@ kernel_api=s
 rm ycsb_results_kernel_submit
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l b -k $kernel_api > traces_ycsb/kernel_api/trace_ycsb_kernel_submit_$i &
+    sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l b $block_device -k $kernel_api > traces_ycsb/kernel_api/trace_ycsb_kernel_submit_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_kernel_submit

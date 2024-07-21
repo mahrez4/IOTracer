@@ -7,6 +7,7 @@ import sys
 import signal
 import sys
 import os
+import time
 import platform
 from subprocess import check_output 
 from prometheus_client import start_http_server, Summary, Counter, Enum
@@ -135,7 +136,7 @@ def get_filesystem_type(path):
     return None
 
 def afficher_evenement(cpu, data, size):
-	global time  
+	global timer
 	global store_RAM
 	global trace
 	
@@ -176,7 +177,7 @@ def afficher_evenement(cpu, data, size):
 
 		e.state(sta)
 	c_sizes.labels(size=int(log[4])).inc()
-	time += 1
+	timer += 1
 
     #evenement = b["events"].event(data)
     #print("%.0f, %.0f, %.0f, %s, %s, %d, %s" ,evenement.timestamp,evenement.address,evenement.size,evenement.level,evenement.op,evenement.pid,evenement.comm)
@@ -231,6 +232,10 @@ parser.add_argument('-size', "--bufsize",
 
 parser.add_argument("-dev", "--device",
                     help="For submit_bio: only trace specified device (or devices separated by comma)")
+
+parser.add_argument("-wkup", "--wakeup",
+                    help="Send ringbuffer wakeup notifications from the kernel. possible values are: a - adaptive, y - yes, n - no")
+
 
 args = parser.parse_args()
 name = args.task
@@ -504,7 +509,7 @@ if (level.find('s')!=-1 or level.find('S')!=-1):
 #_fields_ = [("timestamp", ct.c_ulonglong),("address", ct.c_ulonglong), ("size", ct.c_ulonglong), ("pid", ct.c_int), \
     #("level", ct.c_char), ("op", ct.c_char), ("comm", ct.c_char_p)]
 
-time = 0
+timer = 0
 
 ################################## PROMETHEUS ############################################
 
@@ -546,8 +551,14 @@ while 1:
 			b.perf_buffer_poll()
 		if use_Ringbuf:
 			if use_Poll:
-				b.ring_buffer_consume()
-			if use_Consume:
+				#print("poll start")
 				b.ring_buffer_poll()
+				#print("polled, going to sleep")
+				#time.sleep(1)
+			if use_Consume:
+				#print("consume start")
+				b.ring_buffer_consume()
+				#print("consumed, going to sleep")
+				#time.sleep(1)
 	except KeyboardInterrupt:
 		exit()
