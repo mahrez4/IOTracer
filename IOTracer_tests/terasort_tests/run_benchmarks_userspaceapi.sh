@@ -71,6 +71,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l b $block_device -u $userspace_api -wkup n > traces_terasort/userspace_api/trace_terasort_userspace_consume-nowakeup_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
+    rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_consume-nowakeup  
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_consume-nowakeup
     pkill python3; sleep 1;
@@ -85,6 +86,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l b $block_device -u $userspace_api -wkup y > traces_terasort/userspace_api/trace_terasort_userspace_consume-wakeup_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
+    rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_consume-wakeup  
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_consume-wakeup
     pkill python3; sleep 1;
@@ -99,6 +101,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l b $block_device -u $userspace_api -sleep 1 > traces_terasort/userspace_api/trace_terasort_userspace_consume-sleep1s_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
+    rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_consume-sleep1s  
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_consume-sleep1s
     pkill python3; sleep 1;
@@ -113,6 +116,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo python3 $IOTRACER_PATH -t LocalJobRunner,java,kworker,kswapd,pool -l b $block_device -u $userspace_api -sleep 1 > traces_terasort/userspace_api/trace_terasort_userspace_poll-sleep1s_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
+    rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_poll-sleep1s  
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_poll-sleep1s
     pkill python3; sleep 1;
