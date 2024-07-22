@@ -234,8 +234,10 @@ parser.add_argument("-dev", "--device",
                     help="For submit_bio: only trace specified device (or devices separated by comma)")
 
 parser.add_argument("-wkup", "--wakeup",
-                    help="Send ringbuffer wakeup notifications from the kernel. possible values are: a - adaptive, y - yes, n - no")
+                    help="Send ringbuffer wakeup notifications from the kernel. Possible values are: a - adaptive, y - yes, n - no")
 
+parser.add_argument('-sleep', "--sleep",
+					help="Sleep period in seconds after Polling / Consuming from the ring buffer. Usage: -sleep 1")
 
 args = parser.parse_args()
 name = args.task
@@ -373,6 +375,23 @@ else:
 	program = program.replace('DEVS_LIST','char devs[1][20] = {};')
 	program = program.replace('DEVS_LENGHTS','int len[1];')
 	
+if args.wakeup:
+	if 'a' in args.wakeup.lower():
+		program = program.replace("USE_WAKE_UP_NOTIFICATIONS","#define WAKE_UP_NOTIF 0")
+	if 'y' in args.wakeup.lower():
+		#BPF_RB_FORCE_WAKEUP
+		program = program.replace("USE_WAKE_UP_NOTIFICATIONS","#define WAKE_UP_NOTIF 2")
+	if 'n' in args.wakeup.lower():
+		#BPF_RB_NO_WAKEUP
+		program = program.replace("USE_WAKE_UP_NOTIFICATIONS","#define WAKE_UP_NOTIF 1")
+else:
+	program = program.replace("USE_WAKE_UP_NOTIFICATIONS","#define WAKE_UP_NOTIF 0")
+
+if args.sleep:
+	sleep_time = int(args.sleep)
+else:
+	sleep_time = 0
+
 #---------------------------------------------------------------------------------------#	
 #---------------------------------------------------------------------------------------#
 
@@ -554,11 +573,13 @@ while 1:
 				#print("poll start")
 				b.ring_buffer_poll()
 				#print("polled, going to sleep")
-				#time.sleep(1)
+				if sleep_time:
+					time.sleep(sleep_time)
 			if use_Consume:
 				#print("consume start")
 				b.ring_buffer_consume()
 				#print("consumed, going to sleep")
-				#time.sleep(1)
+				if sleep_time:
+					time.sleep(sleep_time)
 	except KeyboardInterrupt:
 		exit()
