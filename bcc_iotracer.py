@@ -571,10 +571,12 @@ while 1:
 		if use_Ringbuf:
 			if use_Poll:
 				#print("poll start")
-				b.ring_buffer_poll()
-				#print("polled, going to sleep")
 				if sleep_time:
+					b.ring_buffer_poll(100)
 					time.sleep(sleep_time)
+				else:
+					b.ring_buffer_poll()
+				#print("polled, going to sleep")
 			if use_Consume:
 				#print("consume start")
 				b.ring_buffer_consume()

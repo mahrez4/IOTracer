@@ -85,6 +85,34 @@ for (( i = 0; i < $exec_count; i++)); do
     pkill python3; sleep 1;
 done    
 
+##########
+
+userspace_api=c
+rm fio_results_userspace_consume-sleep1s
+
+for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b $block_device -u $userspace_api -sleep 1 > traces_fio/userspace_api/trace_fio_userspace_consume-sleep1s_$i &
+    sleep 4
+    sudo sync; echo 3 > /proc/sys/vm/drop_caches 
+    fio $fio_config >> fio_results_userspace_consume-sleep1s
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_consume-sleep1s
+    pkill python3; sleep 1;
+done    
+
+##########
+
+userspace_api=p
+rm fio_results_userspace_poll-sleep1s
+
+for (( i = 0; i < $exec_count; i++)); do
+    sudo python3 $IOTRACER_PATH -t fio --file -i $inode -l b $block_device -u $userspace_api -sleep 1 > traces_fio/userspace_api/trace_fio_userspace_poll-sleep1s_$i &
+    sleep 4
+    sudo sync; echo 3 > /proc/sys/vm/drop_caches 
+    fio $fio_config >> fio_results_userspace_poll-sleep1s
+    echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_poll-sleep1s
+    pkill python3; sleep 1;
+done    
+
 
 
 ## Output file for storing extracted run times
