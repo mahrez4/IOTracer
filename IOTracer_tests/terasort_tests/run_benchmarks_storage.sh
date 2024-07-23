@@ -41,7 +41,7 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_storage_disk
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_storage_disk
-    sleep 1; pkill python3; sleep1;
+    sleep 1; pkill python3; sleep 1;
 done    
 
 ##########
@@ -56,10 +56,10 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_storage_ram
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_storage_ram
-    sleep 1; pkill python3; sleep1;
+    sleep 1; pkill python3; sleep 1;
 done    
 
-sleep 1; pkill python3; sleep1;
+sleep 1; pkill python3; sleep 1;
 
 ## Output file for storing extracted run times
 output_file="run_times_storage.csv"

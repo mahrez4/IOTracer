@@ -38,7 +38,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_storage_disk >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_storage_disk
-    sleep 1; pkill python3; sleep1;
+    sleep 1; pkill python3; sleep 1;
     rm db_sql.db
 done    
 
@@ -53,7 +53,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_storage_ram >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_storage_ram
-    sleep 1; pkill python3; sleep1;
+    sleep 1; pkill python3; sleep 1;
     rm db_sql.db
 done    
 

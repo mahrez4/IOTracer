@@ -37,7 +37,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_userspace_poll
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_userspace_poll
-    sleep 4; pkill python3; sleep1;
+    sleep 4; pkill python3; sleep 1;
 done    
 
 ##########
@@ -51,7 +51,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_userspace_consume
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_userspace_consume
-    sleep 4; pkill python3; sleep1;
+    sleep 4; pkill python3; sleep 1;
 done    
 
 ##########
@@ -65,7 +65,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_userspace_consume-nowakeup
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_userspace_consume-nowakeup
-    sleep 4; pkill python3; sleep1;
+    sleep 4; pkill python3; sleep 1;
 done
 
 ##########
@@ -79,35 +79,35 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >>  ycsb_results_userspace_consume-wakeup
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_userspace_consume-wakeup
-    sleep 4; pkill python3; sleep1;
+    sleep 4; pkill python3; sleep 1;
 done    
 
 ##########
 
 userspace_api=c
-rm ycsb_results_userspace_consume-sleep1s
+rm ycsb_results_userspace_consume-sleep 1s
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l b $block_device -u $userspace_api -sleep 1 > traces_ycsb/userspace_api/trace_ycsb_userspace_consume-sleep1s_$i &
+    sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l b $block_device -u $userspace_api -sleep 1 > traces_ycsb/userspace_api/trace_ycsb_userspace_consume-sleep 1s_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
-    python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_userspace_consume-sleep1s
-    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_userspace_consume-sleep1s
-    sleep 4; pkill python3; sleep1;
+    python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_userspace_consume-sleep 1s
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_userspace_consume-sleep 1s
+    sleep 4; pkill python3; sleep 1;
 done    
 
 ##########
 
 userspace_api=p
-rm ycsb_results_userspace_poll-sleep1s
+rm ycsb_results_userspace_poll-sleep 1s
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l b $block_device -u $userspace_api -sleep 1 > traces_ycsb/userspace_api/trace_ycsb_userspace_poll-sleep1s_$i &
+    sudo python3 $IOTRACER_PATH -t Thread-,conn,java,mongod -l b $block_device -u $userspace_api -sleep 1 > traces_ycsb/userspace_api/trace_ycsb_userspace_poll-sleep 1s_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
-    python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_userspace_poll-sleep1s
-    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_userspace_poll-sleep1s
-    sleep 4; pkill python3; sleep1;
+    python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_userspace_poll-sleep 1s
+    echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_userspace_poll-sleep 1s
+    sleep 4; pkill python3; sleep 1;
 done    
 
 

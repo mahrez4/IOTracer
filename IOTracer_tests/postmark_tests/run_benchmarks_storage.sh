@@ -41,7 +41,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_storage_disk
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_storage_disk
-    sleep 1; pkill python3; sleep1;
+    sleep 1; pkill python3; sleep 1;
 done    
 
 ########
@@ -55,7 +55,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_storage_ram
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_storage_ram
-    sleep 1; pkill python3; sleep1;
+    sleep 1; pkill python3; sleep 1;
 done    
 
 

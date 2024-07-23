@@ -44,7 +44,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_128kb
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_128kb
-    sleep 1; pkill python3; sleep1;
+    sleep 1; pkill python3; sleep 1;
 done    
 
 ########## 
@@ -58,7 +58,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_4mb
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_4mb
-    sleep 1; pkill python3; sleep1;
+    sleep 1; pkill python3; sleep 1;
 done    
 
 ########## 
@@ -72,7 +72,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_128mb
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_128mb
-    sleep 1; pkill python3; sleep1;
+    sleep 1; pkill python3; sleep 1;
 done    
 
 ########## 
@@ -86,7 +86,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_ringbuf_1gb
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_ringbuf_1gb
-    sleep 1; pkill python3; sleep1;
+    sleep 1; pkill python3; sleep 1;
 done    
 
 ## Output file for storing extracted run times

@@ -37,7 +37,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_kernel_output
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_kernel_output
-    sleep 1; pkill python3; sleep1;
+    sleep 1; pkill python3; sleep 1;
 done    
 
 ##########
@@ -51,7 +51,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     python2 ycsb_datadir/bin/ycsb run mongodb -s -P ycsb_datadir/workloads/workloadc -p mongodb.url=mongodb://localhost:27017/ycsb >> ycsb_results_kernel_submit
     echo -e "\n-------------------------------------------------------------------\n" >> ycsb_results_kernel_submit
-    sleep 1; pkill python3; sleep1;
+    sleep 1; pkill python3; sleep 1;
 done    
 
 
