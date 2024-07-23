@@ -47,10 +47,10 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_128kb
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_128kb
-    pkill python3; sleep 1;
+    sleep 1; pkill python3; sleep1;
 done    
 
-pkill python3; sleep 1;
+sleep 1; pkill python3; sleep1;
 
 ##########
 
@@ -64,7 +64,7 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_4mb
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_4mb
-    pkill python3; sleep 1;
+    sleep 1; pkill python3; sleep1;
 done    
 
 
@@ -81,10 +81,10 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_128mb
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_128mb
-    pkill python3; sleep 1;
+    sleep 1; pkill python3; sleep1;
 done    
 
-pkill python3; sleep 1;
+sleep 1; pkill python3; sleep1;
 
 ##########
 
@@ -98,10 +98,10 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_ringbuf_1G
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_ringbuf_1G
-    pkill python3; sleep 1;
+    sleep 1; pkill python3; sleep1;
 done    
 
-pkill python3; sleep 1;
+sleep 1; pkill python3; sleep1;
 
 ## Output file for storing extracted run times
 output_file="run_times_ringbufsize.csv"

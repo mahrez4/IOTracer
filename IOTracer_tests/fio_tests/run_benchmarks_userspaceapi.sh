@@ -39,7 +39,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_userspace_poll
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_poll
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 
@@ -54,7 +54,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_userspace_consume
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_consume
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 ##########
@@ -68,7 +68,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_userspace_consume-nowakeup
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_consume-nowakeup
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done
 
 ##########
@@ -82,7 +82,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_userspace_consume-wakeup
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_consume-wakeup
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 ##########
@@ -96,7 +96,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_userspace_consume-sleep1s
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_consume-sleep1s
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 ##########
@@ -110,7 +110,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     fio $fio_config >> fio_results_userspace_poll-sleep1s
     echo -e "\n-------------------------------------------------------------------\n" >> fio_results_userspace_poll-sleep1s
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 

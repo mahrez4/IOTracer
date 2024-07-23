@@ -39,7 +39,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_kernel_output
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_kernel_output
-    pkill python3; sleep 1;
+    sleep 1; pkill python3; sleep1;
 done    
 
 kernel_api=s
@@ -51,7 +51,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     $postmark < $postmark_config >> postmark_results_kernel_submit
     echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_kernel_submit
-    pkill python3; sleep 1;
+    sleep 1; pkill python3; sleep1;
 done    
 
 

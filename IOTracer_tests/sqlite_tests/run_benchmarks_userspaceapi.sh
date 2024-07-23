@@ -37,7 +37,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_poll >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_poll
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
     rm db_sql.db
 done    
 
@@ -54,7 +54,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_consume >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_consume
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
     rm db_sql.db
 done
 
@@ -69,7 +69,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_consume-nowakeup >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_consume-nowakeup
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done
 
 ##########
@@ -83,7 +83,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_consume-wakeup >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_consume-wakeup
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 ##########
@@ -97,7 +97,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_consume-sleep1s >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_consume-sleep1s
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 ##########
@@ -111,7 +111,7 @@ for (( i = 0; i < $exec_count; i++)); do
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
     { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_poll-sleep1s >> /dev/null
     echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_poll-sleep1s
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 ## Output file for storing extracted run times

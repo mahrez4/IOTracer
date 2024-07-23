@@ -41,7 +41,7 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_poll
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_poll
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 
@@ -57,7 +57,7 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_consume    
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_consume
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 
@@ -74,7 +74,7 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_consume-nowakeup  
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_consume-nowakeup
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done
 
 ##########
@@ -89,7 +89,7 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_consume-wakeup  
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_consume-wakeup
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 ##########
@@ -104,7 +104,7 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_consume-sleep1s  
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_consume-sleep1s
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 ##########
@@ -119,7 +119,7 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_userspace_poll-sleep1s  
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_userspace_poll-sleep1s
-    pkill python3; sleep 1;
+    sleep 4; pkill python3; sleep1;
 done    
 
 

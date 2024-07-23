@@ -41,7 +41,7 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_kernel_output
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_kernel_output
-    pkill python3; sleep 1;
+    sleep 1; pkill python3; sleep1;
 done    
 
 
@@ -57,7 +57,7 @@ for (( i = 0; i < $exec_count; i++)); do
     rm -rf terasort_datadir/terasort_output
     hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar terasort terasort_datadir/input terasort_datadir/terasort_output 2>> terasort_results_kernel_submit
     echo -e "\n-------------------------------------------------------------------\n" >> terasort_results_kernel_submit
-    pkill python3; sleep 1;
+    sleep 1; pkill python3; sleep1;
 done    
 
 
