@@ -2469,8 +2469,8 @@ int tp_scsi_dispatch_cmd_start(struct tp_scsi_dispatch_cmd_start_struct *args) {
 	#endif
 
 	//bpf_trace_printk("host_no= %d, channel= %d, scheduler_tag= %d\n", args->host_no, args->channel, args->scheduler_tag);
-	bpf_trace_printk("cmd_len= %d, driver_tag= %d, data_sglen= %d\n", args->cmd_len, args->driver_tag, args->data_sglen);
-	bpf_trace_printk("scheduler_tag= %d\n",args->scheduler_tag);
+	//bpf_trace_printk("cmd_len= %d, driver_tag= %d, data_sglen= %d\n", args->cmd_len, args->driver_tag, args->data_sglen);
+	//bpf_trace_printk("scheduler_tag= %d\n",args->scheduler_tag);
 	//bpf_trace_printk("host_no= %d\n",args->host_no);
 	uint64_t pid_tgid = bpf_get_current_pid_tgid();
 	log->timestamp = bpf_ktime_get_ns();

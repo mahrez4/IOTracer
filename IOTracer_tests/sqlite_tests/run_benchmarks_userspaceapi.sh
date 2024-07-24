@@ -89,28 +89,28 @@ done
 ##########
 
 userspace_api=c
-rm sqlite_results_userspace_consume-sleep 1s db_sql.db
+rm sqlite_results_userspace_consume-sleep1s db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l s -u $userspace_api -sleep 1 > traces_sqlite/userspace_api/trace_sqlite_userspace_consume-sleep 1s_$i &
+    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l s -u $userspace_api -sleep 1 > traces_sqlite/userspace_api/trace_sqlite_userspace_consume-sleep1s_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
-    { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_consume-sleep 1s >> /dev/null
-    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_consume-sleep 1s
+    { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_consume-sleep1s >> /dev/null
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_consume-sleep1s
     sleep 4; pkill python3; sleep 1;
 done    
 
 ##########
 
 userspace_api=p
-rm sqlite_results_userspace_poll-sleep 1s db_sql.db
+rm sqlite_results_userspace_poll-sleep1s db_sql.db
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l s -u $userspace_api -sleep 1 > traces_sqlite/userspace_api/trace_sqlite_userspace_poll-sleep 1s_$i &
+    sudo python3 $IOTRACER_PATH -t sqlite --dir -i $inode -l s -u $userspace_api -sleep 1 > traces_sqlite/userspace_api/trace_sqlite_userspace_poll-sleep1s_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
-    { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_poll-sleep 1s >> /dev/null
-    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_poll-sleep 1s
+    { time sqlite3 db_sql.db < gen_sql_data.sql ; } 2>> sqlite_results_userspace_poll-sleep1s >> /dev/null
+    echo -e "\n-------------------------------------------------------------------\n" >> sqlite_results_userspace_poll-sleep1s
     sleep 4; pkill python3; sleep 1;
 done    
 

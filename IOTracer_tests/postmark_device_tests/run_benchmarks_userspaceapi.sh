@@ -86,28 +86,28 @@ done
 ##########
 
 userspace_api=c
-rm postmark_results_userspace_consume-sleep 1s
+rm postmark_results_userspace_consume-sleep1s
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l d -u $userspace_api -sleep 1 > traces_postmark/userspace_api/trace_postmark_userspace_consume-sleep 1s_$i &
+    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l d -u $userspace_api -sleep 1 > traces_postmark/userspace_api/trace_postmark_userspace_consume-sleep1s_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
-    $postmark < $postmark_config >> postmark_results_userspace_consume-sleep 1s
-    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_userspace_consume-sleep 1s
+    $postmark < $postmark_config >> postmark_results_userspace_consume-sleep1s
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_userspace_consume-sleep1s
     sleep 4; pkill python3; sleep 1;
 done    
 
 ##########
 
 userspace_api=p
-rm postmark_results_userspace_poll-sleep 1s
+rm postmark_results_userspace_poll-sleep1s
 
 for (( i = 0; i < $exec_count; i++)); do
-    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l d -u $userspace_api -sleep 1 > traces_postmark/userspace_api/trace_postmark_userspace_poll-sleep 1s_$i &
+    sudo python3 $IOTRACER_PATH -t postmark --dir -i $inode -l d -u $userspace_api -sleep 1 > traces_postmark/userspace_api/trace_postmark_userspace_poll-sleep1s_$i &
     sleep 4
     sudo sync; echo 3 > /proc/sys/vm/drop_caches 
-    $postmark < $postmark_config >> postmark_results_userspace_poll-sleep 1s
-    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_userspace_poll-sleep 1s
+    $postmark < $postmark_config >> postmark_results_userspace_poll-sleep1s
+    echo -e "\n-------------------------------------------------------------------\n" >> postmark_results_userspace_poll-sleep1s
     sleep 4; pkill python3; sleep 1;
 done    
 
